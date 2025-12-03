@@ -1,5 +1,4 @@
 import { Mail, Phone, MapPin, Facebook, Instagram, Linkedin } from 'lucide-react';
-import TurboIcon from './TurboIcon';
 
 export default function Footer() {
   return (
@@ -9,9 +8,11 @@ export default function Footer() {
           {/* Brand */}
           <div>
             <div className="flex items-center gap-2 mb-4">
-              <div className="w-8 h-8 text-primary">
-                <TurboIcon className="w-8 h-8" />
-              </div>
+              <img 
+                src="/images/logo_bravatus.jpeg" 
+                alt="Bravatus Logo" 
+                className="h-10 sm:h-12 w-auto object-contain"
+              />
               <div className="flex flex-col leading-none">
                 <span className="font-bold text-sm">FacilZap</span>
                 <span className="text-xs text-primary font-bold">Turbinado</span>

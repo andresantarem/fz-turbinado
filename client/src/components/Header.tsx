@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { Menu, X } from 'lucide-react';
-import TurboIcon from './TurboIcon';
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -17,12 +16,14 @@ export default function Header() {
       <header className="sticky top-0 z-50 bg-white shadow-md">
         <div className="container flex items-center justify-between h-16">
           {/* Logo */}
-          <div className="flex items-center gap-3">
-            <div className="w-8 h-8 text-primary">
-              <TurboIcon className="w-8 h-8" />
-            </div>
+          <div className="flex items-center gap-2 sm:gap-3">
+            <img 
+              src="/images/logo_bravatus.jpeg" 
+              alt="Bravatus Logo" 
+              className="h-10 sm:h-12 w-auto object-contain"
+            />
             <div className="flex flex-col leading-none">
-              <span className="font-bold text-sm text-foreground">FácilZap</span>
+              <span className="font-bold text-xs sm:text-sm text-foreground">FácilZap</span>
               <span className="text-xs text-primary font-bold">Turbinado</span>
             </div>
           </div>
