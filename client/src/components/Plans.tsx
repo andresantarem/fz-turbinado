@@ -50,7 +50,7 @@ const plans = [
 
 export default function Plans() {
   return (
-    <section id="planos" className="section-light relative overflow-hidden">
+    <section id="planos" className="section-dark relative overflow-hidden">
       {/* Animated Background */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-20 right-20 w-80 h-80 bg-primary/5 rounded-full blur-3xl animate-pulse" />
@@ -58,8 +58,8 @@ export default function Plans() {
 
       <div className="container relative z-10">
         <div className="text-center mb-16 fade-in-up">
-          <h2 className="heading-lg mb-4">Investimento Inteligente</h2>
-          <p className="text-foreground/60 text-lg">
+          <h2 className="heading-lg mb-4 text-foreground">Investimento Inteligente</h2>
+          <p className="text-foreground/80 text-lg">
             Escolha o plano ideal para o seu momento
           </p>
         </div>
@@ -71,8 +71,8 @@ export default function Plans() {
               key={idx}
               className={`relative rounded-2xl transition-all duration-300 fade-in-up ${
                 plan.popular
-                  ? 'md:scale-105 bg-foreground text-white shadow-2xl hover-lift'
-                  : 'bg-white border-2 border-border hover:border-primary hover-lift'
+                  ? 'md:scale-105 bg-card text-foreground shadow-2xl hover-lift border-2 border-primary'
+                  : 'bg-card text-foreground border-2 border-border hover:border-primary hover-lift'
               }`}
               style={{ animationDelay: `${idx * 0.1}s` }}
             >
@@ -91,22 +91,22 @@ export default function Plans() {
 
               <div className="p-8">
                 {/* Header */}
-                <h3 className={`text-2xl font-bold mb-2 ${plan.popular ? 'text-white' : 'text-foreground'}`}>
+                <h3 className="text-2xl font-bold mb-2 text-foreground">
                   {plan.name}
                 </h3>
-                <p className={`text-sm mb-6 ${plan.popular ? 'text-white/70' : 'text-foreground/60'}`}>
+                <p className="text-sm mb-6 text-foreground/80">
                   {plan.description}
                 </p>
 
                 {/* Price */}
                 <div className="mb-6">
                   <div className="flex items-baseline gap-2 mb-2">
-                    <span className={`text-4xl font-bold ${plan.popular ? 'text-white' : 'text-foreground'}`}>
+                    <span className="text-4xl font-bold text-foreground">
                       R$ {plan.price.toLocaleString('pt-BR')}
                     </span>
                   </div>
                   {plan.installments && (
-                    <p className={`text-sm ${plan.popular ? 'text-white/70' : 'text-foreground/60'}`}>
+                    <p className="text-sm text-foreground/80">
                       ou {plan.installments}
                     </p>
                   )}
@@ -133,7 +133,7 @@ export default function Plans() {
                   {plan.features.map((feature, fidx) => (
                     <div key={fidx} className="flex items-start gap-3">
                       <Check size={20} className="text-primary flex-shrink-0 mt-0.5" />
-                      <span className={`text-sm ${plan.popular ? 'text-white/90' : 'text-foreground/70'}`}>
+                      <span className="text-sm text-foreground/90">
                         {feature}
                       </span>
                     </div>
@@ -145,11 +145,11 @@ export default function Plans() {
         </div>
 
         {/* Additional Info */}
-        <div className="bg-muted rounded-xl p-8 text-center relative z-10 fade-in-up">
+        <div className="bg-card rounded-xl p-8 text-center relative z-10 fade-in-up border border-border">
           <h3 className="text-lg font-bold text-foreground mb-2">
             Já tem uma loja e precisa de manutenção?
           </h3>
-          <p className="text-foreground/60 mb-4">
+          <p className="text-foreground/80 mb-4">
             Oferecemos planos de gestão e suporte contínuo para lojas já otimizadas.
           </p>
           <button className="btn-secondary hover:shadow-lg transition-all duration-300">

@@ -31,7 +31,7 @@ export default function Hero() {
                 <br />
                 <span className="gradient-text">Turbinada ao Máximo</span>
               </h1>
-              <p className="text-xl text-foreground/70 leading-relaxed">
+              <p className="text-xl text-foreground/80 leading-relaxed">
                 Widgets profissionais que transformam visitantes em clientes. Aumente conversão em até <span className="font-bold text-primary">+237%</span> em 7 dias.
               </p>
             </div>
@@ -43,9 +43,9 @@ export default function Hero() {
                 { num: '+237%', label: 'Conversão' },
                 { num: '4.9/5', label: 'Avaliação' },
               ].map((stat, idx) => (
-                <div key={idx} className="bg-white rounded-lg p-4 border border-border hover:border-primary transition-all duration-300 hover-lift">
+                <div key={idx} className="bg-card rounded-lg p-4 border border-border hover:border-primary transition-all duration-300 hover-lift">
                   <div className="font-bold text-lg text-primary">{stat.num}</div>
-                  <div className="text-xs text-foreground/60">{stat.label}</div>
+                  <div className="text-xs text-foreground/70">{stat.label}</div>
                 </div>
               ))}
             </div>
@@ -64,15 +64,15 @@ export default function Hero() {
 
             {/* Trust Badges */}
             <div className="flex flex-wrap gap-4 pt-4 fade-in-up stagger-5">
-              <div className="flex items-center gap-2 text-sm text-foreground/70">
+              <div className="flex items-center gap-2 text-sm text-foreground/80">
                 <div className="w-2 h-2 bg-primary rounded-full" />
                 <span>Entrega em 7 dias</span>
               </div>
-              <div className="flex items-center gap-2 text-sm text-foreground/70">
+              <div className="flex items-center gap-2 text-sm text-foreground/80">
                 <div className="w-2 h-2 bg-primary rounded-full" />
                 <span>Suporte VIP 24/7</span>
               </div>
-              <div className="flex items-center gap-2 text-sm text-foreground/70">
+              <div className="flex items-center gap-2 text-sm text-foreground/80">
                 <div className="w-2 h-2 bg-primary rounded-full" />
                 <span>Garantia de Resultado</span>
               </div>

@@ -40,11 +40,11 @@ export default function FAQ() {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   return (
-    <section id="faq" className="section-light">
+    <section id="faq" className="section-dark">
       <div className="container">
         <div className="text-center mb-16 fade-in-up">
-          <h2 className="heading-lg mb-4">Perguntas Frequentes</h2>
-          <p className="text-foreground/60 text-lg">
+          <h2 className="heading-lg mb-4 text-foreground">Perguntas Frequentes</h2>
+          <p className="text-foreground/80 text-lg">
             Tudo que você precisa saber sobre FácilZap Turbinado
           </p>
         </div>
@@ -59,7 +59,7 @@ export default function FAQ() {
             >
               <button
                 onClick={() => setOpenIndex(openIndex === idx ? null : idx)}
-                className="w-full bg-white border-2 border-border hover:border-primary rounded-lg p-6 text-left transition-all duration-300 hover:shadow-lg hover-lift group"
+                className="w-full bg-card border-2 border-border hover:border-primary rounded-lg p-6 text-left transition-all duration-300 hover:shadow-lg hover-lift group"
               >
                 <div className="flex items-center justify-between">
                   <h3 className="font-bold text-lg text-foreground group-hover:text-primary transition-colors">
@@ -75,7 +75,7 @@ export default function FAQ() {
 
                 {/* Answer */}
                 {openIndex === idx && (
-                  <div className="mt-4 pt-4 border-t border-border text-foreground/70 leading-relaxed animate-in slide-in-down">
+                  <div className="mt-4 pt-4 border-t border-border text-foreground/80 leading-relaxed animate-in slide-in-down">
                     {faq.answer}
                   </div>
                 )}
@@ -86,7 +86,7 @@ export default function FAQ() {
 
         {/* CTA */}
         <div className="mt-16 text-center fade-in-up">
-          <p className="text-foreground/60 mb-6">Ainda tem dúvidas?</p>
+          <p className="text-foreground/80 mb-6">Ainda tem dúvidas?</p>
           <button className="btn-primary">
             Fale com Nosso Especialista 🚀
           </button>

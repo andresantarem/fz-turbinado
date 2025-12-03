@@ -2,7 +2,7 @@ import { Mail, Phone, MapPin, Facebook, Instagram, Linkedin } from 'lucide-react
 
 export default function Footer() {
   return (
-    <footer className="bg-secondary text-foreground border-t border-border">
+    <footer className="bg-background text-foreground border-t border-border">
       <div className="container py-16 md:py-24">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
           {/* Brand */}
