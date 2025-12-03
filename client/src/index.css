@@ -44,9 +44,9 @@
 
 :root {
   --primary: #D6DF22;
-  --primary-foreground: #000000;
+  --primary-foreground: #11118C;
   --sidebar-primary: #D6DF22;
-  --sidebar-primary-foreground: #000000;
+  --sidebar-primary-foreground: #11118C;
   --chart-1: #D6DF22;
   --chart-2: #C4CC1A;
   --chart-3: #B2BA12;
@@ -64,7 +64,7 @@
   --muted: #FFF8DC;
   --muted-foreground: #D6DF22;
   --accent: #D6DF22;
-  --accent-foreground: #000000;
+  --accent-foreground: #11118C;
   --destructive: #EF4444;
   --destructive-foreground: #FFFFFF;
   --border: #E5E7EB;
@@ -73,7 +73,7 @@
   --sidebar: #FFFFFF;
   --sidebar-foreground: #000000;
   --sidebar-accent: #D6DF22;
-  --sidebar-accent-foreground: #000000;
+  --sidebar-accent-foreground: #11118C;
   --sidebar-border: #E5E7EB;
   --sidebar-ring: #D6DF22;
 }
@@ -151,11 +151,11 @@
   }
 
   .section-dark {
-    @apply bg-black text-white py-16 md:py-24;
+    @apply bg-foreground text-white py-16 md:py-24;
   }
 
   .section-light {
-    @apply bg-white py-16 md:py-24;
+    @apply bg-background py-16 md:py-24;
   }
 
   .heading-xl {
