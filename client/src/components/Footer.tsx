@@ -2,31 +2,31 @@ import { Mail, Phone, MapPin, Facebook, Instagram, Linkedin } from 'lucide-react
 
 export default function Footer() {
   return (
-    <footer className="bg-foreground text-white">
+    <footer className="bg-secondary text-foreground border-t border-border">
       <div className="container py-16 md:py-24">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
           {/* Brand */}
           <div>
             <div className="flex items-center gap-2 mb-4">
               <img 
-                src="/images/nova-logo.svg" 
+                src="/images/logo.svg" 
                 alt="Bravatus Logo" 
                 className="h-10 sm:h-12 w-auto object-contain"
               />
               <div className="flex flex-col leading-none">
-                <span className="font-bold text-sm">FacilZap</span>
+                <span className="font-bold text-sm text-foreground">FacilZap</span>
                 <span className="text-xs text-primary font-bold">Turbinado</span>
               </div>
             </div>
-            <p className="text-white/60 text-sm">
+            <p className="text-foreground/70 text-sm">
               Transforme sua loja FacilZap em máquina de vendas com widgets profissionais e suporte VIP especializado.
             </p>
           </div>
 
           {/* Links */}
           <div>
-            <h4 className="font-bold mb-4">Produtos</h4>
-            <ul className="space-y-2 text-sm text-white/60">
+            <h4 className="font-bold mb-4 text-foreground">Produtos</h4>
+            <ul className="space-y-2 text-sm text-foreground/70">
               <li>
                 <button className="hover:text-primary transition-colors">Widgets</button>
               </li>
@@ -44,8 +44,8 @@ export default function Footer() {
 
           {/* Company */}
           <div>
-            <h4 className="font-bold mb-4">Empresa</h4>
-            <ul className="space-y-2 text-sm text-white/60">
+            <h4 className="font-bold mb-4 text-foreground">Empresa</h4>
+            <ul className="space-y-2 text-sm text-foreground/70">
               <li>
                 <button className="hover:text-primary transition-colors">Sobre Nós</button>
               </li>
@@ -63,17 +63,17 @@ export default function Footer() {
 
           {/* Contact */}
           <div>
-            <h4 className="font-bold mb-4">Contato</h4>
+            <h4 className="font-bold mb-4 text-foreground">Contato</h4>
             <ul className="space-y-3 text-sm">
-              <li className="flex items-center gap-2 text-white/60 hover:text-primary transition-colors cursor-pointer">
+              <li className="flex items-center gap-2 text-foreground/70 hover:text-primary transition-colors cursor-pointer">
                 <Phone size={16} />
                 <span>(62) 98223-7075</span>
               </li>
-              <li className="flex items-center gap-2 text-white/60 hover:text-primary transition-colors cursor-pointer">
+              <li className="flex items-center gap-2 text-foreground/70 hover:text-primary transition-colors cursor-pointer">
                 <Mail size={16} />
                 <span>contato@bravatus.com</span>
               </li>
-              <li className="flex items-center gap-2 text-white/60">
+              <li className="flex items-center gap-2 text-foreground/70">
                 <MapPin size={16} />
                 <span>Goiás, Brasil</span>
               </li>
@@ -82,19 +82,19 @@ export default function Footer() {
         </div>
 
         {/* Divider */}
-        <div className="border-t border-white/10 py-8 mb-8">
+        <div className="border-t border-border py-8 mb-8">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-            <p className="text-white/60 text-sm">
+            <p className="text-foreground/70 text-sm">
               © 2025 Bravatus. Todos os direitos reservados.
             </p>
             <div className="flex items-center gap-4">
-              <button className="text-white/60 hover:text-primary transition-colors">
+              <button className="text-foreground/70 hover:text-primary transition-colors">
                 <Facebook size={20} />
               </button>
-              <button className="text-white/60 hover:text-primary transition-colors">
+              <button className="text-foreground/70 hover:text-primary transition-colors">
                 <Instagram size={20} />
               </button>
-              <button className="text-white/60 hover:text-primary transition-colors">
+              <button className="text-foreground/70 hover:text-primary transition-colors">
                 <Linkedin size={20} />
               </button>
             </div>
@@ -102,9 +102,9 @@ export default function Footer() {
         </div>
 
         {/* Urgency Banner */}
-        <div className="bg-primary/20 border border-primary rounded-xl p-6 text-center">
-          <p className="text-white font-bold mb-2">🚨 ÚLTIMAS VAGAS - DEZEMBRO 2025</p>
-          <p className="text-white/80 text-sm mb-4">
+        <div className="bg-primary/10 border border-primary rounded-xl p-6 text-center">
+          <p className="text-foreground font-bold mb-2">🚨 ÚLTIMAS VAGAS - DEZEMBRO 2025</p>
+          <p className="text-foreground/80 text-sm mb-4">
             Apenas 3 slots disponíveis para entrega neste mês. Garanta sua vaga agora!
           </p>
           <button className="btn-primary">
