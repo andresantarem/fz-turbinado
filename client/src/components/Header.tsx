@@ -13,18 +13,18 @@ export default function Header() {
   return (
     <>
       {/* Sticky Header */}
-      <header className="sticky top-0 z-50 bg-[#11118C] shadow-md">
+      <header className="sticky top-0 z-50 bg-white shadow-md">
         <div className="container flex items-center justify-between h-16">
           {/* Logo */}
           <div className="flex items-center gap-2 sm:gap-3">
             <img 
-              src="/images/logo_bravatus.jpeg" 
+              src="/images/nova-logo.svg" 
               alt="Bravatus Logo" 
               className="h-10 sm:h-12 w-auto object-contain"
             />
             <div className="flex flex-col leading-none">
-              <span className="font-bold text-xs sm:text-sm text-white">FácilZap</span>
-              <span className="text-xs text-white font-bold">Turbinado</span>
+              <span className="font-bold text-xs sm:text-sm text-foreground">FácilZap</span>
+              <span className="text-xs text-primary font-bold">Turbinado</span>
             </div>
           </div>
 
@@ -32,25 +32,25 @@ export default function Header() {
           <nav className="hidden md:flex items-center gap-8">
             <button
               onClick={() => scrollToSection('widgets')}
-              className="text-white hover:text-gray-200 transition-colors font-medium text-sm"
+              className="text-foreground hover:text-primary transition-colors font-medium text-sm"
             >
               Widgets
             </button>
             <button
               onClick={() => scrollToSection('planos')}
-              className="text-white hover:text-gray-200 transition-colors font-medium text-sm"
+              className="text-foreground hover:text-primary transition-colors font-medium text-sm"
             >
               Planos
             </button>
             <button
               onClick={() => scrollToSection('case')}
-              className="text-white hover:text-gray-200 transition-colors font-medium text-sm"
+              className="text-foreground hover:text-primary transition-colors font-medium text-sm"
             >
               Case
             </button>
             <button
               onClick={() => scrollToSection('faq')}
-              className="text-white hover:text-gray-200 transition-colors font-medium text-sm"
+              className="text-foreground hover:text-primary transition-colors font-medium text-sm"
             >
               FAQ
             </button>
@@ -63,7 +63,7 @@ export default function Header() {
             </button>
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="md:hidden p-2 hover:bg-white/20 rounded-lg transition-colors text-white"
+              className="md:hidden p-2 hover:bg-secondary rounded-lg transition-colors text-foreground"
             >
               {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
@@ -72,29 +72,29 @@ export default function Header() {
 
         {/* Mobile Menu */}
         {isMenuOpen && (
-          <div className="md:hidden border-t border-white/20 bg-[#11118C] animate-in slide-in-down">
+          <div className="md:hidden border-t border-border bg-white animate-in slide-in-down">
             <nav className="container py-4 flex flex-col gap-3">
               <button
                 onClick={() => scrollToSection('widgets')}
-                className="text-left text-white hover:text-gray-200 transition-colors font-medium py-2"
+                className="text-left text-foreground hover:text-primary transition-colors font-medium py-2"
               >
                 Widgets
               </button>
               <button
                 onClick={() => scrollToSection('planos')}
-                className="text-left text-white hover:text-gray-200 transition-colors font-medium py-2"
+                className="text-left text-foreground hover:text-primary transition-colors font-medium py-2"
               >
                 Planos
               </button>
               <button
                 onClick={() => scrollToSection('case')}
-                className="text-left text-white hover:text-gray-200 transition-colors font-medium py-2"
+                className="text-left text-foreground hover:text-primary transition-colors font-medium py-2"
               >
                 Case
               </button>
               <button
                 onClick={() => scrollToSection('faq')}
-                className="text-left text-white hover:text-gray-200 transition-colors font-medium py-2"
+                className="text-left text-foreground hover:text-primary transition-colors font-medium py-2"
               >
                 FAQ
               </button>

@@ -3,7 +3,7 @@ import TurboIcon from './TurboIcon';
 
 export default function Hero() {
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-background via-background to-muted pt-20">
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-white pt-20">
       {/* Animated Background Elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         {/* Floating circles */}

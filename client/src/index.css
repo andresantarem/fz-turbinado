@@ -44,36 +44,36 @@
 
 :root {
   --primary: #D6DF22;
-  --primary-foreground: #11118C;
+  --primary-foreground: #000000;
   --sidebar-primary: #D6DF22;
-  --sidebar-primary-foreground: #11118C;
+  --sidebar-primary-foreground: #000000;
   --chart-1: #D6DF22;
   --chart-2: #C4CC1A;
   --chart-3: #B2BA12;
   --chart-4: #A0A80A;
   --chart-5: #8E9602;
   --radius: 0.65rem;
-  --background: #F8F8F8;
-  --foreground: #11118C;
+  --background: #FFFFFF;
+  --foreground: #000000;
   --card: #FFFFFF;
-  --card-foreground: #11118C;
+  --card-foreground: #000000;
   --popover: #FFFFFF;
-  --popover-foreground: #11118C;
+  --popover-foreground: #000000;
   --secondary: #F0F0F0;
   --secondary-foreground: #333333;
   --muted: #FFF8DC;
   --muted-foreground: #D6DF22;
   --accent: #D6DF22;
-  --accent-foreground: #11118C;
+  --accent-foreground: #000000;
   --destructive: #EF4444;
   --destructive-foreground: #FFFFFF;
   --border: #E5E7EB;
   --input: #F3F4F6;
   --ring: #D6DF22;
   --sidebar: #FFFFFF;
-  --sidebar-foreground: #11118C;
+  --sidebar-foreground: #000000;
   --sidebar-accent: #D6DF22;
-  --sidebar-accent-foreground: #11118C;
+  --sidebar-accent-foreground: #000000;
   --sidebar-border: #E5E7EB;
   --sidebar-ring: #D6DF22;
 }
@@ -151,11 +151,11 @@
   }
 
   .section-dark {
-    @apply bg-foreground text-white py-16 md:py-24;
+    @apply bg-black text-white py-16 md:py-24;
   }
 
   .section-light {
-    @apply bg-background py-16 md:py-24;
+    @apply bg-white py-16 md:py-24;
   }
 
   .heading-xl {

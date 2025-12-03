@@ -9,7 +9,7 @@ export default function Footer() {
           <div>
             <div className="flex items-center gap-2 mb-4">
               <img 
-                src="/images/logo_bravatus.jpeg" 
+                src="/images/nova-logo.svg" 
                 alt="Bravatus Logo" 
                 className="h-10 sm:h-12 w-auto object-contain"
               />
