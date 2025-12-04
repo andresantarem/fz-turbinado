@@ -119,11 +119,8 @@ export default function Header() {
                 rel="noopener noreferrer"
                 className="btn-primary w-full mt-2"
               >
-                💬 Turbinar Agora pelo WhatsApp
-              </a>
-              <button className="btn-primary w-full mt-2">
                 Turbinar Agora 🚀
-              </button>
+              </a>
             </nav>
           </div>
         )}
