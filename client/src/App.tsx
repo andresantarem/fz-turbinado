@@ -6,6 +6,7 @@ import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import { CartProvider } from "./contexts/CartContext";
 import Home from "./pages/Home";
+import { useExitIntent } from "./hooks/useExitIntent";
 
 function Router() {
   return (
@@ -19,6 +20,8 @@ function Router() {
 }
 
 function App() {
+  useExitIntent();
+
   return (
     <ErrorBoundary>
       <ThemeProvider defaultTheme="light">

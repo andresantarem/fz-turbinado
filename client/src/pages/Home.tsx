@@ -6,6 +6,7 @@ import CaseStudy from "@/components/CaseStudy";
 import FAQ from "@/components/FAQ";
 import Footer from "@/components/Footer";
 import Cart from "@/components/Cart";
+import ScrollTopButton from "@/components/ScrollTopButton";
 
 /**
  * Design Philosophy: Modern Corporate with Dynamism
@@ -27,6 +28,7 @@ export default function Home() {
       </main>
       <Footer />
       <Cart />
+      <ScrollTopButton />
     </div>
   );
 }
