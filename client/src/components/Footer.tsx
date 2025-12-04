@@ -67,11 +67,15 @@ export default function Footer() {
             <ul className="space-y-3 text-sm">
               <li className="flex items-center gap-2 text-foreground/70 hover:text-primary transition-colors cursor-pointer">
                 <Phone size={16} />
-                <span>(62) 98223-7075</span>
+                <span>(62) 99296-0658</span>
+              </li>
+              <li className="flex items-center gap-2 text-foreground/70 hover:text-primary transition-colors cursor-pointer">
+                <Phone size={16} />
+                <span>(64) 98479-0549</span>
               </li>
               <li className="flex items-center gap-2 text-foreground/70 hover:text-primary transition-colors cursor-pointer">
                 <Mail size={16} />
-                <span>contato@bravatus.com</span>
+                <span>andresantarem@bravatus.com.br</span>
               </li>
               <li className="flex items-center gap-2 text-foreground/70">
                 <MapPin size={16} />

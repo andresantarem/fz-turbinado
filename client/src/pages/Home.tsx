@@ -5,6 +5,7 @@ import Plans from "@/components/Plans";
 import CaseStudy from "@/components/CaseStudy";
 import FAQ from "@/components/FAQ";
 import Footer from "@/components/Footer";
+import Cart from "@/components/Cart";
 
 /**
  * Design Philosophy: Modern Corporate with Dynamism
@@ -25,6 +26,7 @@ export default function Home() {
         <FAQ />
       </main>
       <Footer />
+      <Cart />
     </div>
   );
 }

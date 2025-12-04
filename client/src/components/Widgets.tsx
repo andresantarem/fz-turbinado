@@ -1,3 +1,4 @@
+import { useCart } from '@/contexts/CartContext';
 import { ShoppingCart, Zap, TrendingUp, Gift, Filter, Link2, BarChart3, Clock, Users, Info, Sparkles } from 'lucide-react';
 
 const widgets = [
@@ -84,6 +85,8 @@ const widgets = [
 ];
 
 export default function Widgets() {
+  const { addItem } = useCart();
+
   return (
     <section id="widgets" className="section-dark relative overflow-hidden">
       {/* Animated Background */}
@@ -134,7 +137,10 @@ export default function Widgets() {
                     <p className="text-white/50 text-xs">Avulso</p>
                     <p className="text-white font-bold text-xl">R$ {widget.price}</p>
                   </div>
-                  <button className="bg-primary text-primary-foreground px-4 py-2 rounded-lg font-semibold hover:shadow-lg transition-all duration-300 hover:scale-105 active:scale-95 text-sm">
+                  <button
+                    onClick={() => addItem({ id: widget.id, name: widget.name, price: widget.price })}
+                    className="bg-primary text-primary-foreground px-4 py-2 rounded-lg font-semibold hover:shadow-lg transition-all duration-300 hover:scale-105 active:scale-95 text-sm"
+                  >
                     Adicionar
                   </button>
                 </div>
