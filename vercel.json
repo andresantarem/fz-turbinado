@@ -1,25 +1,4 @@
 {
   "buildCommand": "pnpm run build",
-  "devCommand": "pnpm run dev",
-  "installCommand": "pnpm install",
-  "framework": "vite",
-  "outputDirectory": "dist/public",
-  "env": {
-    "VITE_API_URL": "@vite_api_url"
-  },
-  "functions": {
-    "dist/index.js": {
-      "runtime": "nodejs20.x"
-    }
-  },
-  "routes": [
-    {
-      "src": "/api/.*",
-      "dest": "dist/index.js"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "dist/public/index.html"
-    }
-  ]
+  "outputDirectory": "dist/public"
 }
