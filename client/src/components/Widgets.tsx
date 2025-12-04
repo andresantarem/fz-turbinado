@@ -1,5 +1,6 @@
 import { useCart } from '@/contexts/CartContext';
 import { ShoppingCart, Zap, TrendingUp, Gift, Filter, Link2, BarChart3, Clock, Users, Info, Sparkles } from 'lucide-react';
+import { useState } from 'react';
 
 const widgets = [
   {
@@ -85,7 +86,23 @@ const widgets = [
 ];
 
 export default function Widgets() {
-  const { addItem, openCart } = useCart();
+  const { addItem, openCart, canAddWidget } = useCart();
+  const [toast, setToast] = useState<string | null>(null);
+
+  const showToast = (msg: string) => {
+    setToast(msg);
+    setTimeout(() => setToast(null), 2000);
+  };
+
+  const handleAddWidget = (widget: typeof widgets[0]) => {
+    if (!canAddWidget()) {
+      showToast('❌ Você já tem um plano no carrinho. Limpe o carrinho para adicionar widgets.');
+      return;
+    }
+    addItem({ id: widget.id, name: widget.name, price: widget.price, type: 'widget' });
+    openCart();
+    showToast(`✅ ${widget.name} adicionado ao carrinho!`);
+  };
 
   return (
     <section id="widgets" className="section-dark relative overflow-hidden">
@@ -94,6 +111,13 @@ export default function Widgets() {
         <div className="absolute top-0 left-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl animate-pulse" />
         <div className="absolute bottom-0 right-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }} />
       </div>
+
+      {/* Toast Notification */}
+      {toast && (
+        <div className="fixed top-24 left-1/2 -translate-x-1/2 z-50 bg-background border border-border rounded-lg px-6 py-3 shadow-lg animate-in slide-in-down">
+          {toast}
+        </div>
+      )}
 
       <div className="container relative z-10">
         <div className="text-center mb-16 fade-in-up">
@@ -138,7 +162,7 @@ export default function Widgets() {
                     <p className="text-white font-bold text-xl">R$ {widget.price}</p>
                   </div>
                   <button
-                    onClick={() => { addItem({ id: widget.id, name: widget.name, price: widget.price }); openCart(); }}
+                    onClick={() => handleAddWidget(widget)}
                     className="bg-primary text-primary-foreground px-4 py-2 rounded-lg font-semibold hover:shadow-lg transition-all duration-300 hover:scale-105 active:scale-95 text-sm"
                   >
                     Adicionar

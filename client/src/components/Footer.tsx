@@ -9,13 +9,13 @@ export default function Footer() {
           <div>
             <div className="flex items-center gap-2 mb-4">
               <img 
-                src="/images/logo.svg" 
-                alt="Bravatus Logo" 
+                src="/images/logofacilzap.png" 
+                alt="FácilZap Logo" 
                 className="h-10 sm:h-12 w-auto object-contain"
               />
               <div className="flex flex-col leading-none">
-                <span className="font-bold text-sm text-foreground">FacilZap</span>
-                <span className="text-xs text-primary font-bold">Turbinado</span>
+                <span className="text-sm text-foreground font-bold">Turbinado</span>
+                <span className="text-xs text-primary font-bold">🚀</span>
               </div>
             </div>
             <p className="text-foreground/70 text-sm">
@@ -94,7 +94,7 @@ export default function Footer() {
         </div>
 
         {/* Divider */}
-        <div className="border-t border-border py-8 mb-8">
+        <div className="border-t border-border py-8">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             <p className="text-foreground/70 text-sm">
               © 2025 Bravatus. Todos os direitos reservados.
@@ -114,14 +114,19 @@ export default function Footer() {
         </div>
 
         {/* Urgency Banner */}
-        <div className="bg-primary/10 border border-primary rounded-xl p-6 text-center">
+        <div className="bg-primary/10 border border-primary rounded-xl p-6 text-center mb-8">
           <p className="text-foreground font-bold mb-2">🚨 ÚLTIMAS VAGAS - DEZEMBRO 2025</p>
           <p className="text-foreground/80 text-sm mb-4">
             Apenas 3 slots disponíveis para entrega neste mês. Garanta sua vaga agora!
           </p>
-          <button className="btn-primary">
-            Garantir Minha Vaga Agora
-          </button>
+          <a
+            href="https://wa.me/5562992960658?text=Tenho%20interesse%20nos%20widgets%20da%20Bravatus.%20Por%20favor%20entre%20em%20contato."
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn-primary inline-block"
+          >
+            💬 Falar com Especialista
+          </a>
         </div>
       </div>
     </footer>

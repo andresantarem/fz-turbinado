@@ -20,13 +20,13 @@ export default function Header() {
           {/* Logo */}
           <div className="flex items-center gap-2 sm:gap-3">
             <img 
-              src="/images/logo.svg" 
-              alt="Bravatus Logo" 
+              src="/images/logofacilzap.png" 
+              alt="FácilZap Logo" 
               className="h-10 sm:h-12 w-auto object-contain"
             />
             <div className="flex flex-col leading-none">
-              <span className="font-bold text-xs sm:text-sm text-foreground">FácilZap</span>
-              <span className="text-xs text-primary font-bold">Turbinado</span>
+              <span className="text-xs sm:text-sm text-foreground font-bold">Turbinado</span>
+              <span className="text-xs text-primary font-bold">🚀</span>
             </div>
           </div>
 
@@ -56,21 +56,18 @@ export default function Header() {
             >
               FAQ
             </button>
-            <a
-              href="https://wa.me/5562992960658?text=Tenho%20interesse%20nos%20widgets%20da%20Bravatus.%20Por%20favor%20entre%20em%20contato."
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-foreground hover:text-primary transition-colors font-medium text-sm"
-            >
-              WhatsApp
-            </a>
           </nav>
 
           {/* CTA Button and Cart Icon */}
           <div className="flex items-center gap-3">
-            <button className="btn-primary hidden sm:inline-block text-sm">
+            <a
+              href="https://wa.me/5562992960658?text=Tenho%20interesse%20nos%20widgets%20da%20Bravatus.%20Por%20favor%20entre%20em%20contato."
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-primary hidden sm:inline-block text-sm"
+            >
               Turbinar Agora 🚀
-            </button>
+            </a>
             <button
               onClick={() => openCart()}
               className="relative p-2 hover:bg-secondary rounded-lg transition-colors text-foreground"
@@ -124,9 +121,9 @@ export default function Header() {
                 href="https://wa.me/5562992960658?text=Tenho%20interesse%20nos%20widgets%20da%20Bravatus.%20Por%20favor%20entre%20em%20contato."
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-left text-foreground hover:text-primary transition-colors font-medium py-2"
+                className="btn-primary w-full mt-2"
               >
-                WhatsApp
+                💬 Turbinar Agora pelo WhatsApp
               </a>
               <button className="btn-primary w-full mt-2">
                 Turbinar Agora 🚀

@@ -1,4 +1,6 @@
 import { Check, Crown } from 'lucide-react';
+import { useCart } from '@/contexts/CartContext';
+import { useState } from 'react';
 
 const plans = [
   {
@@ -49,12 +51,36 @@ const plans = [
 ];
 
 export default function Plans() {
+  const { addItem, openCart, canAddPlan } = useCart();
+  const [toast, setToast] = useState<string | null>(null);
+
+  const showToast = (msg: string) => {
+    setToast(msg);
+    setTimeout(() => setToast(null), 2000);
+  };
+
+  const handleAddPlan = (plan: typeof plans[0]) => {
+    if (!canAddPlan()) {
+      showToast('❌ Você já tem itens no carrinho. Limpe para adicionar um plano.');
+      return;
+    }
+    addItem({ id: plan.name, name: plan.name, price: plan.price, type: 'plan' });
+    openCart();
+    showToast(`✅ Plano ${plan.name} adicionado!`);
+  };
   return (
     <section id="planos" className="section-dark relative overflow-hidden">
       {/* Animated Background */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-20 right-20 w-80 h-80 bg-primary/5 rounded-full blur-3xl animate-pulse" />
       </div>
+
+      {/* Toast Notification */}
+      {toast && (
+        <div className="fixed top-24 left-1/2 -translate-x-1/2 z-50 bg-background border border-border rounded-lg px-6 py-3 shadow-lg animate-in slide-in-down">
+          {toast}
+        </div>
+      )}
 
       <div className="container relative z-10">
         <div className="text-center mb-16 fade-in-up">
@@ -119,6 +145,7 @@ export default function Plans() {
 
                 {/* CTA Button */}
                 <button
+                  onClick={() => handleAddPlan(plan)}
                   className={`w-full py-3 rounded-lg font-bold mb-8 transition-all duration-300 ${
                     plan.popular
                       ? 'bg-primary text-primary-foreground hover:shadow-lg hover:scale-105'
