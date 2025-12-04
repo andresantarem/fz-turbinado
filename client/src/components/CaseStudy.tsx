@@ -53,25 +53,28 @@ export default function CaseStudy() {
           </p>
         </div>
 
-        {/* Before/After Mobile Mockup Slider (sem imagens, pronto para inserção) */}
+        {/* Before/After Comparison Slider */}
         <div className="mb-16 fade-in-up">
-          <div className="flex items-center justify-center gap-4 mb-4">
-            <span className="text-sm text-foreground/70">ANTES</span>
+          <div className="flex items-center justify-center gap-2 sm:gap-4 mb-6">
+            <span className="text-xs sm:text-sm text-foreground/70 font-semibold">ANTES</span>
             <button
-              className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary text-primary-foreground text-xs font-bold"
+              className="inline-flex items-center gap-1 sm:gap-2 px-2 sm:px-4 py-2 rounded-full bg-primary text-primary-foreground text-xs sm:text-sm font-bold hover:shadow-lg transition-shadow"
               onClick={() => setPosition(position === 'before' ? 'after' : 'before')}
             >
-              <ChevronLeft size={14} />
-              <ChevronRight size={14} />
-              Deslizar
+              <ChevronLeft size={16} className="hidden sm:block" />
+              <ChevronLeft size={12} className="sm:hidden" />
+              <span className="hidden sm:inline">Deslizar</span>
+              <span className="sm:hidden">Arrastar</span>
+              <ChevronRight size={16} className="hidden sm:block" />
+              <ChevronRight size={12} className="sm:hidden" />
             </button>
-            <span className="text-sm text-foreground/70">DEPOIS</span>
+            <span className="text-xs sm:text-sm text-foreground/70 font-semibold">DEPOIS</span>
           </div>
 
           {/* Comparison Container */}
           <div
             ref={sliderRef}
-            className="relative mx-auto w-full max-w-2xl h-[420px] rounded-xl border border-border bg-background overflow-hidden cursor-ew-resize"
+            className="relative mx-auto w-full max-w-4xl aspect-video rounded-xl border border-border bg-background overflow-hidden cursor-ew-resize shadow-lg"
             onMouseMove={(e) => handleMove(e.clientX)}
             onTouchMove={(e) => {
               const touch = e.touches?.[0];
@@ -80,7 +83,7 @@ export default function CaseStudy() {
           >
             {/* Depois - fundo completo */}
             <img
-              src="/images/case-after.jpg"
+              src="/images/depois_fz_turbinado.png"
               alt="Depois"
               className="absolute inset-0 w-full h-full object-cover"
             />
@@ -89,29 +92,28 @@ export default function CaseStudy() {
             <div
               ref={beforeRef}
               className="absolute inset-0 overflow-hidden"
-              style={{ width: '60%' }}
+              style={{ width: '50%' }}
             >
               <img
-                src="/images/case-before.jpg"
+                src="/images/antes_fz_turbinado.png"
                 alt="Antes"
-                className="w-full h-full object-cover"
-                style={{ width: 'calc(100% / 0.6)' }}
+                className="absolute inset-0 w-full h-full object-cover"
               />
             </div>
 
             {/* Slider handle */}
-            <div className="comp-slider absolute top-0 bottom-0 w-1 bg-primary" style={{ left: '60%' }}>
-              <div className="absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 bg-primary text-primary-foreground rounded-full px-3 py-1 text-xs font-bold flex items-center gap-1 shadow">
+            <div className="comp-slider absolute top-0 bottom-0 w-1 bg-primary pointer-events-none" style={{ left: '50%' }}>
+              <div className="absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 bg-primary text-primary-foreground rounded-full px-2 sm:px-3 py-1 text-xs font-bold flex items-center gap-1 shadow-lg whitespace-nowrap">
                 <ChevronLeft size={14} />
+                <span className="hidden sm:inline">Deslize</span>
                 <ChevronRight size={14} />
-                Deslize
               </div>
             </div>
             {/* Labels */}
-            <span className="absolute top-2 left-2 text-xs font-bold bg-black/60 text-white px-2 py-1 rounded">ANTES</span>
-            <span className="absolute top-2 right-2 text-xs font-bold bg-black/60 text-white px-2 py-1 rounded">DEPOIS</span>
+            <span className="absolute top-3 left-3 sm:top-4 sm:left-4 text-xs sm:text-sm font-bold bg-black/60 text-white px-2 sm:px-3 py-1 rounded">ANTES</span>
+            <span className="absolute top-3 right-3 sm:top-4 sm:right-4 text-xs sm:text-sm font-bold bg-black/60 text-white px-2 sm:px-3 py-1 rounded">DEPOIS</span>
           </div>
-          <p className="text-center text-foreground/60 text-xs mt-3">Arraste para comparar os resultados antes e depois.</p>
+          <p className="text-center text-foreground/60 text-xs sm:text-sm mt-3">👈 Arraste ou use o botão para comparar os resultados</p>
         </div>
 
         {/* Metrics Grid */}
