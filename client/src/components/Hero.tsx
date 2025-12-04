@@ -114,7 +114,8 @@ export default function Hero() {
                 </video>
                 
                 {/* Floating Badge */}
-                <div className="absolute left-1/2 -translate-x-1/2 bottom-3 bg-primary text-white px-6 py-3 rounded-xl shadow-lg font-bold text-sm md:text-base">
+                <div className="absolute left-1/2 -translate-x-1/2 bottom-3 bg-black/80 text-white px-6 py-3 rounded-xl shadow-lg font-bold text-sm md:text-base flex items-center gap-2">
+                  <TurboIcon className="w-5 h-5" />
                   ⚡ Pronto em 7 dias
                 </div>
               </div>
