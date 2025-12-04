@@ -34,7 +34,7 @@ export default function Cart() {
   const canSend = name.trim() !== '' && phone.trim() !== '' && email.trim() !== '' && items.length > 0;
 
   if (!items.length) return (
-    <div className="fixed right-6 bottom-6 z-50">
+    <div className="fixed right-6 bottom-20 z-50 md:bottom-28">
       <div className="bg-foreground/6 border border-border rounded-xl p-3 shadow-lg text-sm text-foreground/80">
         Carrinho vazio
       </div>
@@ -42,7 +42,7 @@ export default function Cart() {
   );
 
   return (
-    <div className="fixed right-6 bottom-6 z-50 w-80 md:w-96">
+    <div className="fixed right-6 bottom-20 z-50 md:bottom-28 w-80 md:w-96">
       <div className="bg-background/95 border border-border rounded-xl p-4 shadow-2xl">
         <div className="flex items-center justify-between mb-3">
           <strong className="text-foreground">Seu Pedido</strong>
