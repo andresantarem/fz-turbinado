@@ -85,7 +85,7 @@ const widgets = [
 ];
 
 export default function Widgets() {
-  const { addItem } = useCart();
+  const { addItem, openCart } = useCart();
 
   return (
     <section id="widgets" className="section-dark relative overflow-hidden">
@@ -138,7 +138,7 @@ export default function Widgets() {
                     <p className="text-white font-bold text-xl">R$ {widget.price}</p>
                   </div>
                   <button
-                    onClick={() => addItem({ id: widget.id, name: widget.name, price: widget.price })}
+                    onClick={() => { addItem({ id: widget.id, name: widget.name, price: widget.price }); openCart(); }}
                     className="bg-primary text-primary-foreground px-4 py-2 rounded-lg font-semibold hover:shadow-lg transition-all duration-300 hover:scale-105 active:scale-95 text-sm"
                   >
                     Adicionar
