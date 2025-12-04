@@ -1,0 +1,29 @@
+{
+  "buildCommand": "pnpm run build",
+  "devCommand": "pnpm run dev",
+  "installCommand": "pnpm install",
+  "framework": "vite",
+  "outputDirectory": "dist/public",
+  "nodeVersion": "20.x",
+  "env": {
+    "VITE_API_URL": {
+      "description": "API URL for the application",
+      "default": "http://localhost:3000"
+    }
+  },
+  "functions": {
+    "dist/index.js": {
+      "runtime": "nodejs20.x"
+    }
+  },
+  "routes": [
+    {
+      "src": "/api/.*",
+      "dest": "dist/index.js"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "dist/public/index.html"
+    }
+  ]
+}
