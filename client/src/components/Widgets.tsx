@@ -126,7 +126,7 @@ export default function Widgets() {
             <span className="ml-2 turbine-spin text-lg">⚙️</span>
           </div>
           <h2 className="heading-lg text-white mb-4">Potência Máxima de Conversão</h2>
-          <p className="text-white/70 text-lg">
+          <p className="text-white/70 text-lg max-w-2xl mx-auto">
             Cada widget foi desenvolvido para aumentar vendas. Monte seu pacote ou leve tudo no Combo Elite
           </p>
         </div>
@@ -152,18 +152,18 @@ export default function Widgets() {
                 </div>
 
                 {/* Content */}
-                <h3 className="text-white font-bold text-lg mb-2">{widget.name}</h3>
-                <p className="text-white/60 text-sm mb-6">{widget.description}</p>
+                <h3 className="text-white font-bold text-lg mb-2 text-center sm:text-left">{widget.name}</h3>
+                <p className="text-white/60 text-sm mb-6 text-center sm:text-left">{widget.description}</p>
 
                 {/* Price and CTA */}
-                <div className="flex items-center justify-between">
-                  <div>
+                <div className="flex flex-col sm:flex-row items-center sm:items-center justify-between gap-4 sm:gap-0">
+                  <div className="text-center sm:text-left">
                     <p className="text-white/50 text-xs">Avulso</p>
                     <p className="text-white font-bold text-xl">R$ {widget.price}</p>
                   </div>
                   <button
                     onClick={() => handleAddWidget(widget)}
-                    className="bg-primary text-primary-foreground px-4 py-2 rounded-lg font-semibold hover:shadow-lg transition-all duration-300 hover:scale-105 active:scale-95 text-sm"
+                    className="bg-primary text-primary-foreground px-4 py-2 rounded-lg font-semibold hover:shadow-lg transition-all duration-300 hover:scale-105 active:scale-95 text-sm w-full sm:w-auto text-center"
                   >
                     Adicionar
                   </button>

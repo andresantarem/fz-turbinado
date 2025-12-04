@@ -15,9 +15,9 @@ export default function Hero() {
       </div>
 
       <div className="container relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center text-center lg:text-left">
           {/* Left Content */}
-          <div className="space-y-8">
+          <div className="space-y-8 flex flex-col items-center lg:items-start">
             {/* Badge */}
             <div className="fade-in-up">
               <div className="inline-flex items-center gap-2 bg-muted px-4 py-2 rounded-full border border-primary/20">
@@ -33,19 +33,19 @@ export default function Hero() {
                 <br />
                 <span className="gradient-text">Turbinada ao Máximo</span>
               </h1>
-              <p className="text-xl text-foreground/80 leading-relaxed">
+              <p className="text-xl text-foreground/80 leading-relaxed max-w-2xl mx-auto lg:mx-0">
                 Widgets profissionais que transformam visitantes em clientes. Aumente conversão em até <span className="font-bold text-primary">+237%</span> em 7 dias.
               </p>
             </div>
 
             {/* Stats Row */}
-            <div className="grid grid-cols-3 gap-4 fade-in-up stagger-3">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 fade-in-up stagger-3">
               {[
                 { num: '50+', label: 'Lojas Ativas' },
                 { num: '+237%', label: 'Conversão' },
                 { num: '4.9/5', label: 'Avaliação' },
               ].map((stat, idx) => (
-                <div key={idx} className="bg-card rounded-lg p-4 border border-border hover:border-primary transition-all duration-300 hover-lift">
+                <div key={idx} className="bg-card rounded-lg p-4 border border-border hover:border-primary transition-all duration-300 hover-lift max-w-xs mx-auto sm:mx-0">
                   <div className="font-bold text-lg text-primary">{stat.num}</div>
                   <div className="text-xs text-foreground/70">{stat.label}</div>
                 </div>
@@ -53,19 +53,19 @@ export default function Hero() {
             </div>
 
             {/* CTA Buttons */}
-            <div className="flex flex-col sm:flex-row gap-4 fade-in-up stagger-4 pt-4">
-              <button className="btn-primary flex items-center justify-center gap-2 group text-lg py-4">
+            <div className="flex flex-col sm:flex-row gap-4 fade-in-up stagger-4 pt-4 items-center sm:items-stretch sm:justify-start">
+              <button className="btn-primary flex items-center justify-center gap-2 group text-lg py-4 w-full sm:w-auto">
                 <TurboIcon className="w-5 h-5" />
                 Turbinar Agora
                 <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
               </button>
-              <button className="btn-secondary flex items-center justify-center gap-2 text-lg py-4">
+              <button className="btn-secondary flex items-center justify-center gap-2 text-lg py-4 w-full sm:w-auto">
                 Ver Demo Grátis
               </button>
             </div>
 
             {/* Trust Badges */}
-            <div className="flex flex-wrap gap-4 pt-4 fade-in-up stagger-5">
+            <div className="flex flex-wrap justify-center sm:justify-start gap-4 pt-4 fade-in-up stagger-5">
               <div className="flex items-center gap-2 text-sm text-foreground/80">
                 <div className="w-2 h-2 bg-primary rounded-full" />
                 <span>Entrega em 7 dias</span>
@@ -82,7 +82,7 @@ export default function Hero() {
           </div>
 
           {/* Right Image */}
-          <div className="relative fade-in-up stagger-1 space-y-6">
+          <div className="relative fade-in-up stagger-1 space-y-6 flex flex-col items-center">
             {/* FacilZap Branding Element: logo + "Turbinado 🚀" */}
             <div className="flex items-center justify-center gap-4 p-6 rounded-xl bg-primary/10 border border-primary/30 hover:border-primary transition-all duration-300">
               <img 

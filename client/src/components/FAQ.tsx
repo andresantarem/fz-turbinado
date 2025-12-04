@@ -59,9 +59,9 @@ export default function FAQ() {
             >
               <button
                 onClick={() => setOpenIndex(openIndex === idx ? null : idx)}
-                className="w-full bg-card border-2 border-border hover:border-primary rounded-lg p-6 text-left transition-all duration-300 hover:shadow-lg hover-lift group"
+                className="w-full bg-card border-2 border-border hover:border-primary rounded-lg p-6 text-center sm:text-left transition-all duration-300 hover:shadow-lg hover-lift group"
               >
-                <div className="flex items-center justify-between">
+                <div className="flex flex-col sm:flex-row items-center sm:items-start justify-between gap-3">
                   <h3 className="font-bold text-lg text-foreground group-hover:text-primary transition-colors">
                     {faq.question}
                   </h3>
@@ -75,7 +75,7 @@ export default function FAQ() {
 
                 {/* Answer */}
                 {openIndex === idx && (
-                  <div className="mt-4 pt-4 border-t border-border text-foreground/80 leading-relaxed animate-in slide-in-down">
+                  <div className="mt-4 pt-4 border-t border-border text-foreground/80 leading-relaxed animate-in slide-in-down text-center sm:text-left">
                     {faq.answer}
                   </div>
                 )}

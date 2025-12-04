@@ -116,16 +116,16 @@ export default function Plans() {
 
               <div className="p-8">
                 {/* Header */}
-                <h3 className="text-2xl font-bold mb-2 text-foreground">
+                <h3 className="text-2xl font-bold mb-2 text-foreground text-center md:text-left">
                   {plan.name}
                 </h3>
-                <p className="text-sm mb-6 text-foreground/80">
+                <p className="text-sm mb-6 text-foreground/80 text-center md:text-left">
                   {plan.description}
                 </p>
 
                 {/* Price */}
-                <div className="mb-6">
-                  <div className="flex items-baseline gap-2 mb-2">
+                <div className="mb-6 text-center md:text-left">
+                  <div className="flex flex-col md:flex-row items-center md:items-baseline justify-center md:justify-start gap-2 mb-2">
                     <span className="text-4xl font-bold text-foreground">
                       R$ {plan.price.toLocaleString('pt-BR')}
                     </span>
@@ -157,7 +157,7 @@ export default function Plans() {
                 {/* Features */}
                 <div className="space-y-3">
                   {plan.features.map((feature, fidx) => (
-                    <div key={fidx} className="flex items-start gap-3">
+                    <div key={fidx} className="flex flex-col sm:flex-row items-center sm:items-start gap-3 text-center sm:text-left">
                       <Check size={20} className="text-primary flex-shrink-0 mt-0.5" />
                       <span className="text-sm text-foreground/90">
                         {feature}

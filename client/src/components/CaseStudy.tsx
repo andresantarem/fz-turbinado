@@ -75,7 +75,7 @@ export default function CaseStudy() {
 
         {/* Before/After Comparison Slider */}
         <div className="mb-16 fade-in-up">
-          <div className="flex items-center justify-center gap-2 sm:gap-4 mb-6">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 mb-6 text-center sm:text-left">
             <span className="text-xs sm:text-sm text-foreground/70 font-semibold">ANTES</span>
             <button
               className="inline-flex items-center gap-1 sm:gap-2 px-2 sm:px-4 py-2 rounded-full bg-primary text-primary-foreground text-xs sm:text-sm font-bold hover:shadow-lg transition-shadow"
@@ -142,7 +142,9 @@ export default function CaseStudy() {
             <span className="absolute top-3 left-3 sm:top-4 sm:left-4 text-xs sm:text-sm font-bold bg-black/60 text-white px-2 sm:px-3 py-1 rounded">ANTES</span>
             <span className="absolute top-3 right-3 sm:top-4 sm:right-4 text-xs sm:text-sm font-bold bg-black/60 text-white px-2 sm:px-3 py-1 rounded">DEPOIS</span>
           </div>
-          <p className="text-center text-foreground/60 text-xs sm:text-sm mt-3">👈 Arraste ou use o botão para comparar os resultados</p>
+          <p className="text-center text-foreground/60 text-xs sm:text-sm mt-4 sm:mt-3 max-w-md mx-auto sm:max-w-none">
+            👈 Arraste ou use o botão para comparar os resultados
+          </p>
         </div>
 
         {/* Metrics Grid */}

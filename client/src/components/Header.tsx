@@ -88,28 +88,28 @@ export default function Header() {
         {/* Mobile Menu */}
         {isMenuOpen && (
           <div className="md:hidden border-t border-border bg-secondary animate-in slide-in-down">
-            <nav className="container py-4 flex flex-col gap-3">
+            <nav className="container py-4 flex flex-col gap-3 text-center">
               <button
                 onClick={() => scrollToSection('widgets')}
-                className="text-left text-foreground hover:text-primary transition-colors font-medium py-2"
+                className="text-foreground hover:text-primary transition-colors font-medium py-2"
               >
                 Widgets
               </button>
               <button
                 onClick={() => scrollToSection('planos')}
-                className="text-left text-foreground hover:text-primary transition-colors font-medium py-2"
+                className="text-foreground hover:text-primary transition-colors font-medium py-2"
               >
                 Planos
               </button>
               <button
                 onClick={() => scrollToSection('case')}
-                className="text-left text-foreground hover:text-primary transition-colors font-medium py-2"
+                className="text-foreground hover:text-primary transition-colors font-medium py-2"
               >
                 Case
               </button>
               <button
                 onClick={() => scrollToSection('faq')}
-                className="text-left text-foreground hover:text-primary transition-colors font-medium py-2"
+                className="text-foreground hover:text-primary transition-colors font-medium py-2"
               >
                 FAQ
               </button>
