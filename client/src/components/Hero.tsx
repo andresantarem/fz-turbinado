@@ -99,12 +99,19 @@ export default function Hero() {
             <div className="relative group">
               <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-primary/5 rounded-2xl blur-2xl group-hover:blur-3xl transition-all duration-500" />
               
-              <div className="relative bg-white rounded-2xl overflow-hidden shadow-2xl hover-lift">
-                <img
-                  src="/images/hero-mockup.png"
-                  alt="FácilZap Turbinado - Transformação de loja"
-                  className="w-full h-auto"
-                />
+              <div className="relative bg-black rounded-2xl overflow-hidden shadow-2xl hover-lift">
+                <video
+                  className="w-full h-full object-cover"
+                  src="/videos/thiago.mov"
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  controls={false}
+                  poster="/images/hero-mockup.png"
+                >
+                  Seu navegador não suporta reprodução de vídeo.
+                </video>
                 
                 {/* Floating Badge */}
                 <div className="absolute -bottom-4 -left-4 bg-primary text-white px-6 py-3 rounded-xl shadow-lg font-bold text-sm md:text-base bounce-in"
