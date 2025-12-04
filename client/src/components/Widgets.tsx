@@ -170,24 +170,28 @@ export default function Widgets() {
           >
             <div className="max-w-[70rem] mx-auto w-full">
               <div className="card-widget bg-foreground/10 border-primary/20 hover:border-primary transition-all duration-300 mb-8">
-                <div className="flex items-start justify-between mb-4">
-                  <div className="w-12 h-12 bg-primary/20 rounded-lg flex items-center justify-center">
-                    {CalculatorIcon && <CalculatorIcon size={24} className="text-primary" />}
+                <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
+                  <div className="flex items-center gap-4">
+                    <div className="w-12 h-12 bg-primary/20 rounded-lg flex items-center justify-center flex-shrink-0">
+                      {CalculatorIcon && <CalculatorIcon size={24} className="text-primary" />}
+                    </div>
+                    <div>
+                      <h3 className="text-white font-bold text-lg">{calculatorWidget.name}</h3>
+                      <p className="text-white/60 text-sm">{calculatorWidget.description}</p>
+                    </div>
                   </div>
-                </div>
-                <h3 className="text-white font-bold text-lg mb-2">{calculatorWidget.name}</h3>
-                <p className="text-white/60 text-sm mb-6">{calculatorWidget.description}</p>
-                <div className="flex flex-col sm:flex-row items-center sm:items-center justify-between gap-4 sm:gap-0">
-                  <div className="text-center sm:text-left">
-                    <p className="text-white/50 text-xs">Avulso</p>
-                    <p className="text-white font-bold text-xl">R$ {calculatorWidget.price}</p>
+                  <div className="flex flex-col sm:flex-row items-center sm:items-center gap-4 lg:ml-auto">
+                    <div className="text-center sm:text-left">
+                      <p className="text-white/50 text-xs">Avulso</p>
+                      <p className="text-white font-bold text-xl">R$ {calculatorWidget.price}</p>
+                    </div>
+                    <button
+                      onClick={() => calculatorWidget && handleAddWidget(calculatorWidget)}
+                      className="bg-primary text-primary-foreground px-4 py-2 rounded-lg font-semibold hover:shadow-lg transition-all duration-300 hover:scale-105 active:scale-95 text-sm w-full sm:w-auto text-center"
+                    >
+                      Adicionar
+                    </button>
                   </div>
-                  <button
-                    onClick={() => calculatorWidget && handleAddWidget(calculatorWidget)}
-                    className="bg-primary text-primary-foreground px-4 py-2 rounded-lg font-semibold hover:shadow-lg transition-all duration-300 hover:scale-105 active:scale-95 text-sm w-full sm:w-auto text-center"
-                  >
-                    Adicionar
-                  </button>
                 </div>
               </div>
               <CalculatorB2BPreview />
