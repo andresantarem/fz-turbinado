@@ -94,7 +94,7 @@ export default function CaseStudy() {
           {/* Comparison Container */}
           <div
             ref={sliderRef}
-            className="relative mx-auto w-full max-w-4xl aspect-video rounded-xl border border-border bg-black overflow-hidden cursor-ew-resize shadow-lg select-none touch-none"
+            className="relative mx-auto w-full max-w-3xl aspect-video rounded-xl border border-border bg-black overflow-hidden cursor-ew-resize shadow-lg select-none touch-none"
             onPointerDown={(event) => {
               event.preventDefault();
               sliderRef.current?.setPointerCapture(event.pointerId);
@@ -108,21 +108,21 @@ export default function CaseStudy() {
             onPointerLeave={() => setIsDragging(false)}
             onClick={(event) => updateSlider(event.clientX)}
           >
-            {/* Depois - fundo completo */}
+            {/* Antes - fundo completo */}
             <img
-              src="/images/depois_fz_turbinado.png"
-              alt="Depois"
+              src="/images/antes_fz_turbinado.png"
+              alt="Antes"
               className="absolute inset-0 w-full h-full object-contain"
             />
 
-            {/* Antes - clipe pela largura */}
+            {/* Depois - clipe pela largura */}
             <div
               className="absolute inset-0"
               style={{ clipPath: `inset(0 ${Math.max(0, 100 - sliderPercent)}% 0 0)` }}
             >
               <img
-                src="/images/antes_fz_turbinado.png"
-                alt="Antes"
+                src="/images/depois_fz_turbinado.png"
+                alt="Depois"
                 className="absolute inset-0 w-full h-full object-contain"
               />
             </div>
