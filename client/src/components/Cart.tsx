@@ -57,20 +57,6 @@ export default function Cart() {
 
   return (
     <>
-      {/* Floating cart button above WhatsApp */}
-      <button
-        onClick={() => openCart()}
-        className="fixed right-6 bottom-20 z-50 md:bottom-28 w-14 h-14 bg-foreground/6 border border-border rounded-full flex items-center justify-center text-foreground shadow-lg hover:shadow-xl hover:scale-110 transition-all duration-200"
-        aria-label="Abrir carrinho"
-      >
-        <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden>
-          <path d="M7 4h-2l-1 2h2l3.6 7.59-1.35 2.45C8.89 16.37 9 16.68 9 17c0 1.1-.9 2-2 2s-2-.9-2-2h-2c0 2.21 1.79 4 4 4s4-1.79 4-4c0-.32-.11-.63-.29-.88L11.1 14h5.45c.75 0 1.41-.41 1.75-1.03L21 6H7z" />
-        </svg>
-        {items.length > 0 && (
-          <span className="absolute -top-1 -right-1 bg-primary text-primary-foreground rounded-full w-5 h-5 flex items-center justify-center text-xs font-bold">{items.length}</span>
-        )}
-      </button>
-
       {/* Overlay */}
       <div
         className={`fixed inset-0 bg-black/40 z-40 transition-opacity ${isOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}
