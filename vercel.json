@@ -5,10 +5,7 @@
   "framework": "vite",
   "outputDirectory": "dist/public",
   "env": {
-    "VITE_API_URL": {
-      "description": "API URL for the application",
-      "default": "http://localhost:3000"
-    }
+    "VITE_API_URL": "@vite_api_url"
   },
   "functions": {
     "dist/index.js": {
