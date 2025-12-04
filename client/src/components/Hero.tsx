@@ -32,21 +32,34 @@ export default function Hero() {
                 <br />
                 <span className="gradient-text">Turbinada ao Máximo</span>
               </h1>
-              <p className="text-xl text-foreground/80 leading-relaxed max-w-2xl mx-auto lg:mx-0">
-                Widgets profissionais que transformam visitantes em clientes. Aumente conversão em até <span className="font-bold text-primary">+237%</span> em 7 dias.
+              <p className="text-xl text-foreground/80 leading-relaxed max-w-2xl mx-auto lg:mx-0 space-y-4">
+                <span>
+                  Sua loja na FácilZap ganha velocidade, fluidez e um visual que carrega instantaneamente, como as grandes marcas fazem. A experiência fica mais leve, mais intuitiva e naturalmente mais conversões.
+                </span>
+                <span className="block mt-4">
+                  E com widgets exclusivos e personalização sob medida, sua loja deixa de ser comum e passa a operar como um e-commerce realmente profissional.
+                </span>
               </p>
             </div>
 
             {/* Stats Row */}
             <div className="grid grid-cols-3 gap-3 fade-in-up stagger-3 text-center">
                 {[
-                    { num: '50+', label: 'Lojas Ativas' },
-                    { num: '+237%', label: 'Conversão' },
+                { num: '10+', label: 'Lojas Ativas' },
+                { num: '+237%', label: ['Aumento da', 'Conversão'] },
                     { num: '4.9/5', label: 'Avaliação' },
                   ].map((stat, idx) => (
                     <div key={idx} className="bg-card rounded-lg p-4 border border-border hover:border-primary transition-all duration-300 hover-lift flex flex-col items-center justify-center">
                       <div className="font-bold text-lg text-primary">{stat.num}</div>
-                      <div className="text-xs text-foreground/70">{stat.label}</div>
+                  <div className="text-xs text-foreground/70 leading-tight">
+                    {Array.isArray(stat.label)
+                      ? stat.label.map((line, lineIdx) => (
+                          <span key={lineIdx} className="block">
+                            {line}
+                          </span>
+                        ))
+                      : stat.label}
+                  </div>
                     </div>
                   ))}
             </div>
@@ -81,10 +94,6 @@ export default function Hero() {
               <div className="flex items-center gap-2 text-sm text-foreground/80">
                 <div className="w-2 h-2 bg-primary rounded-full" />
                 <span>Suporte VIP 24/7</span>
-              </div>
-              <div className="flex items-center gap-2 text-sm text-foreground/80">
-                <div className="w-2 h-2 bg-primary rounded-full" />
-                <span>Garantia de Resultado</span>
               </div>
             </div>
           </div>
