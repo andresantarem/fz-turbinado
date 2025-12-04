@@ -96,10 +96,10 @@ export default function Hero() {
             </div>
 
             {/* Animated frame */}
-            <div className="relative group">
-              <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-primary/5 rounded-2xl blur-2xl group-hover:blur-3xl transition-all duration-500" />
-              
-              <div className="relative bg-black rounded-2xl overflow-hidden shadow-2xl hover-lift">
+            <div className="relative group flex justify-center">
+              <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-primary/5 rounded-2xl blur-2xl group-hover:blur-3xl transition-all duration-500 max-w-2xl mx-auto" />
+
+              <div className="relative bg-black rounded-2xl overflow-hidden shadow-2xl hover-lift w-full max-w-2xl aspect-video">
                 <video
                   className="w-full h-full object-cover"
                   src="/videos/thiago.mov"
@@ -114,14 +114,8 @@ export default function Hero() {
                 </video>
                 
                 {/* Floating Badge */}
-                <div className="absolute -bottom-4 -left-4 bg-primary text-white px-6 py-3 rounded-xl shadow-lg font-bold text-sm md:text-base bounce-in"
-                  style={{ animationDelay: '0.5s' }}>
+                <div className="absolute left-1/2 -translate-x-1/2 bottom-3 bg-primary text-white px-6 py-3 rounded-xl shadow-lg font-bold text-sm md:text-base">
                   ⚡ Pronto em 7 dias
-                </div>
-
-                {/* Turbo Icon Floating */}
-                <div className="absolute -top-6 -right-6 w-20 h-20 bg-primary text-white rounded-full flex items-center justify-center shadow-lg float-animation">
-                  <TurboIcon className="w-12 h-12" />
                 </div>
               </div>
             </div>
