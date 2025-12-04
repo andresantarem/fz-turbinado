@@ -125,6 +125,7 @@ export default function Widgets() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12 relative z-10">
           {widgets.map((widget, idx) => {
             const Icon = widget.icon;
+            const isCalculator = widget.name === 'Calculadora Lucro B2B';
             return (
               <div
                 key={widget.id}
@@ -155,14 +156,15 @@ export default function Widgets() {
                     Adicionar
                   </button>
                 </div>
+
+                {isCalculator && (
+                  <div className="mt-8">
+                    <CalculatorB2BPreview />
+                  </div>
+                )}
               </div>
             );
           })}
-        </div>
-
-        {/* Calculadora Lucro B2B Preview */}
-        <div className="relative z-10 fade-in-up" style={{ animationDelay: `${widgets.length * 0.05}s` }}>
-          <CalculatorB2BPreview />
         </div>
       </div>
     </section>
@@ -195,10 +197,12 @@ function CalculatorB2BPreview() {
 
   const formatParts = (amount: number) => {
     const formatted = formatMoney(amount);
-    const parts = formatted.trim().split(/\s+/);
-    const currency = parts[0] ?? 'R$';
-    const value = parts.slice(1).join(' ') || '0,00';
-    return { currency, value };
+    const [currency, ...rest] = formatted.trim().split(/\s+/);
+    const numericFallback = rest.join(' ');
+    return {
+      currency: currency ?? 'R$',
+      value: numericFallback && numericFallback.length > 0 ? numericFallback : formatted.replace(currency ?? '', '').trim() || '0,00',
+    };
   };
 
   const atacado = parseMoney(wholesaleValue);
@@ -216,26 +220,26 @@ function CalculatorB2BPreview() {
   const calculatorStyles = `
     @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;600;700;800;900&display=swap');
 
-    #fz-lucro-widget,
-    #fz-lucro-widget * {
+    .fz-lucro-widget,
+    .fz-lucro-widget * {
       box-sizing: border-box;
       font-family: Fabriga, -apple-system, 'system-ui', 'avenir next', avenir, 'helvetica neue', helvetica, ubuntu, roboto, noto, 'segoe ui', arial, sans-serif;
     }
 
-    #fz-lucro-widget h1,
-    #fz-lucro-widget h2,
-    #fz-lucro-widget h3,
-    #fz-lucro-widget h4 {
+    .fz-lucro-widget h1,
+    .fz-lucro-widget h2,
+    .fz-lucro-widget h3,
+    .fz-lucro-widget h4 {
       font-family: 'Raleway', 'Klein Web', serif;
       font-weight: 800;
     }
 
-    #fz-lucro-widget .connect-simulator {
+    .fz-lucro-widget .connect-simulator {
       padding: 20px;
       background: #f5f5f5;
     }
 
-    #fz-lucro-widget .connect-sim-inner {
+    .fz-lucro-widget .connect-sim-inner {
       max-width: 1120px;
       margin: 0 auto;
       background: #000;
@@ -248,17 +252,17 @@ function CalculatorB2BPreview() {
       overflow: hidden;
     }
 
-    #fz-lucro-widget .connect-sim-left,
-    #fz-lucro-widget .connect-sim-right {
+    .fz-lucro-widget .connect-sim-left,
+    .fz-lucro-widget .connect-sim-right {
       padding: 32px 36px;
     }
 
-    #fz-lucro-widget .connect-sim-left {
+    .fz-lucro-widget .connect-sim-left {
       background: #fff;
       color: #000;
     }
 
-    #fz-lucro-widget .connect-sim-right {
+    .fz-lucro-widget .connect-sim-right {
       display: flex;
       align-items: center;
       justify-content: center;
@@ -266,7 +270,7 @@ function CalculatorB2BPreview() {
       background: radial-gradient(circle at top left, #1c3f2b 0, #06160c 55%, #051108 100%);
     }
 
-    #fz-lucro-widget .connect-sim-right::after {
+    .fz-lucro-widget .connect-sim-right::after {
       content: 'FÁCILZAP';
       position: absolute;
       bottom: -20px;
@@ -279,20 +283,20 @@ function CalculatorB2BPreview() {
       pointer-events: none;
     }
 
-    #fz-lucro-widget .connect-sim-header h2 {
+    .fz-lucro-widget .connect-sim-header h2 {
       margin: 4px 0 6px;
       font-size: 1.7rem;
       text-transform: uppercase;
       letter-spacing: 0.08em;
     }
 
-    #fz-lucro-widget .connect-sim-header p {
+    .fz-lucro-widget .connect-sim-header p {
       margin: 0;
       font-size: 0.95rem;
       color: #444;
     }
 
-    #fz-lucro-widget .connect-sim-brand {
+    .fz-lucro-widget .connect-sim-brand {
       display: inline-flex;
       align-items: center;
       justify-content: center;
@@ -304,11 +308,11 @@ function CalculatorB2BPreview() {
       border: 1px solid #000;
     }
 
-    #fz-lucro-widget .connect-sim-field {
+    .fz-lucro-widget .connect-sim-field {
       margin-top: 24px;
     }
 
-    #fz-lucro-widget .connect-sim-field label {
+    .fz-lucro-widget .connect-sim-field label {
       display: block;
       font-size: 0.78rem;
       font-weight: 700;
@@ -317,7 +321,7 @@ function CalculatorB2BPreview() {
       margin-bottom: 8px;
     }
 
-    #fz-lucro-widget .connect-sim-input-wrap {
+    .fz-lucro-widget .connect-sim-input-wrap {
       display: flex;
       align-items: center;
       border-radius: 14px;
@@ -326,14 +330,14 @@ function CalculatorB2BPreview() {
       background: #fafafa;
     }
 
-    #fz-lucro-widget .connect-sim-input-prefix {
+    .fz-lucro-widget .connect-sim-input-prefix {
       font-weight: 700;
       margin-right: 4px;
       color: #000;
       font-size: 0.9rem;
     }
 
-    #fz-lucro-widget .connect-sim-input {
+    .fz-lucro-widget .connect-sim-input {
       border: none;
       outline: none;
       background: transparent;
@@ -343,30 +347,30 @@ function CalculatorB2BPreview() {
       color: #111;
     }
 
-    #fz-lucro-widget .connect-sim-input::placeholder {
+    .fz-lucro-widget .connect-sim-input::placeholder {
       color: #aaa;
     }
 
-    #fz-lucro-widget .connect-sim-margin-row {
+    .fz-lucro-widget .connect-sim-margin-row {
       display: flex;
       justify-content: space-between;
       align-items: baseline;
       margin-bottom: 6px;
     }
 
-    #fz-lucro-widget .connect-sim-margin-title {
+    .fz-lucro-widget .connect-sim-margin-title {
       font-size: 0.78rem;
       letter-spacing: 0.12em;
       text-transform: uppercase;
       color: #777;
     }
 
-    #fz-lucro-widget .connect-sim-margin-value {
+    .fz-lucro-widget .connect-sim-margin-value {
       font-size: 1rem;
       font-weight: 700;
     }
 
-    #fz-lucro-widget .connect-sim-margin-range {
+    .fz-lucro-widget .connect-sim-margin-range {
       width: 100%;
       margin: 6px 0 16px;
       -webkit-appearance: none;
@@ -377,7 +381,7 @@ function CalculatorB2BPreview() {
       outline: none;
     }
 
-    #fz-lucro-widget .connect-sim-margin-range::-webkit-slider-thumb {
+    .fz-lucro-widget .connect-sim-margin-range::-webkit-slider-thumb {
       -webkit-appearance: none;
       appearance: none;
       width: 20px;
@@ -390,7 +394,7 @@ function CalculatorB2BPreview() {
       margin-top: -7px;
     }
 
-    #fz-lucro-widget .connect-sim-margin-range::-moz-range-thumb {
+    .fz-lucro-widget .connect-sim-margin-range::-moz-range-thumb {
       width: 20px;
       height: 20px;
       border-radius: 50%;
@@ -400,20 +404,20 @@ function CalculatorB2BPreview() {
       box-shadow: 0 0 0 4px rgba(15, 158, 85, 0.2);
     }
 
-    #fz-lucro-widget .connect-sim-margin-range::-moz-range-track {
+    .fz-lucro-widget .connect-sim-margin-range::-moz-range-track {
       height: 6px;
       background: #e3e3e3;
       border-radius: 999px;
     }
 
-    #fz-lucro-widget .connect-sim-margin-buttons {
+    .fz-lucro-widget .connect-sim-margin-buttons {
       display: grid;
       grid-template-columns: repeat(4, minmax(0, 1fr));
       gap: 8px;
       margin-top: 6px;
     }
 
-    #fz-lucro-widget .connect-sim-margin-btn {
+    .fz-lucro-widget .connect-sim-margin-btn {
       border-radius: 999px;
       border: 1px solid #0f0f0f;
       padding: 8px 4px;
@@ -425,19 +429,19 @@ function CalculatorB2BPreview() {
       transition: all 0.2s ease;
     }
 
-    #fz-lucro-widget .connect-sim-margin-btn:hover {
+    .fz-lucro-widget .connect-sim-margin-btn:hover {
       background: #0f0f0f;
       color: #fff;
     }
 
-    #fz-lucro-widget .connect-sim-margin-btn.is-active {
+    .fz-lucro-widget .connect-sim-margin-btn.is-active {
       background: #0f9e55;
       color: #fff;
       border-color: #0f9e55;
       box-shadow: 0 0 0 2px rgba(15, 158, 85, 0.35);
     }
 
-    #fz-lucro-widget .connect-sim-result {
+    .fz-lucro-widget .connect-sim-result {
       width: 100%;
       max-width: 420px;
       text-align: center;
@@ -445,7 +449,7 @@ function CalculatorB2BPreview() {
       z-index: 2;
     }
 
-    #fz-lucro-widget .connect-sim-result-label {
+    .fz-lucro-widget .connect-sim-result-label {
       text-transform: uppercase;
       letter-spacing: 0.18em;
       font-size: 0.75rem;
@@ -453,7 +457,7 @@ function CalculatorB2BPreview() {
       display: inline-block;
     }
 
-    #fz-lucro-widget .connect-sim-result-box {
+    .fz-lucro-widget .connect-sim-result-box {
       margin: 18px auto 16px;
       padding: 18px 26px;
       border-radius: 20px;
@@ -465,27 +469,27 @@ function CalculatorB2BPreview() {
       min-width: 260px;
     }
 
-    #fz-lucro-widget .connect-sim-result-currency {
+    .fz-lucro-widget .connect-sim-result-currency {
       font-size: 1.4rem;
       font-weight: 700;
     }
 
-    #fz-lucro-widget .connect-sim-profit-value {
+    .fz-lucro-widget .connect-sim-profit-value {
       font-size: 2.4rem;
       font-weight: 800;
       letter-spacing: 0.04em;
     }
 
-    #fz-lucro-widget .connect-sim-sale-text {
+    .fz-lucro-widget .connect-sim-sale-text {
       margin: 8px 0 20px;
       font-size: 0.95rem;
     }
 
-    #fz-lucro-widget .connect-sim-sale-text strong {
+    .fz-lucro-widget .connect-sim-sale-text strong {
       text-decoration: underline;
     }
 
-    #fz-lucro-widget .connect-sim-cta {
+    .fz-lucro-widget .connect-sim-cta {
       display: inline-flex;
       align-items: center;
       justify-content: center;
@@ -502,66 +506,66 @@ function CalculatorB2BPreview() {
       transition: all 0.2s ease;
     }
 
-    #fz-lucro-widget .connect-sim-cta:hover {
+    .fz-lucro-widget .connect-sim-cta:hover {
       background: transparent;
       color: #fff;
       transform: translateY(-1px);
       box-shadow: 0 10px 20px rgba(0, 0, 0, 0.55);
     }
 
-    #fz-lucro-widget .connect-sim-right::after {
+    .fz-lucro-widget .connect-sim-right::after {
       font-family: 'Raleway', 'Klein Web', serif;
     }
 
     @media (max-width: 900px) {
-      #fz-lucro-widget .connect-sim-inner {
+      .fz-lucro-widget .connect-sim-inner {
         grid-template-columns: 1fr;
       }
 
-      #fz-lucro-widget .connect-sim-right {
+      .fz-lucro-widget .connect-sim-right {
         padding-top: 0;
       }
     }
 
     @media (max-width: 600px) {
-      #fz-lucro-widget .connect-simulator {
+      .fz-lucro-widget .connect-simulator {
         padding: 16px 10px;
       }
 
-      #fz-lucro-widget .connect-sim-inner {
+      .fz-lucro-widget .connect-sim-inner {
         border-radius: 18px;
       }
 
-      #fz-lucro-widget .connect-sim-left,
-      #fz-lucro-widget .connect-sim-right {
+      .fz-lucro-widget .connect-sim-left,
+      .fz-lucro-widget .connect-sim-right {
         padding: 22px 18px;
       }
 
-      #fz-lucro-widget .connect-sim-result-box {
+      .fz-lucro-widget .connect-sim-result-box {
         min-width: 0;
         width: 100%;
       }
 
-      #fz-lucro-widget .connect-sim-result-currency {
+      .fz-lucro-widget .connect-sim-result-currency {
         font-size: 1.2rem;
       }
 
-      #fz-lucro-widget .connect-sim-profit-value {
+      .fz-lucro-widget .connect-sim-profit-value {
         font-size: 2rem;
       }
 
-      #fz-lucro-widget .connect-sim-right::after {
+      .fz-lucro-widget .connect-sim-right::after {
         display: none;
       }
 
-      #fz-lucro-widget .connect-sim-cta {
+      .fz-lucro-widget .connect-sim-cta {
         width: 100%;
       }
     }
   `;
 
   return (
-    <div id="fz-lucro-widget">
+    <div className="fz-lucro-widget">
       <style>{calculatorStyles}</style>
       <section className="connect-simulator">
         <div className="connect-sim-inner">
