@@ -7,7 +7,6 @@ const widgets = [
     id: 1,
     name: 'Redesign Visual',
     icon: Zap,
-    conversion: '+45%',
     price: 450,
     description: 'Design profissional e moderno para sua loja',
   },
@@ -15,7 +14,6 @@ const widgets = [
     id: 2,
     name: 'Carrossel Vitrine',
     icon: ShoppingCart,
-    conversion: '+35%',
     price: 280,
     description: 'Showcase dinâmico de produtos destacados',
   },
@@ -23,7 +21,6 @@ const widgets = [
     id: 3,
     name: 'Carrossel Institucional',
     icon: Users,
-    conversion: '+25%',
     price: 280,
     description: 'Apresente sua marca com estilo',
   },
@@ -31,7 +28,6 @@ const widgets = [
     id: 4,
     name: 'Calculadora Lucro B2B',
     icon: TrendingUp,
-    conversion: '+55%',
     price: 380,
     description: 'Simule lucro para revendedores',
   },
@@ -39,7 +35,6 @@ const widgets = [
     id: 5,
     name: 'Oferta Scarcity',
     icon: Clock,
-    conversion: '+68%',
     price: 310,
     description: 'Timer de urgência com barra de progresso',
   },
@@ -47,7 +42,6 @@ const widgets = [
     id: 6,
     name: 'Cupom One-Click',
     icon: Gift,
-    conversion: '+38%',
     price: 180,
     description: 'Desconto automático na primeira compra',
   },
@@ -55,7 +49,6 @@ const widgets = [
     id: 7,
     name: 'Filtro Inteligente',
     icon: Filter,
-    conversion: '+42%',
     price: 190,
     description: 'Filtros avançados para melhor busca',
   },
@@ -63,7 +56,6 @@ const widgets = [
     id: 8,
     name: 'Central de Links',
     icon: Link2,
-    conversion: '+30%',
     price: 150,
     description: 'Hub centralizado de comunicação',
   },
@@ -71,7 +63,6 @@ const widgets = [
     id: 9,
     name: 'Barra de Vantagens',
     icon: BarChart3,
-    conversion: '+28%',
     price: 150,
     description: 'Destaque seus diferenciais',
   },
@@ -79,7 +70,6 @@ const widgets = [
     id: 10,
     name: 'Barra Informativa',
     icon: Info,
-    conversion: '+15%',
     price: 120,
     description: 'Informações importantes em destaque',
   },
@@ -146,9 +136,6 @@ export default function Widgets() {
                   <div className="w-12 h-12 bg-primary/20 rounded-lg flex items-center justify-center group-hover:scale-110 group-hover:rotate-12 transition-transform duration-300">
                     <Icon size={24} className="text-primary" />
                   </div>
-                  <span className="badge-conversion bg-primary/20 text-primary pulse-subtle">
-                    {widget.conversion}
-                  </span>
                 </div>
 
                 {/* Content */}
