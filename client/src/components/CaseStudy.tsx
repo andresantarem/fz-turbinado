@@ -80,7 +80,7 @@ export default function CaseStudy() {
     setSliderPercent(prev => (prev <= 50 ? 100 : 0));
   };
   return (
-    <section id="case" className="section-dark relative overflow-hidden">
+    <section id="case" className="section-dark relative overflow-hidden pt-8 md:pt-12 pb-12 md:pb-20">
       {/* Animated Background */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-0 left-1/2 w-96 h-96 bg-primary/5 rounded-full blur-3xl animate-pulse" />

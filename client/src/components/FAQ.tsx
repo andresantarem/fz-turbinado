@@ -40,7 +40,7 @@ export default function FAQ() {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   return (
-    <section id="faq" className="section-dark">
+    <section id="faq" className="section-dark pt-8 md:pt-12 pb-12 md:pb-20">
       <div className="container">
         <div className="text-center mb-16 fade-in-up">
           <h2 className="heading-lg mb-4 text-foreground">Perguntas Frequentes</h2>

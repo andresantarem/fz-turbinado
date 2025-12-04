@@ -36,7 +36,7 @@ const plans = [
   },
   {
     name: 'Personalizado',
-    price: 2900,
+    price: 2997,
     popular: false,
     description: 'Projeto sob medida para seu negócio',
     features: [
@@ -68,7 +68,7 @@ export default function Plans() {
     showToast(`✅ Plano ${plan.name} adicionado!`);
   };
   return (
-    <section id="planos" className="section-dark relative overflow-hidden">
+    <section id="planos" className="section-dark relative overflow-hidden pt-8 md:pt-12 pb-12 md:pb-20">
       {/* Animated Background */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-20 right-20 w-80 h-80 bg-primary/5 rounded-full blur-3xl animate-pulse" />
