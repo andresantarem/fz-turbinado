@@ -381,20 +381,7 @@
   .stagger-4 { animation-delay: 0.4s; }
   .stagger-5 { animation-delay: 0.5s; }
 
-  .rocket-launch {
-    animation: rocketLaunch 3s ease-out infinite;
-  }
-
-  @keyframes rocketLaunch {
-    0% {
-      transform: translateY(0) rotate(0deg);
-      opacity: 1;
-    }
-    100% {
-      transform: translateY(-60px) rotate(15deg);
-      opacity: 0;
-    }
-  }
+  /* rocket-launch animation removed (no animated rockets on page) */
 
   .turbine-spin {
     animation: turbineSpin 4s linear infinite;
