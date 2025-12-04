@@ -9,6 +9,8 @@ import { vitePluginManusRuntime } from "vite-plugin-manus-runtime";
 const plugins = [react(), tailwindcss(), jsxLocPlugin(), vitePluginManusRuntime()];
 
 export default defineConfig({
+  // For GitHub Pages deployment, set base to repo name when GITHUB_PAGES env is present
+  base: process.env.GITHUB_PAGES ? "/fz-turbinado/" : "/",
   plugins,
   resolve: {
     alias: {
