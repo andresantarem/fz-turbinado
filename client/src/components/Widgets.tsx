@@ -125,7 +125,6 @@ export default function Widgets() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12 relative z-10">
           {widgets.map((widget, idx) => {
             const Icon = widget.icon;
-            const isCalculator = widget.name === 'Calculadora Lucro B2B';
             return (
               <div
                 key={widget.id}
@@ -156,15 +155,14 @@ export default function Widgets() {
                     Adicionar
                   </button>
                 </div>
-
-                {isCalculator && (
-                  <div className="mt-8">
-                    <CalculatorB2BPreview />
-                  </div>
-                )}
               </div>
             );
           })}
+        </div>
+
+        {/* Calculadora Lucro B2B Preview */}
+        <div className="relative z-10 fade-in-up mt-12" style={{ animationDelay: `${widgets.length * 0.05}s` }}>
+          <CalculatorB2BPreview />
         </div>
       </div>
     </section>
