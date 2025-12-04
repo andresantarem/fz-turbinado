@@ -1,5 +1,4 @@
 import { ArrowRight, Star, Zap } from 'lucide-react';
-import TurboIcon from './TurboIcon';
 
 export default function Hero() {
   return (
@@ -40,27 +39,37 @@ export default function Hero() {
 
             {/* Stats Row */}
             <div className="grid grid-cols-3 gap-3 fade-in-up stagger-3 text-center">
-              {[
-                { num: '+237%', label: 'Conversão' },
-                { num: '4.9/5', label: 'Avaliação' },
-              ].map((stat, idx) => (
-                <div key={idx} className="bg-card rounded-lg p-4 border border-border hover:border-primary transition-all duration-300 hover-lift flex flex-col items-center justify-center">
-                  <div className="font-bold text-lg text-primary">{stat.num}</div>
-                  <div className="text-xs text-foreground/70">{stat.label}</div>
-                </div>
-              ))}
+                {[
+                    { num: '50+', label: 'Lojas Ativas' },
+                    { num: '+237%', label: 'Conversão' },
+                    { num: '4.9/5', label: 'Avaliação' },
+                  ].map((stat, idx) => (
+                    <div key={idx} className="bg-card rounded-lg p-4 border border-border hover:border-primary transition-all duration-300 hover-lift flex flex-col items-center justify-center">
+                      <div className="font-bold text-lg text-primary">{stat.num}</div>
+                      <div className="text-xs text-foreground/70">{stat.label}</div>
+                    </div>
+                  ))}
             </div>
 
             {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row gap-4 fade-in-up stagger-4 pt-4 items-center sm:items-stretch sm:justify-start">
-              <button className="btn-primary flex items-center justify-center gap-2 group text-lg py-4 w-full sm:w-auto">
-                <TurboIcon className="w-5 h-5" />
-                Turbinar Agora
-                <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
-              </button>
-              <button className="btn-secondary flex items-center justify-center gap-2 text-lg py-4 w-full sm:w-auto">
-                Ver Demo Grátis
-              </button>
+                  <a
+                    href="https://wa.me/5562992960658?text=Tenho%20interesse%20nos%20widgets%20da%20Bravatus.%20Por%20favor%20entre%20em%20contato."
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn-primary flex items-center justify-center gap-2 group text-lg py-4 w-full sm:w-auto"
+                  >
+                    Turbinar Agora
+                    <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
+                  </a>
+                  <a
+                    href="https://metodofz.com.br/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn-secondary flex items-center justify-center gap-2 text-lg py-4 w-full sm:w-auto"
+                  >
+                    Ver Demo Grátis
+                  </a>
             </div>
 
             {/* Trust Badges */}
