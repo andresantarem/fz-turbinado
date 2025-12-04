@@ -171,7 +171,7 @@ export default function Plans() {
         </div>
 
         {/* Additional Info */}
-        <div className="bg-card rounded-xl p-8 text-center relative z-10 fade-in-up border border-border">
+        <div id="gestao" className="bg-card rounded-xl p-8 text-center relative z-10 fade-in-up border border-border">
           <h3 className="text-lg font-bold text-foreground mb-2">
             Já tem uma loja e precisa de manutenção?
           </h3>

@@ -172,17 +172,6 @@ export default function Widgets() {
             );
           })}
         </div>
-
-        {/* Featured Image */}
-        <div className="mt-16 pt-16 border-t border-white/10 relative z-10 fade-in-up">
-          <div className="rounded-2xl overflow-hidden hover-lift">
-            <img
-              src="/images/widgets-showcase.png"
-              alt="Showcase de todos os 10 widgets"
-              className="w-full h-auto"
-            />
-          </div>
-        </div>
       </div>
     </section>
   );

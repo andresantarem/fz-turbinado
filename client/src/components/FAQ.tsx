@@ -87,9 +87,14 @@ export default function FAQ() {
         {/* CTA */}
         <div className="mt-16 text-center fade-in-up">
           <p className="text-foreground/80 mb-6">Ainda tem dúvidas?</p>
-          <button className="btn-primary">
+          <a
+            href="https://wa.me/5562992960658?text=Tenho%20interesse%20nos%20widgets%20da%20Bravatus.%20Por%20favor%20entre%20em%20contato."
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn-primary inline-flex items-center justify-center"
+          >
             Fale com Nosso Especialista 🚀
-          </button>
+          </a>
         </div>
       </div>
     </section>

@@ -1,10 +1,10 @@
-import { Mail, Phone, MapPin, Facebook, Instagram, Linkedin } from 'lucide-react';
+import { Mail, Phone, MapPin, Instagram, MessageCircle } from 'lucide-react';
 
 export default function Footer() {
   return (
     <footer className="bg-background text-foreground border-t border-border">
       <div className="container py-16 md:py-24 text-center md:text-left">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
           {/* Brand */}
           <div className="flex flex-col items-center md:items-start">
             <div className="flex items-center gap-2 mb-4 justify-center md:justify-start">
@@ -24,35 +24,24 @@ export default function Footer() {
             <h4 className="font-bold mb-4 text-foreground">Produtos</h4>
             <ul className="space-y-2 text-sm text-foreground/70">
               <li>
-                <button className="hover:text-primary transition-colors w-full text-center md:w-auto md:text-left">Widgets</button>
+                <a href="#widgets" className="hover:text-primary transition-colors w-full text-center md:w-auto md:text-left">
+                  Widgets
+                </a>
               </li>
               <li>
-                <button className="hover:text-primary transition-colors w-full text-center md:w-auto md:text-left">Planos</button>
+                <a href="#planos" className="hover:text-primary transition-colors w-full text-center md:w-auto md:text-left">
+                  Planos
+                </a>
               </li>
               <li>
-                <button className="hover:text-primary transition-colors w-full text-center md:w-auto md:text-left">Case de Sucesso</button>
+                <a href="#case" className="hover:text-primary transition-colors w-full text-center md:w-auto md:text-left">
+                  Case de Sucesso
+                </a>
               </li>
               <li>
-                <button className="hover:text-primary transition-colors w-full text-center md:w-auto md:text-left">Gestão & Suporte</button>
-              </li>
-            </ul>
-          </div>
-
-          {/* Company */}
-          <div className="flex flex-col items-center md:items-start">
-            <h4 className="font-bold mb-4 text-foreground">Empresa</h4>
-            <ul className="space-y-2 text-sm text-foreground/70">
-              <li>
-                <button className="hover:text-primary transition-colors w-full text-center md:w-auto md:text-left">Sobre Nós</button>
-              </li>
-              <li>
-                <button className="hover:text-primary transition-colors w-full text-center md:w-auto md:text-left">Blog</button>
-              </li>
-              <li>
-                <button className="hover:text-primary transition-colors w-full text-center md:w-auto md:text-left">Política de Privacidade</button>
-              </li>
-              <li>
-                <button className="hover:text-primary transition-colors w-full text-center md:w-auto md:text-left">Termos de Serviço</button>
+                <a href="#gestao" className="hover:text-primary transition-colors w-full text-center md:w-auto md:text-left">
+                  Gestão &amp; Suporte
+                </a>
               </li>
             </ul>
           </div>
@@ -100,15 +89,22 @@ export default function Footer() {
               © 2025 Bravatus. Todos os direitos reservados.
             </p>
             <div className="flex items-center gap-4">
-              <button className="text-foreground/70 hover:text-primary transition-colors">
-                <Facebook size={20} />
-              </button>
-              <button className="text-foreground/70 hover:text-primary transition-colors">
+              <a
+                href="https://www.instagram.com/bravatus/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-foreground/70 hover:text-primary transition-colors"
+              >
                 <Instagram size={20} />
-              </button>
-              <button className="text-foreground/70 hover:text-primary transition-colors">
-                <Linkedin size={20} />
-              </button>
+              </a>
+              <a
+                href="https://wa.me/5562992960658?text=Tenho%20interesse%20nos%20widgets%20da%20Bravatus.%20Por%20favor%20entre%20em%20contato."
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-foreground/70 hover:text-primary transition-colors"
+              >
+                <MessageCircle size={20} />
+              </a>
             </div>
           </div>
         </div>
