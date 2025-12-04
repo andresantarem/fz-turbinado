@@ -159,7 +159,347 @@ export default function Widgets() {
             );
           })}
         </div>
+
+        {/* Calculadora Lucro B2B Preview */}
+        <div className="relative z-10 fade-in-up" style={{ animationDelay: `${widgets.length * 0.05}s` }}>
+          <CalculatorB2BPreview />
+        </div>
       </div>
     </section>
+  );
+}
+
+function CalculatorB2BPreview() {
+  const calculatorStyles = `
+    .fz-calc-preview {
+      position: relative;
+      border-radius: 28px;
+      overflow: hidden;
+      background: linear-gradient(135deg, #020a06, #071b10 60%, #0b2715 100%);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: 0 28px 60px rgba(6, 17, 10, 0.45);
+      color: #f1f9f4;
+    }
+
+    .fz-calc-preview__inner {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0;
+    }
+
+    .fz-calc-preview__info {
+      padding: 48px 40px;
+      background: rgba(255, 255, 255, 0.92);
+      color: #0b0b0b;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: relative;
+    }
+
+    .fz-calc-preview__badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(11, 11, 11, 0.16);
+      background: #ffffff;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      margin-bottom: 18px;
+    }
+
+    .fz-calc-preview__title {
+      font-family: 'Raleway', 'Klein Web', serif;
+      font-weight: 800;
+      font-size: 2.1rem;
+      letter-spacing: 0.02em;
+      margin-bottom: 12px;
+    }
+
+    .fz-calc-preview__description {
+      font-size: 1rem;
+      line-height: 1.6;
+      color: #3c3c3c;
+      max-width: 420px;
+      margin-bottom: 32px;
+    }
+
+    .fz-calc-preview__price {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      gap: 10px;
+      margin-bottom: 28px;
+    }
+
+    .fz-calc-preview__price-label {
+      font-size: 0.82rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #6c6c6c;
+      font-weight: 700;
+    }
+
+    .fz-calc-preview__price-value {
+      font-size: 2rem;
+      font-weight: 800;
+      color: #0b0b0b;
+    }
+
+    .fz-calc-preview__button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      border-radius: 999px;
+      padding: 14px 28px;
+      background: #0f9e55;
+      border: none;
+      color: #ffffff;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      cursor: pointer;
+      font-size: 0.95rem;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .fz-calc-preview__button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 14px 32px rgba(15, 158, 85, 0.35);
+    }
+
+    .fz-calc-preview__widget {
+      position: relative;
+      padding: 48px 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .fz-calc-preview__widget::after {
+      content: 'FZ B2B';
+      position: absolute;
+      top: 28px;
+      right: -60px;
+      font-size: 4.8rem;
+      font-weight: 900;
+      letter-spacing: 0.22em;
+      color: rgba(255, 255, 255, 0.04);
+      transform: rotate(-90deg);
+      pointer-events: none;
+    }
+
+    .fz-calc-card {
+      width: 100%;
+      max-width: 420px;
+      border-radius: 26px;
+      background: rgba(3, 11, 6, 0.8);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      padding: 32px;
+      backdrop-filter: blur(18px);
+      position: relative;
+    }
+
+    .fz-calc-card__brand {
+      display: inline-flex;
+      align-items: center;
+      padding: 6px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.35);
+      letter-spacing: 0.18em;
+      font-size: 0.72rem;
+    }
+
+    .fz-calc-card__heading {
+      margin: 18px 0 24px;
+      font-size: 1.35rem;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .fz-calc-card__field {
+      margin-bottom: 20px;
+    }
+
+    .fz-calc-card__label {
+      display: block;
+      font-size: 0.78rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.56);
+      margin-bottom: 8px;
+    }
+
+    .fz-calc-card__input {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      border-radius: 18px;
+      padding: 12px 16px;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      background: rgba(3, 13, 8, 0.65);
+    }
+
+    .fz-calc-card__input span {
+      font-weight: 700;
+      letter-spacing: 0.08em;
+    }
+
+    .fz-calc-card__input strong {
+      font-size: 1.1rem;
+      letter-spacing: 0.04em;
+    }
+
+    .fz-calc-card__slider {
+      width: 100%;
+      -webkit-appearance: none;
+      appearance: none;
+      height: 6px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.18);
+      outline: none;
+    }
+
+    .fz-calc-card__slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: #0f9e55;
+      border: 2px solid #ffffff;
+      box-shadow: 0 0 0 6px rgba(15, 158, 85, 0.18);
+    }
+
+    .fz-calc-card__result {
+      margin-top: 28px;
+      padding: 18px;
+      border-radius: 20px;
+      border: 1px dashed rgba(255, 255, 255, 0.4);
+      text-align: center;
+      background: rgba(6, 20, 11, 0.6);
+    }
+
+    .fz-calc-card__result span {
+      display: block;
+      font-size: 0.72rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      opacity: 0.65;
+      margin-bottom: 6px;
+    }
+
+    .fz-calc-card__result strong {
+      font-size: 1.8rem;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+    }
+
+    .fz-calc-card__footer {
+      margin-top: 16px;
+      font-size: 0.88rem;
+      color: rgba(255, 255, 255, 0.78);
+    }
+
+    @media (max-width: 1024px) {
+      .fz-calc-preview__inner {
+        grid-template-columns: 1fr;
+      }
+
+      .fz-calc-preview__info,
+      .fz-calc-preview__widget {
+        padding: 36px 28px;
+      }
+
+      .fz-calc-preview__widget::after {
+        display: none;
+      }
+
+      .fz-calc-preview__info {
+        border-bottom: 1px solid rgba(11, 11, 11, 0.08);
+      }
+    }
+
+    @media (max-width: 640px) {
+      .fz-calc-preview {
+        border-radius: 22px;
+      }
+
+      .fz-calc-preview__info {
+        padding: 32px 22px;
+      }
+
+      .fz-calc-preview__title {
+        font-size: 1.8rem;
+      }
+
+      .fz-calc-preview__button {
+        width: 100%;
+        justify-content: center;
+      }
+
+      .fz-calc-card {
+        padding: 26px 22px;
+      }
+
+      .fz-calc-card__heading {
+        font-size: 1.1rem;
+        letter-spacing: 0.08em;
+      }
+    }
+  `;
+
+  return (
+    <div className="fz-calc-preview">
+      <style>{calculatorStyles}</style>
+      <div className="fz-calc-preview__inner">
+        <div className="fz-calc-preview__info">
+          <span className="fz-calc-preview__badge">FácilZap Turbinado</span>
+          <h3 className="fz-calc-preview__title">Calculadora de Lucro B2B</h3>
+          <p className="fz-calc-preview__description">
+            Mostre para seus revendedores o potencial de ganho em segundos. Configure margens, ajuste preços e gere confiança imediata com um simulador elegante e responsivo.
+          </p>
+          <div className="fz-calc-preview__price">
+            <span className="fz-calc-preview__price-label">Investimento único</span>
+            <span className="fz-calc-preview__price-value">R$ 380</span>
+          </div>
+          <button type="button" className="fz-calc-preview__button">
+            Adicionar ao Pacote
+          </button>
+        </div>
+
+        <div className="fz-calc-preview__widget">
+          <div className="fz-calc-card">
+            <span className="fz-calc-card__brand">FZ TURBINADO</span>
+            <h4 className="fz-calc-card__heading">Simule seu lucro</h4>
+
+            <div className="fz-calc-card__field">
+              <span className="fz-calc-card__label">Preço de atacado</span>
+              <div className="fz-calc-card__input">
+                <span>R$</span>
+                <strong>35,00</strong>
+              </div>
+            </div>
+
+            <div className="fz-calc-card__field">
+              <span className="fz-calc-card__label">Margem de lucro</span>
+              <input className="fz-calc-card__slider" type="range" min="10" max="300" step="10" value="100" readOnly />
+            </div>
+
+            <div className="fz-calc-card__result">
+              <span>Lucro estimado</span>
+              <strong>R$ 35,00</strong>
+            </div>
+            <p className="fz-calc-card__footer">Preço sugerido de venda: <strong>R$ 70,00</strong></p>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }
