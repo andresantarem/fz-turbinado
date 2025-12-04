@@ -1,6 +1,6 @@
 import { useCart } from '@/contexts/CartContext';
 import { ShoppingCart, Zap, TrendingUp, Gift, Filter, Link2, BarChart3, Clock, Users, Info, Sparkles } from 'lucide-react';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 
 const widgets = [
   {
@@ -76,7 +76,7 @@ const widgets = [
 ];
 
 export default function Widgets() {
-  const { addItem, openCart, canAddWidget } = useCart();
+  const { addItem, canAddWidget } = useCart();
   const [toast, setToast] = useState<string | null>(null);
 
   const showToast = (msg: string) => {
@@ -170,336 +170,481 @@ export default function Widgets() {
 }
 
 function CalculatorB2BPreview() {
+  const [wholesaleValue, setWholesaleValue] = useState('35,00');
+  const [margin, setMargin] = useState(100);
+  const marginOptions = [50, 100, 150, 200];
+
+  const currencyFormatter = useMemo(
+    () =>
+      new Intl.NumberFormat('pt-BR', {
+        style: 'currency',
+        currency: 'BRL',
+        minimumFractionDigits: 2,
+      }),
+    []
+  );
+
+  const parseMoney = (value: string) => {
+    if (!value) return 0;
+    const cleaned = value.replace(/[R$\s]/g, '').replace(/\./g, '').replace(',', '.');
+    const parsed = Number(cleaned);
+    return Number.isNaN(parsed) ? 0 : parsed;
+  };
+
+  const formatMoney = (amount: number) => currencyFormatter.format(amount || 0);
+
+  const formatParts = (amount: number) => {
+    const formatted = formatMoney(amount);
+    const parts = formatted.trim().split(/\s+/);
+    const currency = parts[0] ?? 'R$';
+    const value = parts.slice(1).join(' ') || '0,00';
+    return { currency, value };
+  };
+
+  const atacado = parseMoney(wholesaleValue);
+  const lucro = atacado * (margin / 100);
+  const venda = atacado + lucro;
+
+  const profitParts = formatParts(lucro);
+  const saleFormatted = formatMoney(venda);
+
+  const handleBlurPrice = () => {
+    const formatted = formatMoney(parseMoney(wholesaleValue)).replace('R$', '').trim();
+    setWholesaleValue(formatted);
+  };
+
   const calculatorStyles = `
-    .fz-calc-preview {
-      position: relative;
-      border-radius: 28px;
-      overflow: hidden;
-      background: linear-gradient(135deg, #020a06, #071b10 60%, #0b2715 100%);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      box-shadow: 0 28px 60px rgba(6, 17, 10, 0.45);
-      color: #f1f9f4;
+    @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;600;700;800;900&display=swap');
+
+    #fz-lucro-widget,
+    #fz-lucro-widget * {
+      box-sizing: border-box;
+      font-family: Fabriga, -apple-system, 'system-ui', 'avenir next', avenir, 'helvetica neue', helvetica, ubuntu, roboto, noto, 'segoe ui', arial, sans-serif;
     }
 
-    .fz-calc-preview__inner {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 0;
-    }
-
-    .fz-calc-preview__info {
-      padding: 48px 40px;
-      background: rgba(255, 255, 255, 0.92);
-      color: #0b0b0b;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      position: relative;
-    }
-
-    .fz-calc-preview__badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 6px 14px;
-      border-radius: 999px;
-      border: 1px solid rgba(11, 11, 11, 0.16);
-      background: #ffffff;
-      font-size: 0.75rem;
-      font-weight: 700;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      margin-bottom: 18px;
-    }
-
-    .fz-calc-preview__title {
+    #fz-lucro-widget h1,
+    #fz-lucro-widget h2,
+    #fz-lucro-widget h3,
+    #fz-lucro-widget h4 {
       font-family: 'Raleway', 'Klein Web', serif;
       font-weight: 800;
-      font-size: 2.1rem;
-      letter-spacing: 0.02em;
-      margin-bottom: 12px;
     }
 
-    .fz-calc-preview__description {
-      font-size: 1rem;
-      line-height: 1.6;
-      color: #3c3c3c;
-      max-width: 420px;
-      margin-bottom: 32px;
+    #fz-lucro-widget .connect-simulator {
+      padding: 20px;
+      background: #f5f5f5;
     }
 
-    .fz-calc-preview__price {
+    #fz-lucro-widget .connect-sim-inner {
+      max-width: 1120px;
+      margin: 0 auto;
+      background: #000;
+      color: #fff;
+      border-radius: 26px;
+      border: 2px solid #fff;
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.35);
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+      overflow: hidden;
+    }
+
+    #fz-lucro-widget .connect-sim-left,
+    #fz-lucro-widget .connect-sim-right {
+      padding: 32px 36px;
+    }
+
+    #fz-lucro-widget .connect-sim-left {
+      background: #fff;
+      color: #000;
+    }
+
+    #fz-lucro-widget .connect-sim-right {
       display: flex;
-      flex-wrap: wrap;
-      align-items: baseline;
-      gap: 10px;
-      margin-bottom: 28px;
-    }
-
-    .fz-calc-preview__price-label {
-      font-size: 0.82rem;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: #6c6c6c;
-      font-weight: 700;
-    }
-
-    .fz-calc-preview__price-value {
-      font-size: 2rem;
-      font-weight: 800;
-      color: #0b0b0b;
-    }
-
-    .fz-calc-preview__button {
-      display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: 10px;
-      border-radius: 999px;
-      padding: 14px 28px;
-      background: #0f9e55;
-      border: none;
-      color: #ffffff;
-      font-weight: 800;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      cursor: pointer;
-      font-size: 0.95rem;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-    }
-
-    .fz-calc-preview__button:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 14px 32px rgba(15, 158, 85, 0.35);
-    }
-
-    .fz-calc-preview__widget {
       position: relative;
-      padding: 48px 44px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      background: radial-gradient(circle at top left, #1c3f2b 0, #06160c 55%, #051108 100%);
     }
 
-    .fz-calc-preview__widget::after {
-      content: 'FZ B2B';
+    #fz-lucro-widget .connect-sim-right::after {
+      content: 'FÁCILZAP';
       position: absolute;
-      top: 28px;
-      right: -60px;
-      font-size: 4.8rem;
+      bottom: -20px;
+      right: -12px;
+      font-size: 4rem;
       font-weight: 900;
-      letter-spacing: 0.22em;
-      color: rgba(255, 255, 255, 0.04);
+      letter-spacing: 0.16em;
+      color: rgba(255, 255, 255, 0.05);
       transform: rotate(-90deg);
       pointer-events: none;
     }
 
-    .fz-calc-card {
-      width: 100%;
-      max-width: 420px;
-      border-radius: 26px;
-      background: rgba(3, 11, 6, 0.8);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      padding: 32px;
-      backdrop-filter: blur(18px);
-      position: relative;
-    }
-
-    .fz-calc-card__brand {
-      display: inline-flex;
-      align-items: center;
-      padding: 6px 12px;
-      border-radius: 999px;
-      border: 1px solid rgba(255, 255, 255, 0.35);
-      letter-spacing: 0.18em;
-      font-size: 0.72rem;
-    }
-
-    .fz-calc-card__heading {
-      margin: 18px 0 24px;
-      font-size: 1.35rem;
-      font-weight: 800;
-      letter-spacing: 0.1em;
+    #fz-lucro-widget .connect-sim-header h2 {
+      margin: 4px 0 6px;
+      font-size: 1.7rem;
       text-transform: uppercase;
-    }
-
-    .fz-calc-card__field {
-      margin-bottom: 20px;
-    }
-
-    .fz-calc-card__label {
-      display: block;
-      font-size: 0.78rem;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: rgba(255, 255, 255, 0.56);
-      margin-bottom: 8px;
-    }
-
-    .fz-calc-card__input {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      border-radius: 18px;
-      padding: 12px 16px;
-      border: 1px solid rgba(255, 255, 255, 0.18);
-      background: rgba(3, 13, 8, 0.65);
-    }
-
-    .fz-calc-card__input span {
-      font-weight: 700;
       letter-spacing: 0.08em;
     }
 
-    .fz-calc-card__input strong {
-      font-size: 1.1rem;
-      letter-spacing: 0.04em;
+    #fz-lucro-widget .connect-sim-header p {
+      margin: 0;
+      font-size: 0.95rem;
+      color: #444;
     }
 
-    .fz-calc-card__slider {
-      width: 100%;
-      -webkit-appearance: none;
-      appearance: none;
-      height: 6px;
-      border-radius: 999px;
-      background: rgba(255, 255, 255, 0.18);
-      outline: none;
-    }
-
-    .fz-calc-card__slider::-webkit-slider-thumb {
-      -webkit-appearance: none;
-      appearance: none;
-      width: 18px;
-      height: 18px;
-      border-radius: 50%;
-      background: #0f9e55;
-      border: 2px solid #ffffff;
-      box-shadow: 0 0 0 6px rgba(15, 158, 85, 0.18);
-    }
-
-    .fz-calc-card__result {
-      margin-top: 28px;
-      padding: 18px;
-      border-radius: 20px;
-      border: 1px dashed rgba(255, 255, 255, 0.4);
-      text-align: center;
-      background: rgba(6, 20, 11, 0.6);
-    }
-
-    .fz-calc-card__result span {
-      display: block;
-      font-size: 0.72rem;
+    #fz-lucro-widget .connect-sim-brand {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 4px 10px;
+      font-size: 0.78rem;
       letter-spacing: 0.16em;
       text-transform: uppercase;
-      opacity: 0.65;
+      border-radius: 999px;
+      border: 1px solid #000;
+    }
+
+    #fz-lucro-widget .connect-sim-field {
+      margin-top: 24px;
+    }
+
+    #fz-lucro-widget .connect-sim-field label {
+      display: block;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    #fz-lucro-widget .connect-sim-input-wrap {
+      display: flex;
+      align-items: center;
+      border-radius: 14px;
+      border: 1px solid #e0e0e0;
+      padding: 10px 14px;
+      background: #fafafa;
+    }
+
+    #fz-lucro-widget .connect-sim-input-prefix {
+      font-weight: 700;
+      margin-right: 4px;
+      color: #000;
+      font-size: 0.9rem;
+    }
+
+    #fz-lucro-widget .connect-sim-input {
+      border: none;
+      outline: none;
+      background: transparent;
+      width: 100%;
+      font-size: 1rem;
+      font-weight: 600;
+      color: #111;
+    }
+
+    #fz-lucro-widget .connect-sim-input::placeholder {
+      color: #aaa;
+    }
+
+    #fz-lucro-widget .connect-sim-margin-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
       margin-bottom: 6px;
     }
 
-    .fz-calc-card__result strong {
-      font-size: 1.8rem;
+    #fz-lucro-widget .connect-sim-margin-title {
+      font-size: 0.78rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #777;
+    }
+
+    #fz-lucro-widget .connect-sim-margin-value {
+      font-size: 1rem;
+      font-weight: 700;
+    }
+
+    #fz-lucro-widget .connect-sim-margin-range {
+      width: 100%;
+      margin: 6px 0 16px;
+      -webkit-appearance: none;
+      appearance: none;
+      height: 6px;
+      background: #e3e3e3;
+      border-radius: 999px;
+      outline: none;
+    }
+
+    #fz-lucro-widget .connect-sim-margin-range::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: #0f9e55;
+      border: 2px solid #fff;
+      cursor: pointer;
+      box-shadow: 0 0 0 4px rgba(15, 158, 85, 0.2);
+      margin-top: -7px;
+    }
+
+    #fz-lucro-widget .connect-sim-margin-range::-moz-range-thumb {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: #0f9e55;
+      border: 2px solid #fff;
+      cursor: pointer;
+      box-shadow: 0 0 0 4px rgba(15, 158, 85, 0.2);
+    }
+
+    #fz-lucro-widget .connect-sim-margin-range::-moz-range-track {
+      height: 6px;
+      background: #e3e3e3;
+      border-radius: 999px;
+    }
+
+    #fz-lucro-widget .connect-sim-margin-buttons {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 8px;
+      margin-top: 6px;
+    }
+
+    #fz-lucro-widget .connect-sim-margin-btn {
+      border-radius: 999px;
+      border: 1px solid #0f0f0f;
+      padding: 8px 4px;
+      font-size: 0.86rem;
+      font-weight: 600;
+      background: #fff;
+      color: #000;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    #fz-lucro-widget .connect-sim-margin-btn:hover {
+      background: #0f0f0f;
+      color: #fff;
+    }
+
+    #fz-lucro-widget .connect-sim-margin-btn.is-active {
+      background: #0f9e55;
+      color: #fff;
+      border-color: #0f9e55;
+      box-shadow: 0 0 0 2px rgba(15, 158, 85, 0.35);
+    }
+
+    #fz-lucro-widget .connect-sim-result {
+      width: 100%;
+      max-width: 420px;
+      text-align: center;
+      position: relative;
+      z-index: 2;
+    }
+
+    #fz-lucro-widget .connect-sim-result-label {
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      font-size: 0.75rem;
+      opacity: 0.82;
+      display: inline-block;
+    }
+
+    #fz-lucro-widget .connect-sim-result-box {
+      margin: 18px auto 16px;
+      padding: 18px 26px;
+      border-radius: 20px;
+      border: 2px dashed rgba(255, 255, 255, 0.7);
+      display: inline-flex;
+      align-items: baseline;
+      gap: 6px;
+      background: rgba(0, 0, 0, 0.35);
+      min-width: 260px;
+    }
+
+    #fz-lucro-widget .connect-sim-result-currency {
+      font-size: 1.4rem;
+      font-weight: 700;
+    }
+
+    #fz-lucro-widget .connect-sim-profit-value {
+      font-size: 2.4rem;
       font-weight: 800;
-      letter-spacing: 0.06em;
+      letter-spacing: 0.04em;
     }
 
-    .fz-calc-card__footer {
-      margin-top: 16px;
-      font-size: 0.88rem;
-      color: rgba(255, 255, 255, 0.78);
+    #fz-lucro-widget .connect-sim-sale-text {
+      margin: 8px 0 20px;
+      font-size: 0.95rem;
     }
 
-    @media (max-width: 1024px) {
-      .fz-calc-preview__inner {
+    #fz-lucro-widget .connect-sim-sale-text strong {
+      text-decoration: underline;
+    }
+
+    #fz-lucro-widget .connect-sim-cta {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 12px 32px;
+      border-radius: 999px;
+      border: 1px solid #fff;
+      background: #fff;
+      color: #000;
+      font-weight: 700;
+      font-size: 0.93rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    #fz-lucro-widget .connect-sim-cta:hover {
+      background: transparent;
+      color: #fff;
+      transform: translateY(-1px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.55);
+    }
+
+    #fz-lucro-widget .connect-sim-right::after {
+      font-family: 'Raleway', 'Klein Web', serif;
+    }
+
+    @media (max-width: 900px) {
+      #fz-lucro-widget .connect-sim-inner {
         grid-template-columns: 1fr;
       }
 
-      .fz-calc-preview__info,
-      .fz-calc-preview__widget {
-        padding: 36px 28px;
-      }
-
-      .fz-calc-preview__widget::after {
-        display: none;
-      }
-
-      .fz-calc-preview__info {
-        border-bottom: 1px solid rgba(11, 11, 11, 0.08);
+      #fz-lucro-widget .connect-sim-right {
+        padding-top: 0;
       }
     }
 
-    @media (max-width: 640px) {
-      .fz-calc-preview {
-        border-radius: 22px;
+    @media (max-width: 600px) {
+      #fz-lucro-widget .connect-simulator {
+        padding: 16px 10px;
       }
 
-      .fz-calc-preview__info {
-        padding: 32px 22px;
+      #fz-lucro-widget .connect-sim-inner {
+        border-radius: 18px;
       }
 
-      .fz-calc-preview__title {
-        font-size: 1.8rem;
+      #fz-lucro-widget .connect-sim-left,
+      #fz-lucro-widget .connect-sim-right {
+        padding: 22px 18px;
       }
 
-      .fz-calc-preview__button {
+      #fz-lucro-widget .connect-sim-result-box {
+        min-width: 0;
         width: 100%;
-        justify-content: center;
       }
 
-      .fz-calc-card {
-        padding: 26px 22px;
+      #fz-lucro-widget .connect-sim-result-currency {
+        font-size: 1.2rem;
       }
 
-      .fz-calc-card__heading {
-        font-size: 1.1rem;
-        letter-spacing: 0.08em;
+      #fz-lucro-widget .connect-sim-profit-value {
+        font-size: 2rem;
+      }
+
+      #fz-lucro-widget .connect-sim-right::after {
+        display: none;
+      }
+
+      #fz-lucro-widget .connect-sim-cta {
+        width: 100%;
       }
     }
   `;
 
   return (
-    <div className="fz-calc-preview">
+    <div id="fz-lucro-widget">
       <style>{calculatorStyles}</style>
-      <div className="fz-calc-preview__inner">
-        <div className="fz-calc-preview__info">
-          <span className="fz-calc-preview__badge">FácilZap Turbinado</span>
-          <h3 className="fz-calc-preview__title">Calculadora de Lucro B2B</h3>
-          <p className="fz-calc-preview__description">
-            Mostre para seus revendedores o potencial de ganho em segundos. Configure margens, ajuste preços e gere confiança imediata com um simulador elegante e responsivo.
-          </p>
-          <div className="fz-calc-preview__price">
-            <span className="fz-calc-preview__price-label">Investimento único</span>
-            <span className="fz-calc-preview__price-value">R$ 380</span>
-          </div>
-          <button type="button" className="fz-calc-preview__button">
-            Adicionar ao Pacote
-          </button>
-        </div>
+      <section className="connect-simulator">
+        <div className="connect-sim-inner">
+          <div className="connect-sim-left">
+            <header className="connect-sim-header">
+              <span className="connect-sim-brand">FácilZap Turbinado</span>
+              <h2>Simule seu lucro</h2>
+              <p>
+                Veja quanto dinheiro você coloca no bolso revendendo com a{' '}
+                <strong>FácilZap Turbinado</strong>.
+              </p>
+            </header>
 
-        <div className="fz-calc-preview__widget">
-          <div className="fz-calc-card">
-            <span className="fz-calc-card__brand">FZ TURBINADO</span>
-            <h4 className="fz-calc-card__heading">Simule seu lucro</h4>
-
-            <div className="fz-calc-card__field">
-              <span className="fz-calc-card__label">Preço de atacado</span>
-              <div className="fz-calc-card__input">
-                <span>R$</span>
-                <strong>35,00</strong>
+            <div className="connect-sim-field">
+              <label htmlFor="connect-wholesale">Preço de atacado (R$)</label>
+              <div className="connect-sim-input-wrap">
+                <span className="connect-sim-input-prefix">R$</span>
+                <input
+                  id="connect-wholesale"
+                  className="connect-sim-input connect-sim-wholesale-input"
+                  type="text"
+                  inputMode="decimal"
+                  value={wholesaleValue}
+                  onChange={(event) => setWholesaleValue(event.target.value)}
+                  onBlur={handleBlurPrice}
+                />
               </div>
             </div>
 
-            <div className="fz-calc-card__field">
-              <span className="fz-calc-card__label">Margem de lucro</span>
-              <input className="fz-calc-card__slider" type="range" min="10" max="300" step="10" value="100" readOnly />
-            </div>
+            <div className="connect-sim-field">
+              <label htmlFor="connect-margin">Sua margem de lucro</label>
 
-            <div className="fz-calc-card__result">
-              <span>Lucro estimado</span>
-              <strong>R$ 35,00</strong>
+              <div className="connect-sim-margin-row">
+                <span className="connect-sim-margin-title">Margem escolhida:</span>
+                <strong className="connect-sim-margin-value">{margin}%</strong>
+              </div>
+
+              <input
+                id="connect-margin"
+                className="connect-sim-margin-range"
+                type="range"
+                min={10}
+                max={300}
+                step={10}
+                value={margin}
+                onChange={(event) => setMargin(Number(event.target.value))}
+              />
+
+              <div className="connect-sim-margin-buttons">
+                {marginOptions.map((option) => (
+                  <button
+                    key={option}
+                    type="button"
+                    className={`connect-sim-margin-btn${option === margin ? ' is-active' : ''}`}
+                    data-margin={option}
+                    onClick={() => setMargin(option)}
+                  >
+                    {option}%
+                  </button>
+                ))}
+              </div>
             </div>
-            <p className="fz-calc-card__footer">Preço sugerido de venda: <strong>R$ 70,00</strong></p>
+          </div>
+
+          <div className="connect-sim-right">
+            <div className="connect-sim-result">
+              <span className="connect-sim-result-label">Lucro líquido estimado</span>
+              <div className="connect-sim-result-box">
+                <span className="connect-sim-result-currency">{profitParts.currency}</span>
+                <span className="connect-sim-profit-value">{profitParts.value}</span>
+              </div>
+
+              <p className="connect-sim-sale-text">
+                Preço sugerido de venda: <strong className="connect-sim-sale-value">{saleFormatted}</strong>
+              </p>
+
+              <button type="button" className="connect-sim-cta">
+                Quero lucrar com a FácilZap
+              </button>
+            </div>
           </div>
         </div>
-      </div>
+      </section>
     </div>
   );
 }
