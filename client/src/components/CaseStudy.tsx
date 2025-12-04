@@ -1,4 +1,4 @@
-import { TrendingUp, Users, Star, Target, ArrowsLeftRight } from 'lucide-react';
+import { TrendingUp, Users, Star, Target, ChevronLeft, ChevronRight } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 
 const metrics = [
@@ -61,16 +61,17 @@ export default function CaseStudy() {
               className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary text-primary-foreground text-xs font-bold"
               onClick={() => setPosition(position === 'before' ? 'after' : 'before')}
             >
-              <ArrowsLeftRight size={14} />
+              <ChevronLeft size={14} />
+              <ChevronRight size={14} />
               Deslizar
             </button>
             <span className="text-sm text-foreground/70">DEPOIS</span>
           </div>
 
-          {/* Comparison Container (sem imagens por enquanto) */}
+          {/* Comparison Container */}
           <div
             ref={sliderRef}
-            className="relative mx-auto w-full max-w-2xl h-[420px] rounded-xl border border-border bg-background overflow-hidden"
+            className="relative mx-auto w-full max-w-2xl h-[420px] rounded-xl border border-border bg-background overflow-hidden cursor-ew-resize"
             onMouseMove={(e) => handleMove(e.clientX)}
             onTouchMove={(e) => {
               const touch = e.touches?.[0];
@@ -78,31 +79,31 @@ export default function CaseStudy() {
             }}
           >
             {/* Depois - fundo completo */}
-            <div className="absolute inset-0 flex items-center justify-center">
-              <div className="text-center text-foreground/50">
-                <p className="font-bold">DEPOIS</p>
-                <p className="text-xs">(imagem será inserida)</p>
-              </div>
-            </div>
+            <img
+              src="/images/case-after.jpg"
+              alt="Depois"
+              className="absolute inset-0 w-full h-full object-cover"
+            />
 
             {/* Antes - clipe pela largura */}
             <div
               ref={beforeRef}
-              className="absolute inset-0 bg-transparent"
+              className="absolute inset-0 overflow-hidden"
               style={{ width: '60%' }}
             >
-              <div className="w-full h-full flex items-center justify-center bg-background/60 backdrop-blur-sm">
-                <div className="text-center text-foreground/70">
-                  <p className="font-bold">ANTES</p>
-                  <p className="text-xs">(imagem será inserida)</p>
-                </div>
-              </div>
+              <img
+                src="/images/case-before.jpg"
+                alt="Antes"
+                className="w-full h-full object-cover"
+                style={{ width: 'calc(100% / 0.6)' }}
+              />
             </div>
 
             {/* Slider handle */}
             <div className="comp-slider absolute top-0 bottom-0 w-1 bg-primary" style={{ left: '60%' }}>
               <div className="absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 bg-primary text-primary-foreground rounded-full px-3 py-1 text-xs font-bold flex items-center gap-1 shadow">
-                <ArrowsLeftRight size={14} />
+                <ChevronLeft size={14} />
+                <ChevronRight size={14} />
                 Deslize
               </div>
             </div>
@@ -110,7 +111,7 @@ export default function CaseStudy() {
             <span className="absolute top-2 left-2 text-xs font-bold bg-black/60 text-white px-2 py-1 rounded">ANTES</span>
             <span className="absolute top-2 right-2 text-xs font-bold bg-black/60 text-white px-2 py-1 rounded">DEPOIS</span>
           </div>
-          <p className="text-center text-foreground/60 text-xs mt-3">Arraste para comparar. Substituiremos por imagens reais assim que enviar.</p>
+          <p className="text-center text-foreground/60 text-xs mt-3">Arraste para comparar os resultados antes e depois.</p>
         </div>
 
         {/* Metrics Grid */}
