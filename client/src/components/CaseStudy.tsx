@@ -4,17 +4,17 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 const metrics = [
   {
     icon: TrendingUp,
-    value: '+237%',
-    label: 'Aumento na Conversão',
+    value: 'Aumento',
+    label: 'Conversão',
   },
   {
     icon: Target,
-    value: '+52%',
+    value: 'Aumento',
     label: 'Ticket Médio',
   },
   {
     icon: Users,
-    value: '50+',
+    value: '10+',
     label: 'Lojas Ativas Hoje',
   },
   {
@@ -115,7 +115,7 @@ export default function CaseStudy() {
           {/* Comparison Container */}
           <div
             ref={sliderRef}
-            className="relative mx-auto w-full max-w-xs sm:max-w-sm lg:max-w-lg aspect-[10/16] sm:aspect-[9/16] rounded-2xl border border-border bg-black overflow-hidden cursor-col-resize shadow-xl select-none touch-none"
+            className="relative mx-auto w-full max-w-xs sm:max-w-sm lg:max-w-lg aspect-[10/16] sm:aspect-[9/16] lg:aspect-[4/5] lg:max-h-[520px] rounded-2xl border border-border bg-black overflow-hidden cursor-col-resize shadow-xl select-none touch-none"
             onMouseDown={(event) => {
               event.preventDefault();
               isTouchDrag.current = false;
@@ -196,9 +196,14 @@ export default function CaseStudy() {
 
         {/* CTA */}
         <div className="text-center fade-in-up">
-          <button className="btn-primary hover:shadow-lg transition-all duration-300">
+          <a
+            href="https://metodofz.com.br/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn-primary hover:shadow-lg transition-all duration-300"
+          >
             Ver Loja ao Vivo →
-          </button>
+          </a>
         </div>
       </div>
     </section>

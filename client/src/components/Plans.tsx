@@ -179,9 +179,6 @@ export default function Plans() {
             Oferecemos planos de gestão e suporte contínuo para lojas já otimizadas.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button className="btn-secondary hover:shadow-lg transition-all duration-300">
-              Ver Planos de Gestão & Suporte 🔄
-            </button>
             <a
               href="https://wa.me/5562992960658?text=Tenho%20interesse%20nos%20widgets%20da%20Bravatus.%20Por%20favor%20entre%20em%20contato."
               target="_blank"
