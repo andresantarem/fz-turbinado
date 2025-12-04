@@ -9,12 +9,12 @@ export default function Footer() {
           <div>
             <div className="flex items-center gap-2 mb-4">
               <img 
-                src="/images/logofacilzap.png" 
-                alt="FácilZap Logo" 
+                src="/images/logo.svg" 
+                alt="Bravatus Logo" 
                 className="h-10 sm:h-12 w-auto object-contain"
               />
               <div className="flex flex-col leading-none">
-                <span className="text-sm text-foreground font-bold">Turbinado</span>
+                <span className="text-sm text-foreground font-bold">Bravatus</span>
                 <span className="text-xs text-primary font-bold">🚀</span>
               </div>
             </div>
@@ -93,6 +93,18 @@ export default function Footer() {
           </div>
         </div>
 
+        {/* FacilZap Integration Section */}
+        <div className="bg-primary/10 border border-primary/30 rounded-lg p-6 mb-8">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <span className="text-sm text-foreground/80">Solução integrada para lojas</span>
+            <img 
+              src="/images/logofacilzap.png" 
+              alt="FácilZap" 
+              className="h-8 sm:h-10 w-auto object-contain"
+            />
+          </div>
+        </div>
+
         {/* Divider */}
         <div className="border-t border-border py-8">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
@@ -112,7 +124,6 @@ export default function Footer() {
             </div>
           </div>
         </div>
-
         {/* Urgency Banner */}
         <div className="bg-primary/10 border border-primary rounded-xl p-6 text-center mb-8">
           <p className="text-foreground font-bold mb-2">🚨 ÚLTIMAS VAGAS - DEZEMBRO 2025</p>

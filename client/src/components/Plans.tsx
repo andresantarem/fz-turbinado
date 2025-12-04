@@ -65,7 +65,6 @@ export default function Plans() {
       return;
     }
     addItem({ id: plan.name, name: plan.name, price: plan.price, type: 'plan' });
-    openCart();
     showToast(`✅ Plano ${plan.name} adicionado!`);
   };
   return (

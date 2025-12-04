@@ -20,12 +20,12 @@ export default function Header() {
           {/* Logo */}
           <div className="flex items-center gap-2 sm:gap-3">
             <img 
-              src="/images/logofacilzap.png" 
-              alt="FácilZap Logo" 
+              src="/images/logo.svg" 
+              alt="Bravatus Logo" 
               className="h-10 sm:h-12 w-auto object-contain"
             />
             <div className="flex flex-col leading-none">
-              <span className="text-xs sm:text-sm text-foreground font-bold">Turbinado</span>
+              <span className="text-xs sm:text-sm text-foreground font-bold">Bravatus</span>
               <span className="text-xs text-primary font-bold">🚀</span>
             </div>
           </div>

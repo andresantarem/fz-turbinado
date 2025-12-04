@@ -88,7 +88,20 @@ export default function Hero() {
           </div>
 
           {/* Right Image */}
-          <div className="relative fade-in-up stagger-1">
+          <div className="relative fade-in-up stagger-1 space-y-6">
+            {/* FacilZap Branding Element */}
+            <div className="flex items-center justify-center gap-4 p-6 rounded-xl bg-primary/10 border border-primary/30 hover:border-primary transition-all duration-300">
+              <img 
+                src="/images/logofacilzap.png" 
+                alt="FácilZap Integration" 
+                className="h-12 sm:h-14 w-auto object-contain"
+              />
+              <div className="flex flex-col">
+                <span className="text-xs sm:text-sm text-primary font-bold">Integrado com</span>
+                <span className="text-sm sm:text-base text-foreground font-bold">FácilZap 🚀</span>
+              </div>
+            </div>
+
             {/* Animated frame */}
             <div className="relative group">
               <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-primary/5 rounded-2xl blur-2xl group-hover:blur-3xl transition-all duration-500" />

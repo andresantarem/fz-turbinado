@@ -100,7 +100,6 @@ export default function Widgets() {
       return;
     }
     addItem({ id: widget.id, name: widget.name, price: widget.price, type: 'widget' });
-    openCart();
     showToast(`✅ ${widget.name} adicionado ao carrinho!`);
   };
 
