@@ -1,4 +1,5 @@
-import { TrendingUp, Users, Star, Target } from 'lucide-react';
+import { TrendingUp, Users, Star, Target, ArrowsLeftRight } from 'lucide-react';
+import { useState } from 'react';
 
 const metrics = [
   {
@@ -24,6 +25,7 @@ const metrics = [
 ];
 
 export default function CaseStudy() {
+  const [position, setPosition] = useState<'before'|'after'>('before');
   return (
     <section id="case" className="section-dark py-24 relative overflow-hidden">
       {/* Animated Background */}
@@ -39,15 +41,62 @@ export default function CaseStudy() {
           </p>
         </div>
 
-        {/* Before/After Comparison */}
+        {/* Before/After Mobile Mockup Slider (sem imagens, pronto para inserção) */}
         <div className="mb-16 fade-in-up">
-          <div className="rounded-2xl overflow-hidden hover-lift">
-            <img
-              src="/images/success-case.png"
-              alt="Comparação antes e depois da transformação"
-              className="w-full h-auto"
-            />
+          <div className="flex items-center justify-center gap-4 mb-4">
+            <span className="text-sm text-foreground/70">ANTES</span>
+            <button
+              className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary text-primary-foreground text-xs font-bold"
+              onClick={() => setPosition(position === 'before' ? 'after' : 'before')}
+            >
+              <ArrowsLeftRight size={14} />
+              Deslizar
+            </button>
+            <span className="text-sm text-foreground/70">DEPOIS</span>
           </div>
+
+          {/* Phone frame */}
+          <div className="relative mx-auto w-[280px] sm:w-[320px] h-[560px] rounded-[36px] border-2 border-border bg-background shadow-2xl overflow-hidden">
+            {/* Notch */}
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-24 h-6 bg-background rounded-b-xl border-x border-b border-border" />
+
+            {/* Antes */}
+            <div className={`absolute inset-0 transition-transform duration-500 ease-in-out ${position === 'before' ? 'translate-x-0' : '-translate-x-full'}`}>
+              <div className="p-4 space-y-4">
+                <div className="rounded-xl bg-card border border-border p-4">
+                  <p className="text-sm font-bold">Página Padrão</p>
+                  <p className="text-xs text-foreground/60">Layout simples</p>
+                </div>
+                <div className="rounded-xl bg-card border border-border p-4">
+                  <p className="text-sm font-bold">Cards</p>
+                  <p className="text-xs text-foreground/60">Sem CTA forte</p>
+                </div>
+                <div className="rounded-xl bg-card border border-border p-4">
+                  <p className="text-sm font-bold">Barra Informativa</p>
+                  <p className="text-xs text-foreground/60">Texto básico</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Depois */}
+            <div className={`absolute inset-0 transition-transform duration-500 ease-in-out ${position === 'after' ? 'translate-x-0' : 'translate-x-full'}`}>
+              <div className="p-4 space-y-4">
+                <div className="rounded-xl bg-card border-2 border-primary p-4">
+                  <p className="text-sm font-bold">Página Turbinada</p>
+                  <p className="text-xs text-foreground/60">Hero otimizada + CTA</p>
+                </div>
+                <div className="rounded-xl bg-card border-2 border-primary p-4">
+                  <p className="text-sm font-bold">Cards com Destaque</p>
+                  <p className="text-xs text-foreground/60">Conversão melhorada</p>
+                </div>
+                <div className="rounded-xl bg-card border-2 border-primary p-4">
+                  <p className="text-sm font-bold">Barra de Vantagens</p>
+                  <p className="text-xs text-foreground/60">Ícones + métricas</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <p className="text-center text-foreground/60 text-xs mt-3">Deslize para comparar antes e depois (imagens serão inseridas posteriormente)</p>
         </div>
 
         {/* Metrics Grid */}
