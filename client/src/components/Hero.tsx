@@ -1,73 +1,5 @@
 import { ArrowRight, Star, Zap } from 'lucide-react';
 import TurboIcon from './TurboIcon';
-import { useState } from 'react';
-
-function MobileMockSlider() {
-  const [position, setPosition] = useState<'before'|'after'>('before');
-  return (
-    <div className="relative">
-      <div className="flex items-center justify-between mb-3">
-        <span className="text-foreground/70 text-sm">Antes</span>
-        <button
-          className="btn-secondary text-xs px-3 py-1"
-          onClick={() => setPosition(position === 'before' ? 'after' : 'before')}
-        >
-          Deslizar
-        </button>
-        <span className="text-foreground/70 text-sm">Depois</span>
-      </div>
-
-      {/* Phone frame */}
-      <div className="relative mx-auto w-[280px] sm:w-[320px] h-[560px] rounded-[36px] border-2 border-border bg-background shadow-2xl overflow-hidden">
-        {/* Notch */}
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-24 h-6 bg-background rounded-b-xl border-x border-b border-border" />
-
-        {/* Before (left) */}
-        <div
-          className={`absolute inset-0 transition-transform duration-500 ease-in-out ${position === 'before' ? 'translate-x-0' : '-translate-x-full'}`}
-        >
-          <div className="p-4 space-y-4">
-            <div className="rounded-xl bg-card border border-border p-4">
-              <p className="text-sm font-bold">Carrossel de Produtos</p>
-              <p className="text-xs text-foreground/60">Layout padrão</p>
-            </div>
-            <div className="rounded-xl bg-card border border-border p-4">
-              <p className="text-sm font-bold">Barra Informativa</p>
-              <p className="text-xs text-foreground/60">Texto simples</p>
-            </div>
-            <div className="rounded-xl bg-card border border-border p-4">
-              <p className="text-sm font-bold">Assinatura por Email</p>
-              <p className="text-xs text-foreground/60">Formulário básico</p>
-            </div>
-          </div>
-        </div>
-
-        {/* After (right) */}
-        <div
-          className={`absolute inset-0 transition-transform duration-500 ease-in-out ${position === 'after' ? 'translate-x-0' : 'translate-x-full'}`}
-        >
-          <div className="p-4 space-y-4">
-            <div className="rounded-xl bg-card border-2 border-primary p-4">
-              <p className="text-sm font-bold">Carrossel Turbinado</p>
-              <p className="text-xs text-foreground/60">Destaques com CTA</p>
-            </div>
-            <div className="rounded-xl bg-card border-2 border-primary p-4">
-              <p className="text-sm font-bold">Barra de Vantagens</p>
-              <p className="text-xs text-foreground/60">Ícones + métricas</p>
-            </div>
-            <div className="rounded-xl bg-card border-2 border-primary p-4">
-              <p className="text-sm font-bold">Signup Otimizado</p>
-              <p className="text-xs text-foreground/60">Conversão +40%</p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Helper text */}
-      <p className="text-center text-foreground/60 text-xs mt-3">Deslize para comparar antes e depois</p>
-    </div>
-  );
-}
 
 export default function Hero() {
   return (
@@ -149,20 +81,43 @@ export default function Hero() {
             </div>
           </div>
 
-          {/* Right Section: FácilZap vs FácilZap Turbinado + Mockup Mobile Slider */}
+          {/* Right Image */}
           <div className="relative fade-in-up stagger-1 space-y-6">
-            {/* Branding header */}
-            <div className="grid grid-cols-2 gap-4">
-              <div className="rounded-xl border border-border bg-card p-4 text-center">
-                <p className="text-sm text-foreground/70">FácilZap</p>
-              </div>
-              <div className="rounded-xl border border-primary bg-primary/10 p-4 text-center">
-                <p className="text-sm font-bold text-primary">FácilZap Turbinado 🚀</p>
+            {/* FacilZap Branding Element: logo + "Turbinado 🚀" */}
+            <div className="flex items-center justify-center gap-4 p-6 rounded-xl bg-primary/10 border border-primary/30 hover:border-primary transition-all duration-300">
+              <img 
+                src="/images/logofacilzap.png" 
+                alt="FácilZap Integration" 
+                className="h-12 sm:h-14 w-auto object-contain"
+              />
+              <div className="flex flex-col">
+                <span className="text-sm sm:text-base text-foreground font-bold">Turbinado 🚀</span>
               </div>
             </div>
 
-            {/* Mobile Before/After Slider (no images, mock UI) */}
-            <MobileMockSlider />
+            {/* Animated frame */}
+            <div className="relative group">
+              <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-primary/5 rounded-2xl blur-2xl group-hover:blur-3xl transition-all duration-500" />
+              
+              <div className="relative bg-white rounded-2xl overflow-hidden shadow-2xl hover-lift">
+                <img
+                  src="/images/hero-mockup.png"
+                  alt="FácilZap Turbinado - Transformação de loja"
+                  className="w-full h-auto"
+                />
+                
+                {/* Floating Badge */}
+                <div className="absolute -bottom-4 -left-4 bg-primary text-white px-6 py-3 rounded-xl shadow-lg font-bold text-sm md:text-base bounce-in"
+                  style={{ animationDelay: '0.5s' }}>
+                  ⚡ Pronto em 7 dias
+                </div>
+
+                {/* Turbo Icon Floating */}
+                <div className="absolute -top-6 -right-6 w-20 h-20 bg-primary text-white rounded-full flex items-center justify-center shadow-lg float-animation">
+                  <TurboIcon className="w-12 h-12" />
+                </div>
+              </div>
+            </div>
           </div>
         </div>
 
