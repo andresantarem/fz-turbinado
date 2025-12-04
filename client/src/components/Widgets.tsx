@@ -78,6 +78,9 @@ const widgets = [
 export default function Widgets() {
   const { addItem, canAddWidget } = useCart();
   const [toast, setToast] = useState<string | null>(null);
+  const calculatorWidget = widgets.find((widget) => widget.name === 'Calculadora Lucro B2B');
+  const CalculatorIcon = calculatorWidget?.icon;
+  const displayWidgets = widgets.filter((widget) => widget.name !== 'Calculadora Lucro B2B');
 
   const showToast = (msg: string) => {
     setToast(msg);
@@ -123,7 +126,7 @@ export default function Widgets() {
 
         {/* Widgets Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12 relative z-10">
-          {widgets.map((widget, idx) => {
+          {displayWidgets.map((widget, idx) => {
             const Icon = widget.icon;
             return (
               <div
@@ -160,10 +163,37 @@ export default function Widgets() {
           })}
         </div>
 
-        {/* Calculadora Lucro B2B Preview */}
-        <div className="relative z-10 fade-in-up mt-12" style={{ animationDelay: `${widgets.length * 0.05}s` }}>
-          <CalculatorB2BPreview />
-        </div>
+        {calculatorWidget && (
+          <div
+            className="relative z-10 fade-in-up"
+            style={{ animationDelay: `${displayWidgets.length * 0.05}s` }}
+          >
+            <div className="max-w-[70rem] mx-auto w-full">
+              <div className="card-widget bg-foreground/10 border-primary/20 hover:border-primary transition-all duration-300 mb-8">
+                <div className="flex items-start justify-between mb-4">
+                  <div className="w-12 h-12 bg-primary/20 rounded-lg flex items-center justify-center">
+                    {CalculatorIcon && <CalculatorIcon size={24} className="text-primary" />}
+                  </div>
+                </div>
+                <h3 className="text-white font-bold text-lg mb-2">{calculatorWidget.name}</h3>
+                <p className="text-white/60 text-sm mb-6">{calculatorWidget.description}</p>
+                <div className="flex flex-col sm:flex-row items-center sm:items-center justify-between gap-4 sm:gap-0">
+                  <div className="text-center sm:text-left">
+                    <p className="text-white/50 text-xs">Avulso</p>
+                    <p className="text-white font-bold text-xl">R$ {calculatorWidget.price}</p>
+                  </div>
+                  <button
+                    onClick={() => calculatorWidget && handleAddWidget(calculatorWidget)}
+                    className="bg-primary text-primary-foreground px-4 py-2 rounded-lg font-semibold hover:shadow-lg transition-all duration-300 hover:scale-105 active:scale-95 text-sm w-full sm:w-auto text-center"
+                  >
+                    Adicionar
+                  </button>
+                </div>
+              </div>
+              <CalculatorB2BPreview />
+            </div>
+          </div>
+        )}
       </div>
     </section>
   );
