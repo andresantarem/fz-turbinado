@@ -115,7 +115,7 @@ export default function CaseStudy() {
           {/* Comparison Container */}
           <div
             ref={sliderRef}
-            className="relative mx-auto w-full max-w-sm sm:max-w-md lg:max-w-xl aspect-[9/16] rounded-2xl border border-border bg-black overflow-hidden cursor-col-resize shadow-xl select-none touch-none"
+            className="relative mx-auto w-full max-w-xs sm:max-w-sm lg:max-w-lg aspect-[10/16] sm:aspect-[9/16] rounded-2xl border border-border bg-black overflow-hidden cursor-col-resize shadow-xl select-none touch-none"
             onMouseDown={(event) => {
               event.preventDefault();
               isTouchDrag.current = false;
@@ -139,7 +139,7 @@ export default function CaseStudy() {
             <img
               src="/images/antes_fz_turbinado.png"
               alt="Antes"
-              className="absolute inset-0 w-full h-full object-contain"
+              className="absolute inset-0 w-full h-full object-contain px-6 lg:px-8"
             />
 
             {/* Depois - clipe pela largura */}
@@ -150,7 +150,7 @@ export default function CaseStudy() {
               <img
                 src="/images/depois_fz_turbinado.png"
                 alt="Depois"
-                className="absolute inset-0 w-full h-full object-contain"
+                className="absolute inset-0 w-full h-full object-contain px-6 lg:px-8"
               />
             </div>
 
