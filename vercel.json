@@ -4,7 +4,6 @@
   "installCommand": "pnpm install",
   "framework": "vite",
   "outputDirectory": "dist/public",
-  "nodeVersion": "20.x",
   "env": {
     "VITE_API_URL": {
       "description": "API URL for the application",
