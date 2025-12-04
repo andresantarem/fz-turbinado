@@ -1,6 +1,7 @@
 import React, { useState, useMemo } from 'react';
 import { useCart } from '@/contexts/CartContext';
 import { X } from 'lucide-react';
+import { toast } from 'sonner';
 
 function formatCurrency(value: number) {
   return value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
@@ -95,7 +96,7 @@ export default function Cart() {
               )}
               <input
                 value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                onChange={(e) => setEmail(e.target.value.toLowerCase())}
                 placeholder="E-mail"
                 className="w-full bg-foreground/3 border border-border rounded-md px-3 py-2 text-sm text-foreground"
               />
@@ -145,7 +146,13 @@ export default function Cart() {
                 target="_blank"
                 rel="noreferrer"
                 className={`flex-1 px-3 py-2 rounded-lg text-sm text-center font-semibold ${canSend ? 'bg-primary text-primary-foreground' : 'bg-foreground/6 text-foreground/60 cursor-not-allowed'}`}
-                onClick={(e) => { if (!canSend) e.preventDefault(); }}
+                onClick={(e) => {
+                  if (!canSend) {
+                    e.preventDefault();
+                    return;
+                  }
+                  toast.success('Vamos continuar o atendimento pelo WhatsApp para finalizar a contratação!');
+                }}
               >
                 Enviar por WhatsApp
               </a>
