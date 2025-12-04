@@ -28,6 +28,7 @@ export default function CaseStudy() {
   const sliderRef = useRef<HTMLDivElement | null>(null);
   const [sliderPercent, setSliderPercent] = useState(50);
   const [isDragging, setIsDragging] = useState(false);
+  const isTouchDrag = useRef(false);
 
   const updateSlider = useCallback((clientX: number) => {
     const slider = sliderRef.current;
@@ -39,19 +40,39 @@ export default function CaseStudy() {
   }, []);
 
   useEffect(() => {
-    if (!isDragging) return;
+    const stopDragging = () => {
+      setIsDragging(false);
+      isTouchDrag.current = false;
+    };
 
-    const handlePointerMove = (event: PointerEvent) => updateSlider(event.clientX);
-    const stopDragging = () => setIsDragging(false);
+    const handleMouseMove = (event: MouseEvent) => {
+      if (!isDragging || isTouchDrag.current) return;
+      updateSlider(event.clientX);
+    };
 
-    window.addEventListener('pointermove', handlePointerMove, { passive: true });
-    window.addEventListener('pointerup', stopDragging, { passive: true });
-    window.addEventListener('pointercancel', stopDragging, { passive: true });
+    const handleTouchMove = (event: TouchEvent) => {
+      if (!isDragging) return;
+      event.preventDefault();
+      const touch = event.touches[0];
+      if (touch) {
+        updateSlider(touch.clientX);
+      }
+    };
+
+    window.addEventListener('mousemove', handleMouseMove);
+    window.addEventListener('touchmove', handleTouchMove, { passive: false });
+    window.addEventListener('mouseup', stopDragging);
+    window.addEventListener('mouseleave', stopDragging);
+    window.addEventListener('touchend', stopDragging);
+    window.addEventListener('touchcancel', stopDragging);
 
     return () => {
-      window.removeEventListener('pointermove', handlePointerMove);
-      window.removeEventListener('pointerup', stopDragging);
-      window.removeEventListener('pointercancel', stopDragging);
+      window.removeEventListener('mousemove', handleMouseMove);
+      window.removeEventListener('touchmove', handleTouchMove);
+      window.removeEventListener('mouseup', stopDragging);
+      window.removeEventListener('mouseleave', stopDragging);
+      window.removeEventListener('touchend', stopDragging);
+      window.removeEventListener('touchcancel', stopDragging);
     };
   }, [isDragging, updateSlider]);
 
@@ -94,18 +115,24 @@ export default function CaseStudy() {
           {/* Comparison Container */}
           <div
             ref={sliderRef}
-            className="relative mx-auto w-full max-w-3xl aspect-video rounded-xl border border-border bg-black overflow-hidden cursor-ew-resize shadow-lg select-none touch-none"
-            onPointerDown={(event) => {
+            className="relative mx-auto w-full max-w-sm sm:max-w-md lg:max-w-xl aspect-[9/16] rounded-2xl border border-border bg-black overflow-hidden cursor-col-resize shadow-xl select-none touch-none"
+            onMouseDown={(event) => {
               event.preventDefault();
-              sliderRef.current?.setPointerCapture(event.pointerId);
+              isTouchDrag.current = false;
               setIsDragging(true);
               updateSlider(event.clientX);
             }}
-            onPointerUp={(event) => {
-              sliderRef.current?.releasePointerCapture(event.pointerId);
-              setIsDragging(false);
+            onTouchStart={(event) => {
+              isTouchDrag.current = true;
+              setIsDragging(true);
+              const touch = event.touches[0];
+              if (touch) {
+                updateSlider(touch.clientX);
+              }
             }}
-            onPointerLeave={() => setIsDragging(false)}
+            onMouseUp={() => setIsDragging(false)}
+            onTouchEnd={() => setIsDragging(false)}
+            onMouseLeave={() => setIsDragging(false)}
             onClick={(event) => updateSlider(event.clientX)}
           >
             {/* Antes - fundo completo */}
