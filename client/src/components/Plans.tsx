@@ -84,7 +84,7 @@ export default function Plans() {
 
       <div className="container relative z-10">
         <div className="text-center mb-16 fade-in-up">
-          <h2 className="heading-lg mb-4 text-foreground">Investimento Inteligente</h2>
+          <h2 className="heading-lg mb-4 text-foreground">Investimento Inteligente <span className="rocket-launch inline-block">🚀</span></h2>
           <p className="text-foreground/80 text-lg">
             Escolha o plano ideal para o seu momento
           </p>

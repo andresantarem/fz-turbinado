@@ -124,6 +124,7 @@ export default function Widgets() {
           <div className="inline-flex items-center gap-2 bg-primary/10 px-4 py-2 rounded-full border border-primary/30 mb-6">
             <Sparkles size={16} className="text-primary" />
             <span className="text-sm font-semibold text-primary">10 Widgets Turbinados</span>
+            <span className="ml-2 turbine-spin text-lg">⚙️</span>
           </div>
           <h2 className="heading-lg text-white mb-4">Potência Máxima de Conversão</h2>
           <p className="text-white/70 text-lg">

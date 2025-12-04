@@ -10,6 +10,14 @@ export default function Hero() {
         <div className="absolute top-20 left-10 w-72 h-72 bg-primary/5 rounded-full blur-3xl animate-pulse" />
         <div className="absolute bottom-20 right-10 w-96 h-96 bg-primary/5 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }} />
         <div className="absolute top-1/2 left-1/2 w-80 h-80 bg-primary/3 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }} />
+        
+        {/* Rocket animation */}
+        <div className="absolute top-32 right-20 text-4xl rocket-launch" style={{ animationDelay: '0s' }}>
+          🚀
+        </div>
+        <div className="absolute top-40 right-32 text-4xl rocket-launch" style={{ animationDelay: '1.5s' }}>
+          🚀
+        </div>
       </div>
 
       <div className="container relative z-10">
