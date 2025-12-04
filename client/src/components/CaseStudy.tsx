@@ -35,34 +35,28 @@ export default function CaseStudy() {
     const rect = slider.getBoundingClientRect();
     const x = Math.min(Math.max(clientX - rect.left, 0), rect.width);
     const percent = (x / rect.width) * 100;
-    setSliderPercent(percent);
+    setSliderPercent(Number(percent.toFixed(2)));
   }, []);
 
   useEffect(() => {
     if (!isDragging) return;
 
-    const handleMouseMove = (event: MouseEvent) => updateSlider(event.clientX);
-    const handleTouchMove = (event: TouchEvent) => {
-      const touch = event.touches[0];
-      if (touch) updateSlider(touch.clientX);
-    };
+    const handlePointerMove = (event: PointerEvent) => updateSlider(event.clientX);
     const stopDragging = () => setIsDragging(false);
 
-    window.addEventListener('mousemove', handleMouseMove);
-    window.addEventListener('touchmove', handleTouchMove);
-    window.addEventListener('mouseup', stopDragging);
-    window.addEventListener('touchend', stopDragging);
+    window.addEventListener('pointermove', handlePointerMove, { passive: true });
+    window.addEventListener('pointerup', stopDragging, { passive: true });
+    window.addEventListener('pointercancel', stopDragging, { passive: true });
 
     return () => {
-      window.removeEventListener('mousemove', handleMouseMove);
-      window.removeEventListener('touchmove', handleTouchMove);
-      window.removeEventListener('mouseup', stopDragging);
-      window.removeEventListener('touchend', stopDragging);
+      window.removeEventListener('pointermove', handlePointerMove);
+      window.removeEventListener('pointerup', stopDragging);
+      window.removeEventListener('pointercancel', stopDragging);
     };
   }, [isDragging, updateSlider]);
 
   const togglePosition = () => {
-    setSliderPercent(prev => (prev > 50 ? 0 : 100));
+    setSliderPercent(prev => (prev <= 50 ? 100 : 0));
   };
   return (
     <section id="case" className="section-dark py-24 relative overflow-hidden">
@@ -100,30 +94,31 @@ export default function CaseStudy() {
           {/* Comparison Container */}
           <div
             ref={sliderRef}
-            className="relative mx-auto w-full max-w-4xl aspect-video rounded-xl border border-border bg-background overflow-hidden cursor-ew-resize shadow-lg select-none"
-            onMouseDown={(e) => {
+            className="relative mx-auto w-full max-w-4xl aspect-video rounded-xl border border-border bg-black overflow-hidden cursor-ew-resize shadow-lg select-none touch-none"
+            onPointerDown={(event) => {
+              event.preventDefault();
+              sliderRef.current?.setPointerCapture(event.pointerId);
               setIsDragging(true);
-              updateSlider(e.clientX);
+              updateSlider(event.clientX);
             }}
-            onTouchStart={(e) => {
-              const touch = e.touches[0];
-              if (touch) {
-                setIsDragging(true);
-                updateSlider(touch.clientX);
-              }
+            onPointerUp={(event) => {
+              sliderRef.current?.releasePointerCapture(event.pointerId);
+              setIsDragging(false);
             }}
+            onPointerLeave={() => setIsDragging(false)}
+            onClick={(event) => updateSlider(event.clientX)}
           >
             {/* Depois - fundo completo */}
             <img
               src="/images/depois_fz_turbinado.png"
               alt="Depois"
-              className="absolute inset-0 w-full h-full object-contain bg-black"
+              className="absolute inset-0 w-full h-full object-contain"
             />
 
             {/* Antes - clipe pela largura */}
             <div
-              className="absolute inset-0 overflow-hidden bg-black"
-              style={{ width: `${sliderPercent}%` }}
+              className="absolute inset-0"
+              style={{ clipPath: `inset(0 ${Math.max(0, 100 - sliderPercent)}% 0 0)` }}
             >
               <img
                 src="/images/antes_fz_turbinado.png"
