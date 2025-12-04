@@ -28,6 +28,7 @@ export default function Cart() {
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
   const [email, setEmail] = useState('');
+  const [storeUrl, setStoreUrl] = useState('');
 
   // Destination WhatsApp number (owner)
   const phoneRaw = '62 99296-0658';
@@ -38,12 +39,14 @@ export default function Cart() {
   const phoneValid = phoneDigits.length === 10 || phoneDigits.length === 11;
   const emailValid = validateEmail(email);
   const nameValid = name.trim().length > 1;
+  const storeUrlValid = storeUrl.trim().length > 4;
 
   function buildMessage() {
     let msg = 'Olá, vou fazer um pedido/consulta com os seguintes dados:%0A%0A';
     msg += `Nome: ${name}%0A`;
     msg += `Telefone: ${phone}%0A`;
     msg += `Email: ${email}%0A%0A`;
+    msg += `URL da Loja: ${storeUrl}%0A%0A`;
     msg += 'Itens:%0A';
     items.forEach((it) => {
       msg += `- ${it.name} x${it.qty} — R$ ${it.price.toFixed(2)}%0A`;
@@ -53,7 +56,7 @@ export default function Cart() {
     return msg;
   }
 
-  const canSend = items.length > 0 && nameValid && phoneValid && emailValid;
+  const canSend = items.length > 0 && nameValid && phoneValid && emailValid && storeUrlValid;
 
   return (
     <>
@@ -98,6 +101,15 @@ export default function Cart() {
               />
               {!emailValid && email.length > 0 && (
                 <div className="text-xs text-red-400">E-mail inválido.</div>
+              )}
+              <input
+                value={storeUrl}
+                onChange={(e) => setStoreUrl(e.target.value)}
+                placeholder="URL da sua loja FácilZap"
+                className="w-full bg-foreground/3 border border-border rounded-md px-3 py-2 text-sm text-foreground"
+              />
+              {!storeUrlValid && storeUrl.length > 0 && (
+                <div className="text-xs text-red-400">Informe a URL completa da loja.</div>
               )}
             </div>
 
