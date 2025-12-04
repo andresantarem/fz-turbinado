@@ -1,5 +1,5 @@
 import { TrendingUp, Users, Star, Target, ChevronLeft, ChevronRight } from 'lucide-react';
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
 const metrics = [
   {
@@ -25,18 +25,44 @@ const metrics = [
 ];
 
 export default function CaseStudy() {
-  const [position, setPosition] = useState<'before'|'after'>('before');
   const sliderRef = useRef<HTMLDivElement | null>(null);
-  const beforeRef = useRef<HTMLDivElement | null>(null);
-  const handleMove = (clientX: number) => {
+  const [sliderPercent, setSliderPercent] = useState(50);
+  const [isDragging, setIsDragging] = useState(false);
+
+  const updateSlider = useCallback((clientX: number) => {
     const slider = sliderRef.current;
-    const before = beforeRef.current;
-    if (!slider || !before) return;
+    if (!slider) return;
     const rect = slider.getBoundingClientRect();
     const x = Math.min(Math.max(clientX - rect.left, 0), rect.width);
     const percent = (x / rect.width) * 100;
-    before.style.width = `${percent}%`;
-    (slider.querySelector('.comp-slider') as HTMLElement)?.style.setProperty('left', `${percent}%`);
+    setSliderPercent(percent);
+  }, []);
+
+  useEffect(() => {
+    if (!isDragging) return;
+
+    const handleMouseMove = (event: MouseEvent) => updateSlider(event.clientX);
+    const handleTouchMove = (event: TouchEvent) => {
+      const touch = event.touches[0];
+      if (touch) updateSlider(touch.clientX);
+    };
+    const stopDragging = () => setIsDragging(false);
+
+    window.addEventListener('mousemove', handleMouseMove);
+    window.addEventListener('touchmove', handleTouchMove);
+    window.addEventListener('mouseup', stopDragging);
+    window.addEventListener('touchend', stopDragging);
+
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove);
+      window.removeEventListener('touchmove', handleTouchMove);
+      window.removeEventListener('mouseup', stopDragging);
+      window.removeEventListener('touchend', stopDragging);
+    };
+  }, [isDragging, updateSlider]);
+
+  const togglePosition = () => {
+    setSliderPercent(prev => (prev > 50 ? 0 : 100));
   };
   return (
     <section id="case" className="section-dark py-24 relative overflow-hidden">
@@ -59,7 +85,7 @@ export default function CaseStudy() {
             <span className="text-xs sm:text-sm text-foreground/70 font-semibold">ANTES</span>
             <button
               className="inline-flex items-center gap-1 sm:gap-2 px-2 sm:px-4 py-2 rounded-full bg-primary text-primary-foreground text-xs sm:text-sm font-bold hover:shadow-lg transition-shadow"
-              onClick={() => setPosition(position === 'before' ? 'after' : 'before')}
+              onClick={togglePosition}
             >
               <ChevronLeft size={16} className="hidden sm:block" />
               <ChevronLeft size={12} className="sm:hidden" />
@@ -74,35 +100,43 @@ export default function CaseStudy() {
           {/* Comparison Container */}
           <div
             ref={sliderRef}
-            className="relative mx-auto w-full max-w-4xl aspect-video rounded-xl border border-border bg-background overflow-hidden cursor-ew-resize shadow-lg"
-            onMouseMove={(e) => handleMove(e.clientX)}
-            onTouchMove={(e) => {
-              const touch = e.touches?.[0];
-              if (touch) handleMove(touch.clientX);
+            className="relative mx-auto w-full max-w-4xl aspect-video rounded-xl border border-border bg-background overflow-hidden cursor-ew-resize shadow-lg select-none"
+            onMouseDown={(e) => {
+              setIsDragging(true);
+              updateSlider(e.clientX);
+            }}
+            onTouchStart={(e) => {
+              const touch = e.touches[0];
+              if (touch) {
+                setIsDragging(true);
+                updateSlider(touch.clientX);
+              }
             }}
           >
             {/* Depois - fundo completo */}
             <img
               src="/images/depois_fz_turbinado.png"
               alt="Depois"
-              className="absolute inset-0 w-full h-full object-cover"
+              className="absolute inset-0 w-full h-full object-contain bg-black"
             />
 
             {/* Antes - clipe pela largura */}
             <div
-              ref={beforeRef}
-              className="absolute inset-0 overflow-hidden"
-              style={{ width: '50%' }}
+              className="absolute inset-0 overflow-hidden bg-black"
+              style={{ width: `${sliderPercent}%` }}
             >
               <img
                 src="/images/antes_fz_turbinado.png"
                 alt="Antes"
-                className="absolute inset-0 w-full h-full object-cover"
+                className="absolute inset-0 w-full h-full object-contain"
               />
             </div>
 
             {/* Slider handle */}
-            <div className="comp-slider absolute top-0 bottom-0 w-1 bg-primary pointer-events-none" style={{ left: '50%' }}>
+            <div
+              className="comp-slider absolute top-0 bottom-0 w-1 bg-primary pointer-events-none"
+              style={{ left: `${sliderPercent}%` }}
+            >
               <div className="absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 bg-primary text-primary-foreground rounded-full px-2 sm:px-3 py-1 text-xs font-bold flex items-center gap-1 shadow-lg whitespace-nowrap">
                 <ChevronLeft size={14} />
                 <span className="hidden sm:inline">Deslize</span>
