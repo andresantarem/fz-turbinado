@@ -39,13 +39,13 @@ export default function Hero() {
             </div>
 
             {/* Stats Row */}
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 fade-in-up stagger-3">
+            <div className="grid grid-cols-3 gap-3 fade-in-up stagger-3 text-center">
               {[
                 { num: '50+', label: 'Lojas Ativas' },
                 { num: '+237%', label: 'Conversão' },
                 { num: '4.9/5', label: 'Avaliação' },
               ].map((stat, idx) => (
-                <div key={idx} className="bg-card rounded-lg p-4 border border-border hover:border-primary transition-all duration-300 hover-lift max-w-xs mx-auto sm:mx-0">
+                <div key={idx} className="bg-card rounded-lg p-4 border border-border hover:border-primary transition-all duration-300 hover-lift flex flex-col items-center justify-center">
                   <div className="font-bold text-lg text-primary">{stat.num}</div>
                   <div className="text-xs text-foreground/70">{stat.label}</div>
                 </div>
