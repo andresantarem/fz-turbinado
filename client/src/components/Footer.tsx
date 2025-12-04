@@ -39,8 +39,8 @@ export default function Footer() {
                 </a>
               </li>
               <li>
-                <a href="#gestao" className="hover:text-primary transition-colors w-full text-center md:w-auto md:text-left">
-                  Gestão &amp; Suporte
+                <a href="#faq" className="hover:text-primary transition-colors w-full text-center md:w-auto md:text-left">
+                  FAQ
                 </a>
               </li>
             </ul>

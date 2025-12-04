@@ -5,7 +5,7 @@ import { useState } from 'react';
 const plans = [
   {
     name: 'Iniciante',
-    price: 797,
+    price: 750,
     popular: false,
     description: 'Perfeito para começar',
     features: [
@@ -18,7 +18,7 @@ const plans = [
   },
   {
     name: 'Elite Total',
-    price: 1661,
+    price: 1500,
     popular: true,
     description: 'Otimização Completa + Design de Alta Conversão',
     savings: 860,
@@ -36,7 +36,7 @@ const plans = [
   },
   {
     name: 'Personalizado',
-    price: 2999,
+    price: 2900,
     popular: false,
     description: 'Projeto sob medida para seu negócio',
     features: [
@@ -171,7 +171,7 @@ export default function Plans() {
         </div>
 
         {/* Additional Info */}
-        <div id="gestao" className="bg-card rounded-xl p-8 text-center relative z-10 fade-in-up border border-border">
+        <div className="bg-card rounded-xl p-8 text-center relative z-10 fade-in-up border border-border">
           <h3 className="text-lg font-bold text-foreground mb-2">
             Já tem uma loja e precisa de manutenção?
           </h3>

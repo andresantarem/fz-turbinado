@@ -135,7 +135,6 @@ export default function Hero() {
                   loop
                   playsInline
                   controls={false}
-                  poster="/images/hero-mockup.png"
                 >
                   Seu navegador não suporta reprodução de vídeo.
                 </video>
