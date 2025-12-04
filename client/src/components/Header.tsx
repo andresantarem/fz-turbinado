@@ -24,10 +24,6 @@ export default function Header() {
               alt="Bravatus Logo" 
               className="h-10 sm:h-12 w-auto object-contain"
             />
-            <div className="flex flex-col leading-none">
-              <span className="text-xs sm:text-sm text-foreground font-bold">Bravatus</span>
-              <span className="text-xs text-primary font-bold">🚀</span>
-            </div>
           </div>
 
           {/* Desktop Navigation */}

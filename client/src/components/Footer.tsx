@@ -8,16 +8,12 @@ export default function Footer() {
           {/* Brand */}
           <div>
             <div className="flex items-center gap-2 mb-4">
-              <img 
-                src="/images/logo.svg" 
-                alt="Bravatus Logo" 
-                className="h-10 sm:h-12 w-auto object-contain"
-              />
-              <div className="flex flex-col leading-none">
-                <span className="text-sm text-foreground font-bold">Bravatus</span>
-                <span className="text-xs text-primary font-bold">🚀</span>
+                <img 
+                  src="/images/logo.svg" 
+                  alt="Bravatus Logo" 
+                  className="h-10 sm:h-12 w-auto object-contain"
+                />
               </div>
-            </div>
             <p className="text-foreground/70 text-sm">
               Transforme sua loja FacilZap em máquina de vendas com widgets profissionais e suporte VIP especializado.
             </p>

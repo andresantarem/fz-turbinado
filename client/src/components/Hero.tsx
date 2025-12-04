@@ -11,13 +11,7 @@ export default function Hero() {
         <div className="absolute bottom-20 right-10 w-96 h-96 bg-primary/5 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }} />
         <div className="absolute top-1/2 left-1/2 w-80 h-80 bg-primary/3 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }} />
         
-        {/* Rocket animation */}
-        <div className="absolute top-32 right-20 text-4xl rocket-launch" style={{ animationDelay: '0s' }}>
-          🚀
-        </div>
-        <div className="absolute top-40 right-32 text-4xl rocket-launch" style={{ animationDelay: '1.5s' }}>
-          🚀
-        </div>
+        {/* (removed animated rockets) */}
       </div>
 
       <div className="container relative z-10">
@@ -89,7 +83,7 @@ export default function Hero() {
 
           {/* Right Image */}
           <div className="relative fade-in-up stagger-1 space-y-6">
-            {/* FacilZap Branding Element */}
+            {/* FacilZap Branding Element: logo + "Turbinado 🚀" */}
             <div className="flex items-center justify-center gap-4 p-6 rounded-xl bg-primary/10 border border-primary/30 hover:border-primary transition-all duration-300">
               <img 
                 src="/images/logofacilzap.png" 
@@ -97,8 +91,7 @@ export default function Hero() {
                 className="h-12 sm:h-14 w-auto object-contain"
               />
               <div className="flex flex-col">
-                <span className="text-xs sm:text-sm text-primary font-bold">Integrado com</span>
-                <span className="text-sm sm:text-base text-foreground font-bold">FácilZap 🚀</span>
+                <span className="text-sm sm:text-base text-foreground font-bold">Turbinado 🚀</span>
               </div>
             </div>
 
