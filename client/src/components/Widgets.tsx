@@ -169,32 +169,11 @@ export default function Widgets() {
             style={{ animationDelay: `${displayWidgets.length * 0.05}s` }}
           >
             <div className="max-w-[70rem] mx-auto w-full">
-              <div className="card-widget bg-foreground/10 border-primary/20 hover:border-primary transition-all duration-300 mb-8">
-                <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
-                  <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 bg-primary/20 rounded-lg flex items-center justify-center flex-shrink-0">
-                      {CalculatorIcon && <CalculatorIcon size={24} className="text-primary" />}
-                    </div>
-                    <div>
-                      <h3 className="text-white font-bold text-lg">{calculatorWidget.name}</h3>
-                      <p className="text-white/60 text-sm">{calculatorWidget.description}</p>
-                    </div>
-                  </div>
-                  <div className="flex flex-col sm:flex-row items-center sm:items-center gap-4 lg:ml-auto">
-                    <div className="text-center sm:text-left">
-                      <p className="text-white/50 text-xs">Avulso</p>
-                      <p className="text-white font-bold text-xl">R$ {calculatorWidget.price}</p>
-                    </div>
-                    <button
-                      onClick={() => calculatorWidget && handleAddWidget(calculatorWidget)}
-                      className="bg-primary text-primary-foreground px-4 py-2 rounded-lg font-semibold hover:shadow-lg transition-all duration-300 hover:scale-105 active:scale-95 text-sm w-full sm:w-auto text-center"
-                    >
-                      Adicionar
-                    </button>
-                  </div>
-                </div>
-              </div>
-              <CalculatorB2BPreview />
+              <CalculatorB2BCard
+                widget={calculatorWidget}
+                icon={CalculatorIcon}
+                onAdd={() => calculatorWidget && handleAddWidget(calculatorWidget)}
+              />
             </div>
           </div>
         )}
@@ -203,6 +182,44 @@ export default function Widgets() {
   );
 }
 
+type CalculatorB2BCardProps = {
+  widget: typeof widgets[number];
+  icon?: typeof widgets[number]['icon'];
+  onAdd: () => void;
+};
+
+function CalculatorB2BCard({ widget, icon: IconComponent, onAdd }: CalculatorB2BCardProps) {
+  return (
+    <div className="card-widget bg-foreground/10 border-primary/20 hover:border-primary transition-all duration-300">
+      <div className="flex items-center gap-4 mb-6">
+        <div className="w-12 h-12 bg-primary/20 rounded-lg flex items-center justify-center flex-shrink-0">
+          {IconComponent && <IconComponent size={24} className="text-primary" />}
+        </div>
+        <div>
+          <h3 className="text-white font-bold text-lg">{widget.name}</h3>
+          <p className="text-white/60 text-sm">{widget.description}</p>
+        </div>
+      </div>
+
+      <div className="rounded-2xl overflow-hidden border border-white/5 bg-black/40">
+        <CalculatorB2BPreview />
+      </div>
+
+      <div className="mt-6 flex flex-col sm:flex-row items-center sm:items-center justify-between gap-4">
+        <div className="text-center sm:text-left">
+          <p className="text-white/50 text-xs">Avulso</p>
+          <p className="text-white font-bold text-xl">R$ {widget.price}</p>
+        </div>
+        <button
+          onClick={onAdd}
+          className="bg-primary text-primary-foreground px-4 py-2 rounded-lg font-semibold hover:shadow-lg transition-all duration-300 hover:scale-105 active:scale-95 text-sm w-full sm:w-auto text-center"
+        >
+          Adicionar
+        </button>
+      </div>
+    </div>
+  );
+}
 function CalculatorB2BPreview() {
   const [wholesaleValue, setWholesaleValue] = useState('35,00');
   const [margin, setMargin] = useState(100);
