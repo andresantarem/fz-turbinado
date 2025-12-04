@@ -151,7 +151,14 @@ export default function Cart() {
                     e.preventDefault();
                     return;
                   }
-                  toast.success('Vamos continuar o atendimento pelo WhatsApp para finalizar a contratação!');
+                  e.preventDefault();
+                  toast.success('Vamos continuar o atendimento pelo WhatsApp para finalizar a contratação!', {
+                    position: 'top-center',
+                    duration: 2200,
+                  });
+                  setTimeout(() => {
+                    window.open(`https://wa.me/${waNumber}?text=${buildMessage()}`, '_blank');
+                  }, 2200);
                 }}
               >
                 Enviar por WhatsApp

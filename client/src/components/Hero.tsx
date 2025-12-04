@@ -41,7 +41,6 @@ export default function Hero() {
             {/* Stats Row */}
             <div className="grid grid-cols-3 gap-3 fade-in-up stagger-3 text-center">
               {[
-                { num: '50+', label: 'Lojas Ativas' },
                 { num: '+237%', label: 'Conversão' },
                 { num: '4.9/5', label: 'Avaliação' },
               ].map((stat, idx) => (
@@ -114,8 +113,7 @@ export default function Hero() {
                 </video>
                 
                 {/* Floating Badge */}
-                <div className="absolute left-1/2 -translate-x-1/2 bottom-3 bg-black/80 text-white px-6 py-3 rounded-xl shadow-lg font-bold text-sm md:text-base flex items-center gap-2">
-                  <TurboIcon className="w-5 h-5" />
+                <div className="absolute left-1/2 -translate-x-1/2 bottom-3 bg-black/80 text-white px-6 py-3 rounded-xl shadow-lg font-bold text-sm md:text-base">
                   ⚡ Pronto em 7 dias
                 </div>
               </div>
