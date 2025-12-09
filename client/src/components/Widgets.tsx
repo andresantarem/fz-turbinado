@@ -1494,26 +1494,35 @@ function CentralDeLinksPreview() {
     /* --- MOBILE --- */
     @media (max-width: 768px) {
         #menu-acesso-rapido {
-            flex-direction: column;
-            padding: 25px 20px;
-            gap: 25px;
-            align-items: center !important;
+            flex-direction: row !important; /* Força lado a lado */
+            padding: 20px 10px;
+            gap: 15px;
+            align-items: flex-start !important;
             justify-content: center !important;
-            text-align: center !important;
+            flex-wrap: nowrap;
         }
 
         .item-acesso {
-            width: 100%;
+            width: auto;
+            flex: 1;
             display: flex;
             flex-direction: column;
             align-items: center !important;
-            justify-content: center !important;
+            justify-content: flex-start !important;
         }
 
         .circulo-icone {
-            width: 80px;
-            height: 80px;
-            font-size: 36px;
+            width: 60px;
+            height: 60px;
+            font-size: 28px;
+            margin-bottom: 8px;
+        }
+
+        .texto-acesso {
+            font-size: 11px;
+            line-height: 1.2;
+            margin-top: 5px;
+            max-width: 90px;
         }
     }
 
