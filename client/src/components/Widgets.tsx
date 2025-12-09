@@ -95,7 +95,8 @@ export default function Widgets() {
       widget.name !== 'Calculadora Lucro B2B' &&
       widget.name !== 'Cupom One-Click' &&
       widget.name !== 'Barra de Vantagens' &&
-      widget.name !== 'Central de Links'
+      widget.name !== 'Central de Links' &&
+      widget.name !== 'Barra Informativa'
   );
 
   const showToast = (msg: string) => {
@@ -234,6 +235,24 @@ export default function Widgets() {
                 widget={centralLinksWidget}
                 icon={CentralLinksIcon}
                 onAdd={() => centralLinksWidget && handleAddWidget(centralLinksWidget)}
+              />
+            </div>
+          </div>
+        )}
+
+        {widgets.find((w) => w.name === 'Barra Informativa') && (
+          <div
+            className="relative z-10 fade-in-up mt-8"
+            style={{ animationDelay: `${displayWidgets.length * 0.05 + 0.4}s` }}
+          >
+            <div className="max-w-[70rem] mx-auto w-full">
+              <BarraInformativaCard
+                widget={widgets.find((w) => w.name === 'Barra Informativa')!}
+                icon={widgets.find((w) => w.name === 'Barra Informativa')!.icon}
+                onAdd={() =>
+                  widgets.find((w) => w.name === 'Barra Informativa') &&
+                  handleAddWidget(widgets.find((w) => w.name === 'Barra Informativa')!)
+                }
               />
             </div>
           </div>
@@ -1574,6 +1593,245 @@ function CentralDeLinksPreview() {
             <div className="circulo-icone">📱</div>
             <span className="texto-acesso">Material de Divulgação</span>
           </a>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+type BarraInformativaCardProps = {
+  widget: typeof widgets[number];
+  icon?: typeof widgets[number]['icon'];
+  onAdd: () => void;
+};
+
+function BarraInformativaCard({ widget, icon: IconComponent, onAdd }: BarraInformativaCardProps) {
+  return (
+    <div className="card-widget bg-foreground/10 border-primary/20 hover:border-primary transition-all duration-300">
+      <div className="flex items-center gap-4 mb-6">
+        <div className="w-12 h-12 bg-primary/20 rounded-lg flex items-center justify-center flex-shrink-0">
+          {IconComponent && <IconComponent size={24} className="text-primary" />}
+        </div>
+        <div>
+          <h3 className="text-white font-bold text-lg">{widget.name}</h3>
+          <p className="text-white/60 text-sm">{widget.description}</p>
+        </div>
+      </div>
+
+      <div className="rounded-2xl overflow-hidden border border-white/5 bg-transparent">
+        <BarraInformativaPreview />
+      </div>
+
+      <div className="mt-6 flex flex-col sm:flex-row items-center sm:items-center justify-between gap-4">
+        <div className="text-center sm:text-left">
+          <p className="text-white/50 text-xs">Avulso</p>
+          <p className="text-white font-bold text-xl">R$ {widget.price}</p>
+        </div>
+        <button
+          onClick={onAdd}
+          className="bg-primary text-primary-foreground px-4 py-2 rounded-lg font-semibold hover:shadow-lg transition-all duration-300 hover:scale-105 active:scale-95 text-sm w-full sm:w-auto text-center"
+        >
+          Adicionar
+        </button>
+      </div>
+    </div>
+  );
+}
+
+function BarraInformativaPreview() {
+  const barraInformativaStyles = `
+    @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css');
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap');
+
+    #barra-informativa-container,
+    #barra-informativa-container * {
+        box-sizing: border-box;
+    }
+
+    #barra-informativa-container {
+        width: 100%;
+        background: transparent;
+        position: relative;
+        z-index: 990;
+        font-family: 'Poppins', sans-serif !important;
+        display: block;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    /* --- BARRA INFORMATIVA --- */
+    #barra-informativa-scroll {
+        width: 100%;
+        background: linear-gradient(90deg, #111 0%, #444 100%);
+        padding: 15px 0;
+        margin: 0 !important;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        line-height: 1;
+    }
+
+    .informativa-track {
+        display: flex;
+        width: max-content;
+        animation: scroll-infinite-info 35s linear infinite;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    /* PAUSE ON HOVER */
+    .informativa-track:hover {
+        animation-play-state: paused;
+    }
+
+    @keyframes scroll-infinite-info {
+        0% {
+            transform: translateX(0);
+        }
+
+        100% {
+            transform: translateX(-50%);
+        }
+    }
+
+    .info-item {
+        display: flex;
+        align-items: center;
+        text-align: left;
+        color: white !important;
+        padding: 0 60px;
+        flex-shrink: 0;
+        border-right: 1px solid rgba(255, 255, 255, 0.1);
+        margin: 0 !important;
+        line-height: 1;
+    }
+
+    .info-text-col {
+        display: flex;
+        flex-direction: column;
+        gap: 3px;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    .info-icon {
+        font-size: 26px;
+        margin-right: 15px;
+        color: #4ade80 !important; /* Cor de destaque diferente */
+        filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.4));
+    }
+
+    .info-titulo {
+        font-weight: 800;
+        text-transform: uppercase;
+        font-size: 14px;
+        margin: 0;
+        color: white;
+        letter-spacing: 0.5px;
+        line-height: 1.2;
+        display: block;
+    }
+
+    .info-subtitulo {
+        font-weight: 400;
+        font-size: 12px;
+        font-style: italic;
+        opacity: 0.90;
+        white-space: nowrap;
+        color: white;
+        margin: 0;
+        line-height: 1.2;
+        display: block;
+    }
+
+    /* --- MOBILE --- */
+    @media (max-width: 768px) {
+        #barra-informativa-scroll {
+            padding: 12px 0;
+        }
+
+        .informativa-track {
+            gap: 15px;
+        }
+
+        .info-item {
+            padding: 0 30px;
+        }
+
+        .info-icon {
+            font-size: 22px;
+            margin-right: 12px;
+        }
+
+        .info-titulo {
+            font-size: 13px;
+        }
+
+        .info-subtitulo {
+            font-size: 11px;
+        }
+    }
+  `;
+
+  return (
+    <div id="html-informativa-widget">
+      <style>{barraInformativaStyles}</style>
+      <div id="barra-informativa-container">
+        <div id="barra-informativa-scroll">
+          <div className="informativa-track">
+            {/* Bloco 1 */}
+            <div className="info-item">
+              <div className="info-icon">🕒</div>
+              <div className="info-text-col">
+                <span className="info-titulo">Horários</span>
+                <span className="info-subtitulo">Seg. a Sex: 09:30 às 17:00 | Sáb: 09:00 às 13:00</span>
+              </div>
+            </div>
+
+            <div className="info-item">
+              <div className="info-icon">📍</div>
+              <div className="info-text-col">
+                <span className="info-titulo">Nossa Loja</span>
+                <span className="info-subtitulo">Shopping Centro Oeste Outlet, Loja 665, Goiânia - GO</span>
+              </div>
+            </div>
+
+            <div className="info-item">
+              <div className="info-icon">📞</div>
+              <div className="info-text-col">
+                <span className="info-titulo">Fale Conosco</span>
+                <span className="info-subtitulo">(62) 98148-0687 - Atendimento Personalizado</span>
+              </div>
+            </div>
+
+            {/* DUPLICA PARA LOOP */}
+            <div className="info-item">
+              <div className="info-icon">🕒</div>
+              <div className="info-text-col">
+                <span className="info-titulo">Horários</span>
+                <span className="info-subtitulo">Seg. a Sex: 09:30 às 17:00 | Sáb: 09:00 às 13:00</span>
+              </div>
+            </div>
+
+            <div className="info-item">
+              <div className="info-icon">📍</div>
+              <div className="info-text-col">
+                <span className="info-titulo">Nossa Loja</span>
+                <span className="info-subtitulo">Shopping Centro Oeste Outlet, Loja 665, Goiânia - GO</span>
+              </div>
+            </div>
+
+            <div className="info-item">
+              <div className="info-icon">📞</div>
+              <div className="info-text-col">
+                <span className="info-titulo">Fale Conosco</span>
+                <span className="info-subtitulo">(62) 98148-0687 - Atendimento Personalizado</span>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
