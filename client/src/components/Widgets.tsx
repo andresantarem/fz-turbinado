@@ -797,12 +797,15 @@ function CupomOneClickPreview() {
         border-radius: 20px;
         padding: 30px 40px;
         display: flex;
+        flex-wrap: wrap; /* Permite quebra em telas menores que o breakpoint se necessário */
         align-items: center;
         justify-content: space-between;
         box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
-        margin: 20px;
+        margin: 20px 0;
+        width: 100%;
         position: relative;
         overflow: hidden;
+        gap: 20px; /* Gap padrão para desktop */
     }
 
     .banner-promocional::before {
@@ -817,13 +820,10 @@ function CupomOneClickPreview() {
     }
 
     @keyframes pulse-promo {
-
-        0%,
-        100% {
+        0%, 100% {
             transform: scale(1);
             opacity: 0.4;
         }
-
         50% {
             transform: scale(1.1);
             opacity: 0.9;
@@ -836,6 +836,8 @@ function CupomOneClickPreview() {
         gap: 20px;
         position: relative;
         z-index: 1;
+        flex: 1; /* Ocupa o espaço disponível */
+        min-width: 280px; /* Largura mínima antes de quebrar */
     }
 
     .icone-presente {
@@ -848,6 +850,11 @@ function CupomOneClickPreview() {
         justify-content: center;
         font-size: 35px;
         border: 3px solid rgba(255, 255, 255, 0.5);
+        flex-shrink: 0; /* Não deixa o ícone diminuir */
+    }
+
+    .texto-promo {
+        flex: 1;
     }
 
     .texto-promo h2 {
@@ -862,20 +869,22 @@ function CupomOneClickPreview() {
 
     .texto-promo p {
         color: #fff;
-        font-size: 22px;
+        font-size: 20px;
         margin: 0;
         font-weight: 400;
+        line-height: 1.4;
     }
 
     .destaque-desconto {
         color: white;
         font-weight: 900;
-        font-size: 28px;
+        font-size: 26px;
         text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.6);
         background: #000;
-        padding: 5px 15px;
+        padding: 4px 12px;
         border-radius: 8px;
         display: inline-block;
+        white-space: nowrap;
     }
 
     .area-cupom {
@@ -889,6 +898,7 @@ function CupomOneClickPreview() {
         position: relative;
         z-index: 1;
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        flex-shrink: 0;
     }
 
     .cupom-codigo {
@@ -903,7 +913,7 @@ function CupomOneClickPreview() {
         background: #000;
         color: white;
         border: none;
-        padding: 12px 30px;
+        padding: 12px 25px;
         border-radius: 10px;
         font-weight: 700;
         font-size: 16px;
@@ -912,6 +922,7 @@ function CupomOneClickPreview() {
         display: flex;
         align-items: center;
         gap: 8px;
+        white-space: nowrap;
     }
 
     .btn-copiar-cupom:hover {
@@ -920,29 +931,44 @@ function CupomOneClickPreview() {
         box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
     }
 
-    /* --- MOBILE --- */
-    @media (max-width: 768px) {
+    /* --- RESPONSIVIDADE --- */
+    
+    /* Tablet e Telas Médias */
+    @media (max-width: 992px) {
         .banner-promocional {
             flex-direction: column;
             text-align: center;
-            padding: 20px 15px;
-            gap: 20px;
-            margin: 15px;
+            padding: 30px 20px;
         }
 
         .conteudo-banner {
             flex-direction: column;
-            gap: 15px;
+            width: 100%;
+        }
+
+        .texto-promo h2 {
+            font-size: 20px;
+        }
+
+        .area-cupom {
+            width: 100%;
+            justify-content: center;
+            max-width: 500px; /* Limita largura em tablet */
+        }
+    }
+
+    /* Mobile */
+    @media (max-width: 768px) {
+        .banner-promocional {
+            margin: 10px 0;
+            border-radius: 15px;
+            padding: 25px 15px;
         }
 
         .icone-presente {
             width: 60px;
             height: 60px;
-            font-size: 30px;
-        }
-
-        .texto-promo h2 {
-            font-size: 16px;
+            font-size: 28px;
         }
 
         .texto-promo p {
@@ -951,22 +977,56 @@ function CupomOneClickPreview() {
 
         .destaque-desconto {
             font-size: 22px;
-            display: block;
+            display: block; /* Quebra linha pra destacar */
             margin-top: 8px;
         }
 
         .area-cupom {
             flex-direction: column;
-            width: 100%;
             padding: 15px;
-            gap: 10px;
+            width: 100%;
+            gap: 12px;
+        }
+
+        .cupom-codigo {
+            font-size: 22px;
+        }
+
+        .btn-copiar-cupom {
+            width: 100%;
+            justify-content: center;
+            padding: 14px;
         }
     }
 
-    @media (min-width: 769px) {
+    /* Telas Pequenas (iPhone SE, etc) */
+    @media (max-width: 480px) {
         .banner-promocional {
-            margin: 20px auto;
-            max-width: 1400px;
+            padding: 20px 10px;
+        }
+
+        .texto-promo h2 {
+            font-size: 16px;
+        }
+
+        .texto-promo p {
+            font-size: 15px;
+        }
+
+        .destaque-desconto {
+            font-size: 19px;
+            padding: 3px 10px;
+        }
+
+        .cupom-codigo {
+            font-size: 19px;
+            letter-spacing: 1px;
+        }
+        
+        .icone-presente {
+            width: 50px;
+            height: 50px;
+            font-size: 24px;
         }
     }
 
