@@ -84,7 +84,12 @@ export default function Widgets() {
   const cupomWidget = widgets.find((widget) => widget.name === 'Cupom One-Click');
   const CupomIcon = cupomWidget?.icon;
 
-  const displayWidgets = widgets.filter((widget) => widget.name !== 'Calculadora Lucro B2B' && widget.name !== 'Cupom One-Click');
+  const barraVantagensWidget = widgets.find((widget) => widget.name === 'Barra de Vantagens');
+  const BarraVantagensIcon = barraVantagensWidget?.icon;
+
+  const displayWidgets = widgets.filter(
+    (widget) => widget.name !== 'Calculadora Lucro B2B' && widget.name !== 'Cupom One-Click' && widget.name !== 'Barra de Vantagens'
+  );
 
   const showToast = (msg: string) => {
     setToast(msg);
@@ -192,6 +197,21 @@ export default function Widgets() {
                 widget={cupomWidget}
                 icon={CupomIcon}
                 onAdd={() => cupomWidget && handleAddWidget(cupomWidget)}
+              />
+            </div>
+          </div>
+        )}
+
+        {barraVantagensWidget && (
+          <div
+            className="relative z-10 fade-in-up mt-8"
+            style={{ animationDelay: `${displayWidgets.length * 0.05 + 0.2}s` }}
+          >
+            <div className="max-w-[70rem] mx-auto w-full">
+              <BarraDeVantagensCard
+                widget={barraVantagensWidget}
+                icon={BarraVantagensIcon}
+                onAdd={() => barraVantagensWidget && handleAddWidget(barraVantagensWidget)}
               />
             </div>
           </div>
@@ -1056,6 +1076,279 @@ function CupomOneClickPreview() {
           >
             {copied ? '✅ COPIADO!' : '📋 COPIAR'}
           </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+type BarraDeVantagensCardProps = {
+  widget: typeof widgets[number];
+  icon?: typeof widgets[number]['icon'];
+  onAdd: () => void;
+};
+
+function BarraDeVantagensCard({ widget, icon: IconComponent, onAdd }: BarraDeVantagensCardProps) {
+  return (
+    <div className="card-widget bg-foreground/10 border-primary/20 hover:border-primary transition-all duration-300">
+      <div className="flex items-center gap-4 mb-6">
+        <div className="w-12 h-12 bg-primary/20 rounded-lg flex items-center justify-center flex-shrink-0">
+          {IconComponent && <IconComponent size={24} className="text-primary" />}
+        </div>
+        <div>
+          <h3 className="text-white font-bold text-lg">{widget.name}</h3>
+          <p className="text-white/60 text-sm">{widget.description}</p>
+        </div>
+      </div>
+
+      <div className="rounded-2xl overflow-hidden border border-white/5 bg-transparent">
+        <BarraDeVantagensPreview />
+      </div>
+
+      <div className="mt-6 flex flex-col sm:flex-row items-center sm:items-center justify-between gap-4">
+        <div className="text-center sm:text-left">
+          <p className="text-white/50 text-xs">Avulso</p>
+          <p className="text-white font-bold text-xl">R$ {widget.price}</p>
+        </div>
+        <button
+          onClick={onAdd}
+          className="bg-primary text-primary-foreground px-4 py-2 rounded-lg font-semibold hover:shadow-lg transition-all duration-300 hover:scale-105 active:scale-95 text-sm w-full sm:w-auto text-center"
+        >
+          Adicionar
+        </button>
+      </div>
+    </div>
+  );
+}
+
+function BarraDeVantagensPreview() {
+  const barraVantagensStyles = `
+    @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css');
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap');
+
+    #barra-vantagens-container,
+    #barra-vantagens-container * {
+        box-sizing: border-box;
+    }
+
+    #barra-vantagens-container {
+        width: 100%;
+        background: transparent;
+        position: relative;
+        z-index: 990;
+        font-family: 'Poppins', sans-serif !important;
+        display: block;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    /* --- BARRA DE VANTAGENS --- */
+    #barra-vantagens-scroll {
+        width: 100%;
+        background: linear-gradient(90deg, #000 0%, #333 100%);
+        padding: 15px 0;
+        margin: 0 !important;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        line-height: 1;
+    }
+
+    .vantagens-track {
+        display: flex;
+        width: max-content;
+        animation: scroll-infinite 30s linear infinite;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    @keyframes scroll-infinite {
+        0% {
+            transform: translateX(0);
+        }
+
+        100% {
+            transform: translateX(-50%);
+        }
+    }
+
+    .vantagem-item {
+        display: flex;
+        align-items: center;
+        text-align: left;
+        color: white !important;
+        padding: 0 50px;
+        flex-shrink: 0;
+        border-right: 1px solid rgba(255, 255, 255, 0.1);
+        margin: 0 !important;
+        line-height: 1;
+    }
+
+    .vantagem-text-col {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    .vantagem-icon {
+        font-size: 28px;
+        margin-right: 15px;
+        color: white !important;
+        filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.4));
+    }
+
+    .vantagem-titulo {
+        font-weight: 800;
+        text-transform: uppercase;
+        font-size: 15px;
+        margin: 0;
+        color: white;
+        letter-spacing: 0.5px;
+        line-height: 1.2;
+        display: block;
+    }
+
+    .vantagem-subtitulo {
+        font-weight: 400;
+        font-size: 12px;
+        font-style: italic;
+        opacity: 0.95;
+        white-space: nowrap;
+        color: white;
+        margin: 0;
+        line-height: 1.2;
+        display: block;
+    }
+
+    /* --- MOBILE --- */
+    @media (max-width: 768px) {
+        #barra-vantagens-scroll {
+            padding: 10px 0;
+        }
+
+        .vantagens-track {
+            gap: 15px;
+        }
+
+        .vantagem-item {
+            padding: 0 25px;
+        }
+
+        .vantagem-icon {
+            font-size: 24px;
+            margin-right: 12px;
+        }
+
+        .vantagem-titulo {
+            font-size: 14px;
+        }
+
+        .vantagem-subtitulo {
+            font-size: 11px;
+        }
+    }
+
+    .fz-html-personalizado {
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    /* Força o próximo elemento a não ter margem superior */
+    #barra-vantagens-container+* {
+        margin-top: 0 !important;
+        padding-top: 0 !important;
+    }
+
+    /* Força especificamente o slide de imagens a colar na barra */
+    .fz-slide-imagens {
+        margin-top: 0 !important;
+        padding-top: 0 !important;
+    }
+
+    /* Força também o swiper interno */
+    .fz-slide-imagens .swiper {
+        margin-top: 0 !important;
+        padding-top: 0 !important;
+    }
+  `;
+
+  return (
+    <div id="html-beneficios-widget">
+      <style>{barraVantagensStyles}</style>
+      <div id="barra-vantagens-container">
+        <div id="barra-vantagens-scroll">
+          <div className="vantagens-track">
+            {/* Bloco 1 */}
+            <div className="vantagem-item">
+              <div className="vantagem-icon">🚚</div>
+              <div className="vantagem-text-col">
+                <span className="vantagem-titulo">Enviamos Para Todo o Brasil</span>
+                <span className="vantagem-subtitulo">Envio do pedido em até 72h úteis</span>
+              </div>
+            </div>
+
+            <div className="vantagem-item">
+              <div className="vantagem-icon">🎉</div>
+              <div className="vantagem-text-col">
+                <span className="vantagem-titulo">Frete Grátis</span>
+                <span className="vantagem-subtitulo">em compras acima de R$ 2.000</span>
+              </div>
+            </div>
+
+            <div className="vantagem-item">
+              <div className="vantagem-icon">🛍️</div>
+              <div className="vantagem-text-col">
+                <span className="vantagem-titulo">Pedido Mínimo</span>
+                <span className="vantagem-subtitulo">apenas 5 peças variadas</span>
+              </div>
+            </div>
+
+            <div className="vantagem-item">
+              <div className="vantagem-icon">💳</div>
+              <div className="vantagem-text-col">
+                <span className="vantagem-titulo">Pagamento Facilitado</span>
+                <span className="vantagem-subtitulo">Parcele em até 12x nos cartões</span>
+              </div>
+            </div>
+
+            {/* DUPLICA PARA LOOP - Repedindo os itens para efeito de scroll infinito */}
+            <div className="vantagem-item">
+              <div className="vantagem-icon">🚚</div>
+              <div className="vantagem-text-col">
+                <span className="vantagem-titulo">Enviamos Para Todo o Brasil</span>
+                <span className="vantagem-subtitulo">Envio do pedido em até 72h úteis</span>
+              </div>
+            </div>
+
+            <div className="vantagem-item">
+              <div className="vantagem-icon">🎉</div>
+              <div className="vantagem-text-col">
+                <span className="vantagem-titulo">Frete Grátis</span>
+                <span className="vantagem-subtitulo">em compras acima de R$ 2.000</span>
+              </div>
+            </div>
+
+            <div className="vantagem-item">
+              <div className="vantagem-icon">🛍️</div>
+              <div className="vantagem-text-col">
+                <span className="vantagem-titulo">Pedido Mínimo</span>
+                <span className="vantagem-subtitulo">apenas 5 peças variadas</span>
+              </div>
+            </div>
+
+            <div className="vantagem-item">
+              <div className="vantagem-icon">💳</div>
+              <div className="vantagem-text-col">
+                <span className="vantagem-titulo">Pagamento Facilitado</span>
+                <span className="vantagem-subtitulo">Parcele em até 12x nos cartões</span>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
