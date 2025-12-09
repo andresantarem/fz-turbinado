@@ -1787,7 +1787,7 @@ function BarraInformativaPreview() {
               <div className="info-icon">🕒</div>
               <div className="info-text-col">
                 <span className="info-titulo">Horários</span>
-                <span className="info-subtitulo">Seg. a Sex: 09:30 às 17:00 | Sáb: 09:00 às 13:00</span>
+                <span className="info-subtitulo">Seg. a Sex: 08:00 às 18:00 | Sáb: 08:00 às 12:00</span>
               </div>
             </div>
 
@@ -1795,7 +1795,7 @@ function BarraInformativaPreview() {
               <div className="info-icon">📍</div>
               <div className="info-text-col">
                 <span className="info-titulo">Nossa Loja</span>
-                <span className="info-subtitulo">Shopping Centro Oeste Outlet, Loja 665, Goiânia - GO</span>
+                <span className="info-subtitulo">Shopping Galo, Loja 1000, Goiânia - GO</span>
               </div>
             </div>
 
@@ -1803,7 +1803,7 @@ function BarraInformativaPreview() {
               <div className="info-icon">📞</div>
               <div className="info-text-col">
                 <span className="info-titulo">Fale Conosco</span>
-                <span className="info-subtitulo">(62) 98148-0687 - Atendimento Personalizado</span>
+                <span className="info-subtitulo">(64) 99999-9999 - Atendimento Personalizado</span>
               </div>
             </div>
 
@@ -1812,7 +1812,7 @@ function BarraInformativaPreview() {
               <div className="info-icon">🕒</div>
               <div className="info-text-col">
                 <span className="info-titulo">Horários</span>
-                <span className="info-subtitulo">Seg. a Sex: 09:30 às 17:00 | Sáb: 09:00 às 13:00</span>
+                <span className="info-subtitulo">Seg. a Sex: 08:00 às 18:00 | Sáb: 08:00 às 12:00</span>
               </div>
             </div>
 
@@ -1820,7 +1820,7 @@ function BarraInformativaPreview() {
               <div className="info-icon">📍</div>
               <div className="info-text-col">
                 <span className="info-titulo">Nossa Loja</span>
-                <span className="info-subtitulo">Shopping Centro Oeste Outlet, Loja 665, Goiânia - GO</span>
+                <span className="info-subtitulo">Shopping Galo, Loja 1000, Goiânia - GO</span>
               </div>
             </div>
 
@@ -1828,7 +1828,7 @@ function BarraInformativaPreview() {
               <div className="info-icon">📞</div>
               <div className="info-text-col">
                 <span className="info-titulo">Fale Conosco</span>
-                <span className="info-subtitulo">(62) 98148-0687 - Atendimento Personalizado</span>
+                <span className="info-subtitulo">(64) 99999-9999 - Atendimento Personalizado</span>
               </div>
             </div>
           </div>
