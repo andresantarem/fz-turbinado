@@ -80,7 +80,11 @@ export default function Widgets() {
   const [toast, setToast] = useState<string | null>(null);
   const calculatorWidget = widgets.find((widget) => widget.name === 'Calculadora Lucro B2B');
   const CalculatorIcon = calculatorWidget?.icon;
-  const displayWidgets = widgets.filter((widget) => widget.name !== 'Calculadora Lucro B2B');
+
+  const cupomWidget = widgets.find((widget) => widget.name === 'Cupom One-Click');
+  const CupomIcon = cupomWidget?.icon;
+
+  const displayWidgets = widgets.filter((widget) => widget.name !== 'Calculadora Lucro B2B' && widget.name !== 'Cupom One-Click');
 
   const showToast = (msg: string) => {
     setToast(msg);
@@ -173,6 +177,21 @@ export default function Widgets() {
                 widget={calculatorWidget}
                 icon={CalculatorIcon}
                 onAdd={() => calculatorWidget && handleAddWidget(calculatorWidget)}
+              />
+            </div>
+          </div>
+        )}
+
+        {cupomWidget && (
+          <div
+            className="relative z-10 fade-in-up mt-8"
+            style={{ animationDelay: `${displayWidgets.length * 0.05 + 0.1}s` }}
+          >
+            <div className="max-w-[70rem] mx-auto w-full">
+              <CupomOneClickCard
+                widget={cupomWidget}
+                icon={CupomIcon}
+                onAdd={() => cupomWidget && handleAddWidget(cupomWidget)}
               />
             </div>
           </div>
@@ -698,6 +717,287 @@ function CalculatorB2BPreview() {
           </div>
         </div>
       </section>
+    </div>
+  );
+}
+
+type CupomOneClickCardProps = {
+  widget: typeof widgets[number];
+  icon?: typeof widgets[number]['icon'];
+  onAdd: () => void;
+};
+
+function CupomOneClickCard({ widget, icon: IconComponent, onAdd }: CupomOneClickCardProps) {
+  return (
+    <div className="card-widget bg-foreground/10 border-primary/20 hover:border-primary transition-all duration-300">
+      <div className="flex items-center gap-4 mb-6">
+        <div className="w-12 h-12 bg-primary/20 rounded-lg flex items-center justify-center flex-shrink-0">
+          {IconComponent && <IconComponent size={24} className="text-primary" />}
+        </div>
+        <div>
+          <h3 className="text-white font-bold text-lg">{widget.name}</h3>
+          <p className="text-white/60 text-sm">{widget.description}</p>
+        </div>
+      </div>
+
+      <div className="rounded-2xl overflow-hidden border border-white/5 bg-transparent">
+        <CupomOneClickPreview />
+      </div>
+
+      <div className="mt-6 flex flex-col sm:flex-row items-center sm:items-center justify-between gap-4">
+        <div className="text-center sm:text-left">
+          <p className="text-white/50 text-xs">Avulso</p>
+          <p className="text-white font-bold text-xl">R$ {widget.price}</p>
+        </div>
+        <button
+          onClick={onAdd}
+          className="bg-primary text-primary-foreground px-4 py-2 rounded-lg font-semibold hover:shadow-lg transition-all duration-300 hover:scale-105 active:scale-95 text-sm w-full sm:w-auto text-center"
+        >
+          Adicionar
+        </button>
+      </div>
+    </div>
+  );
+}
+
+function CupomOneClickPreview() {
+  const [copied, setCopied] = useState(false);
+
+  const handleCopy = () => {
+    const cupom = 'PRIMEIRACOMPRA';
+    navigator.clipboard.writeText(cupom).then(() => {
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2500);
+    }).catch(() => {
+      alert('Cupom: ' + cupom);
+    });
+  };
+
+  const cupomStyles = `
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap');
+
+    #promo-container-cupom,
+    #promo-container-cupom * {
+        box-sizing: border-box;
+    }
+
+    #promo-container-cupom {
+        width: 100%;
+        background: transparent;
+        position: relative;
+        z-index: 990;
+        font-family: 'Poppins', sans-serif !important;
+        display: block;
+        margin-bottom: 20px;
+    }
+
+    /* --- BANNER --- */
+    .banner-promocional {
+        background: linear-gradient(135deg, #000 0%, #333 100%);
+        border-radius: 20px;
+        padding: 30px 40px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+        margin: 20px;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .banner-promocional::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+        animation: pulse-promo 4s ease-in-out infinite;
+    }
+
+    @keyframes pulse-promo {
+
+        0%,
+        100% {
+            transform: scale(1);
+            opacity: 0.4;
+        }
+
+        50% {
+            transform: scale(1.1);
+            opacity: 0.9;
+        }
+    }
+
+    .conteudo-banner {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        position: relative;
+        z-index: 1;
+    }
+
+    .icone-presente {
+        width: 70px;
+        height: 70px;
+        background: rgba(255, 255, 255, 0.25);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 35px;
+        border: 3px solid rgba(255, 255, 255, 0.5);
+    }
+
+    .texto-promo h2 {
+        color: #fff;
+        font-size: 18px;
+        font-weight: 700;
+        margin: 0 0 8px 0;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+    }
+
+    .texto-promo p {
+        color: #fff;
+        font-size: 22px;
+        margin: 0;
+        font-weight: 400;
+    }
+
+    .destaque-desconto {
+        color: white;
+        font-weight: 900;
+        font-size: 28px;
+        text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.6);
+        background: #000;
+        padding: 5px 15px;
+        border-radius: 8px;
+        display: inline-block;
+    }
+
+    .area-cupom {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        background: rgba(255, 255, 255, 0.95);
+        padding: 15px 25px;
+        border-radius: 15px;
+        border: 3px solid #000;
+        position: relative;
+        z-index: 1;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    }
+
+    .cupom-codigo {
+        color: #000;
+        font-size: 24px;
+        font-weight: 800;
+        letter-spacing: 2px;
+        font-family: 'Courier New', monospace;
+    }
+
+    .btn-copiar-cupom {
+        background: #000;
+        color: white;
+        border: none;
+        padding: 12px 30px;
+        border-radius: 10px;
+        font-weight: 700;
+        font-size: 16px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .btn-copiar-cupom:hover {
+        background: #222;
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+    }
+
+    /* --- MOBILE --- */
+    @media (max-width: 768px) {
+        .banner-promocional {
+            flex-direction: column;
+            text-align: center;
+            padding: 20px 15px;
+            gap: 20px;
+            margin: 15px;
+        }
+
+        .conteudo-banner {
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .icone-presente {
+            width: 60px;
+            height: 60px;
+            font-size: 30px;
+        }
+
+        .texto-promo h2 {
+            font-size: 16px;
+        }
+
+        .texto-promo p {
+            font-size: 16px;
+        }
+
+        .destaque-desconto {
+            font-size: 22px;
+            display: block;
+            margin-top: 8px;
+        }
+
+        .area-cupom {
+            flex-direction: column;
+            width: 100%;
+            padding: 15px;
+            gap: 10px;
+        }
+    }
+
+    @media (min-width: 769px) {
+        .banner-promocional {
+            margin: 20px auto;
+            max-width: 1400px;
+        }
+    }
+
+    .fz-html-personalizado {
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+  `;
+
+  return (
+    <div id="promo-container-cupom">
+      <style>{cupomStyles}</style>
+      <div className="banner-promocional">
+        <div className="conteudo-banner">
+          <div className="icone-presente">🎁</div>
+          <div className="texto-promo">
+            <h2>Presente de Boas-Vindas</h2>
+            <p>Faça sua primeira compra e ganhe <span className="destaque-desconto">5% DE DESCONTO</span> agora!</p>
+          </div>
+        </div>
+        <div className="area-cupom">
+          <div className="cupom-codigo">PRIMEIRACOMPRA</div>
+          <button
+            className="btn-copiar-cupom"
+            onClick={handleCopy}
+            style={copied ? { background: '#4ade80' } : {}}
+          >
+            {copied ? '✅ COPIADO!' : '📋 COPIAR'}
+          </button>
+        </div>
+      </div>
     </div>
   );
 }
