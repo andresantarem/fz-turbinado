@@ -87,8 +87,15 @@ export default function Widgets() {
   const barraVantagensWidget = widgets.find((widget) => widget.name === 'Barra de Vantagens');
   const BarraVantagensIcon = barraVantagensWidget?.icon;
 
+  const centralLinksWidget = widgets.find((widget) => widget.name === 'Central de Links');
+  const CentralLinksIcon = centralLinksWidget?.icon;
+
   const displayWidgets = widgets.filter(
-    (widget) => widget.name !== 'Calculadora Lucro B2B' && widget.name !== 'Cupom One-Click' && widget.name !== 'Barra de Vantagens'
+    (widget) =>
+      widget.name !== 'Calculadora Lucro B2B' &&
+      widget.name !== 'Cupom One-Click' &&
+      widget.name !== 'Barra de Vantagens' &&
+      widget.name !== 'Central de Links'
   );
 
   const showToast = (msg: string) => {
@@ -212,6 +219,21 @@ export default function Widgets() {
                 widget={barraVantagensWidget}
                 icon={BarraVantagensIcon}
                 onAdd={() => barraVantagensWidget && handleAddWidget(barraVantagensWidget)}
+              />
+            </div>
+          </div>
+        )}
+
+        {centralLinksWidget && (
+          <div
+            className="relative z-10 fade-in-up mt-8"
+            style={{ animationDelay: `${displayWidgets.length * 0.05 + 0.3}s` }}
+          >
+            <div className="max-w-[70rem] mx-auto w-full">
+              <CentralDeLinksCard
+                widget={centralLinksWidget}
+                icon={CentralLinksIcon}
+                onAdd={() => centralLinksWidget && handleAddWidget(centralLinksWidget)}
               />
             </div>
           </div>
@@ -1349,6 +1371,200 @@ function BarraDeVantagensPreview() {
               </div>
             </div>
           </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+type CentralDeLinksCardProps = {
+  widget: typeof widgets[number];
+  icon?: typeof widgets[number]['icon'];
+  onAdd: () => void;
+};
+
+function CentralDeLinksCard({ widget, icon: IconComponent, onAdd }: CentralDeLinksCardProps) {
+  return (
+    <div className="card-widget bg-foreground/10 border-primary/20 hover:border-primary transition-all duration-300">
+      <div className="flex items-center gap-4 mb-6">
+        <div className="w-12 h-12 bg-primary/20 rounded-lg flex items-center justify-center flex-shrink-0">
+          {IconComponent && <IconComponent size={24} className="text-primary" />}
+        </div>
+        <div>
+          <h3 className="text-white font-bold text-lg">{widget.name}</h3>
+          <p className="text-white/60 text-sm">{widget.description}</p>
+        </div>
+      </div>
+
+      <div className="rounded-2xl overflow-hidden border border-white/5 bg-transparent">
+        <CentralDeLinksPreview />
+      </div>
+
+      <div className="mt-6 flex flex-col sm:flex-row items-center sm:items-center justify-between gap-4">
+        <div className="text-center sm:text-left">
+          <p className="text-white/50 text-xs">Avulso</p>
+          <p className="text-white font-bold text-xl">R$ {widget.price}</p>
+        </div>
+        <button
+          onClick={onAdd}
+          className="bg-primary text-primary-foreground px-4 py-2 rounded-lg font-semibold hover:shadow-lg transition-all duration-300 hover:scale-105 active:scale-95 text-sm w-full sm:w-auto text-center"
+        >
+          Adicionar
+        </button>
+      </div>
+    </div>
+  );
+}
+
+function CentralDeLinksPreview() {
+  const centralLinksStyles = `
+    @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css');
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap');
+
+    #menu-container,
+    #menu-container * {
+        box-sizing: border-box;
+    }
+
+    #menu-container {
+        width: 100%;
+        background: transparent;
+        position: relative;
+        z-index: 990;
+        font-family: 'Poppins', sans-serif !important;
+        display: block;
+    }
+
+    /* --- MENU RÁPIDO --- */
+    #menu-acesso-rapido {
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        background: #fff;
+        border-bottom: 1px solid #ddd;
+        width: 100%;
+        padding: 30px 20px;
+        margin: 0;
+        gap: 60px;
+    }
+
+    .item-acesso {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-decoration: none !important;
+        text-align: center;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        margin: 0;
+    }
+
+    .item-acesso:hover {
+        transform: translateY(-5px);
+    }
+
+    .item-acesso:hover .circulo-icone {
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    }
+
+    .circulo-icone {
+        width: 90px;
+        height: 90px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #000 0%, #333 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 40px;
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+        transition: all 0.3s ease;
+    }
+
+    .texto-acesso {
+        color: #000;
+        font-weight: 700;
+        line-height: 1.2;
+        margin-top: 12px;
+        display: block;
+        letter-spacing: 0.3px;
+        font-size: 16px;
+    }
+
+    /* --- MOBILE --- */
+    @media (max-width: 768px) {
+        #menu-acesso-rapido {
+            flex-direction: column;
+            padding: 25px 20px;
+            gap: 25px;
+            align-items: center !important;
+            justify-content: center !important;
+            text-align: center !important;
+        }
+
+        .item-acesso {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center !important;
+            justify-content: center !important;
+        }
+
+        .circulo-icone {
+            width: 80px;
+            height: 80px;
+            font-size: 36px;
+        }
+    }
+
+    @media (min-width: 769px) {
+        #menu-acesso-rapido {
+            padding: 40px 20px;
+            gap: 80px;
+        }
+
+        .circulo-icone {
+            width: 110px;
+            height: 110px;
+            font-size: 48px;
+        }
+    }
+
+    .fz-html-personalizado {
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+  `;
+
+  return (
+    <div id="html-links-widget">
+      <style>{centralLinksStyles}</style>
+      <div id="menu-container">
+        <div id="menu-acesso-rapido">
+          <a
+            href="https://wa.me/5562981480687?text=Ol%C3%A1%20acessei%20o%20cat%C3%A1logo%20e%20quero%20tirar%20uma%20d%C3%BAvida."
+            className="item-acesso"
+            target="_blank"
+            rel="noreferrer"
+          >
+            <div className="circulo-icone">💬</div>
+            <span className="texto-acesso">Fale Conosco</span>
+          </a>
+
+          <a href="https://chat.whatsapp.com/C2U77SKc4FN2MTTruyCtt2" className="item-acesso" target="_blank" rel="noreferrer">
+            <div className="circulo-icone">👑</div>
+            <span className="texto-acesso">Grupo VIP</span>
+          </a>
+
+          <a
+            href="https://drive.google.com/drive/folders/1MCdLmRZdukfuedik3baPYFnkEOMki1Qe?usp=drive_link"
+            className="item-acesso"
+            target="_blank"
+            rel="noreferrer"
+          >
+            <div className="circulo-icone">📱</div>
+            <span className="texto-acesso">Material de Divulgação</span>
+          </a>
         </div>
       </div>
     </div>
