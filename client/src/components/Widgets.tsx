@@ -1542,7 +1542,7 @@ function CentralDeLinksPreview() {
       <div id="menu-container">
         <div id="menu-acesso-rapido">
           <a
-            href="https://wa.me/5562981480687?text=Ol%C3%A1%20acessei%20o%20cat%C3%A1logo%20e%20quero%20tirar%20uma%20d%C3%BAvida."
+            href="https://fz-turbinado.vercel.app/"
             className="item-acesso"
             target="_blank"
             rel="noreferrer"
@@ -1551,13 +1551,13 @@ function CentralDeLinksPreview() {
             <span className="texto-acesso">Fale Conosco</span>
           </a>
 
-          <a href="https://chat.whatsapp.com/C2U77SKc4FN2MTTruyCtt2" className="item-acesso" target="_blank" rel="noreferrer">
+          <a href="https://fz-turbinado.vercel.app/" className="item-acesso" target="_blank" rel="noreferrer">
             <div className="circulo-icone">👑</div>
             <span className="texto-acesso">Grupo VIP</span>
           </a>
 
           <a
-            href="https://drive.google.com/drive/folders/1MCdLmRZdukfuedik3baPYFnkEOMki1Qe?usp=drive_link"
+            href="https://fz-turbinado.vercel.app/"
             className="item-acesso"
             target="_blank"
             rel="noreferrer"
