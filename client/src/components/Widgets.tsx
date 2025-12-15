@@ -81,6 +81,9 @@ export default function Widgets() {
   const calculatorWidget = widgets.find((widget) => widget.name === 'Calculadora Lucro B2B');
   const CalculatorIcon = calculatorWidget?.icon;
 
+  const carrosselWidget = widgets.find((widget) => widget.name === 'Carrossel Vitrine');
+  const CarrosselIcon = carrosselWidget?.icon;
+
   const sobreNosWidget = widgets.find((widget) => widget.name === 'Sobre Nós');
   const SobreNosIcon = sobreNosWidget?.icon;
 
@@ -99,6 +102,7 @@ export default function Widgets() {
   const displayWidgets = widgets.filter(
     (widget) =>
       widget.name !== 'Redesign Visual' &&
+      widget.name !== 'Carrossel Vitrine' &&
       widget.name !== 'Produto Mais Vendido' &&
       widget.name !== 'Calculadora Lucro B2B' &&
       widget.name !== 'Sobre Nós' &&
@@ -217,6 +221,21 @@ export default function Widgets() {
                   widgets.find((w) => w.name === 'Produto Mais Vendido') &&
                   handleAddWidget(widgets.find((w) => w.name === 'Produto Mais Vendido')!)
                 }
+              />
+            </div>
+          </div>
+        )}
+
+        {carrosselWidget && (
+          <div
+            className="relative z-10 fade-in-up mb-8"
+            style={{ animationDelay: `${displayWidgets.length * 0.05 + 0.1}s` }}
+          >
+            <div className="max-w-[70rem] mx-auto w-full">
+              <CarrosselVitrineCard
+                widget={carrosselWidget}
+                icon={CarrosselIcon}
+                onAdd={() => carrosselWidget && handleAddWidget(carrosselWidget)}
               />
             </div>
           </div>
@@ -2711,3 +2730,663 @@ function SobreNosPreview() {
     </div>
   );
 }
+
+type CarrosselVitrineCardProps = {
+  widget: typeof widgets[number];
+  icon?: typeof widgets[number]['icon'];
+  onAdd: () => void;
+};
+
+function CarrosselVitrineCard({ widget, icon: IconComponent, onAdd }: CarrosselVitrineCardProps) {
+  return (
+    <div className="card-widget bg-foreground/10 border-primary/20 hover:border-primary transition-all duration-300">
+      <div className="flex items-center gap-4 mb-6">
+        <div className="w-12 h-12 bg-primary/20 rounded-lg flex items-center justify-center flex-shrink-0">
+          {IconComponent && <IconComponent size={24} className="text-primary" />}
+        </div>
+        <div>
+          <h3 className="text-white font-bold text-lg">{widget.name}</h3>
+          <p className="text-white/60 text-sm">{widget.description}</p>
+        </div>
+      </div>
+
+      <div className="rounded-2xl overflow-hidden border border-white/5 bg-transparent">
+        <CarrosselVitrinePreview />
+      </div>
+
+      <div className="mt-6 flex flex-col sm:flex-row items-center sm:items-center justify-between gap-4">
+        <div className="text-center sm:text-left">
+          <p className="text-white/50 text-xs">Avulso</p>
+          <p className="text-white font-bold text-xl">R$ {widget.price}</p>
+        </div>
+        <button
+          onClick={onAdd}
+          className="bg-primary text-primary-foreground px-4 py-2 rounded-lg font-semibold hover:shadow-lg transition-all duration-300 hover:scale-105 active:scale-95 text-sm w-full sm:w-auto text-center"
+        >
+          Adicionar
+        </button>
+      </div>
+    </div>
+  );
+}
+
+function CarrosselVitrinePreview() {
+  const toggleSoundLancamento = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    const card = event.currentTarget;
+    const video = card.querySelector('video');
+    const icon = card.querySelector('.icone-som-novo i');
+
+    if (!video || !icon) return;
+
+    // Toggle muted state
+    video.muted = !video.muted;
+
+    // Update icon
+    if (video.muted) {
+      icon.classList.remove('fa-volume-up');
+      icon.classList.add('fa-volume-mute');
+    } else {
+      icon.classList.remove('fa-volume-mute');
+      icon.classList.add('fa-volume-up');
+    }
+  };
+
+  useEffect(() => {
+    const videos = document.querySelectorAll('.card-novo video');
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          const video = entry.target as HTMLVideoElement;
+          if (entry.isIntersecting) {
+            video.play().catch(() => {
+              // Browser blocked autoplay
+            });
+          } else {
+            video.pause();
+          }
+        });
+      },
+      { threshold: 0.5 }
+    );
+
+    videos.forEach((video) => observer.observe(video));
+
+    return () => {
+      observer.disconnect();
+    };
+  }, []);
+
+  const styles = `
+    /*=================================================================*/
+    /* ESTILOS FINAIS E REVISADOS - SEÇÃO LANÇAMENTO COM BRANDING     */
+    /* Todos os estilos do CSS_FZ_V1 aplicados à seção de vídeos      */
+    /*=================================================================*/
+
+    /* 1. TIPOGRAFIA GLOBAL E USABILIDADE (FONT SIZING) */
+    #carrossel-vitrine-widget {
+        --fz-font-body: 16px;
+        --fz-font-heading-lg: 3rem;
+        --fz-font-heading-md: 2rem;
+        --fz-font-heading-sm: 1.5rem;
+        --cor-detalhes-gerais: #1a1a1a;
+    }
+
+    #carrossel-vitrine-widget * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    @media (max-width: 991px) {
+        #carrossel-vitrine-widget {
+            --fz-font-heading-lg: 2.2rem;
+            --fz-font-heading-md: 1.6rem;
+            --fz-font-heading-sm: 1.3rem;
+        }
+    }
+
+    #carrossel-vitrine-widget h1 {
+        font-size: var(--fz-font-heading-lg) !important;
+    }
+
+    #carrossel-vitrine-widget h2 {
+        font-size: var(--fz-font-heading-md) !important;
+    }
+
+    #carrossel-vitrine-widget h3,
+    #carrossel-vitrine-widget h4 {
+        font-size: var(--fz-font-heading-sm) !important;
+    }
+
+    #carrossel-vitrine-widget p,
+    #carrossel-vitrine-widget li {
+        font-size: 1rem !important;
+    }
+
+    /* 3. ANIMAÇÕES */
+    @keyframes fz-pulse-animation {
+        0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(26, 26, 26, 0.7); }
+        70% { transform: scale(1.02); box-shadow: 0 0 0 10px rgba(26, 26, 26, 0); }
+        100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(26, 26, 26, 0); }
+    }
+    @keyframes fz-rotate-loader {
+        from { transform: rotate(0deg); }
+        to { transform: rotate(360deg); }
+    }
+    @keyframes fadeInDown {
+        from { opacity: 0; transform: translateY(-20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeInUp {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes priceFloat {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* SEÇÃO LANÇAMENTO - CONTAINER */
+    .secao-lancamento {
+        width: 100%;
+        padding: 40px 20px;
+        background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+        position: relative;
+        overflow: hidden;
+        border-radius: 16px;
+    }
+
+    /* HEADER LANÇAMENTO */
+    .header-lancamento {
+        text-align: center;
+        margin-bottom: 40px;
+        animation: fadeInDown 0.8s ease-out;
+    }
+
+    .titulo-lancamento {
+        font-size: var(--fz-font-heading-md) !important;
+        font-weight: 900 !important;
+        letter-spacing: 2px;
+        color: #1a1a1a;
+        margin-bottom: 10px;
+        text-transform: uppercase;
+    }
+
+    .destaque-novo {
+        color: var(--cor-detalhes-gerais) !important;
+        position: relative;
+        display: inline-block;
+    }
+
+    .destaque-novo::after {
+        content: '';
+        position: absolute;
+        bottom: -5px;
+        left: 0;
+        right: 0;
+        height: 3px;
+        background: linear-gradient(90deg, transparent, #1a1a1a, transparent);
+        border-radius: 2px;
+    }
+
+    .subtitulo-lancamento {
+        font-size: 1rem;
+        color: #666;
+        font-weight: 500;
+        margin-bottom: 15px;
+        display: block;
+    }
+
+    .tag-novidade {
+        display: inline-block;
+        background-color: #1a1a1a !important;
+        color: #fff !important;
+        padding: 8px 16px !important;
+        border-radius: 50px !important;
+        font-size: 0.85rem !important;
+        font-weight: 700 !important;
+        letter-spacing: 0.5px;
+        gap: 6px;
+        display: inline-flex;
+        align-items: center;
+        animation: fz-pulse-animation 3s infinite;
+    }
+
+    .tag-novidade i {
+        font-size: 14px;
+    }
+
+    /* CARROSSEL CONTAINER */
+    .lancamento-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 24px;
+        margin: 0 auto;
+        padding: 0 15px;
+    }
+
+    @media (max-width: 1199px) {
+        .lancamento-container {
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+    }
+
+    @media (max-width: 767px) {
+        .lancamento-container {
+            grid-template-columns: 1fr;
+            gap: 16px;
+        }
+    }
+
+    /* CARD DO VÍDEO */
+    .card-novo {
+        position: relative;
+        border-radius: 16px !important;
+        overflow: hidden !important;
+        background: #fff;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        cursor: pointer;
+        border: 1px solid #f0f0f0;
+        animation: fadeInUp 0.6s ease-out;
+    }
+
+    .card-novo:hover {
+        transform: translateY(-10px) !important;
+        box-shadow: 0 12px 40px rgba(26, 26, 26, 0.25) !important;
+    }
+
+    /* VÍDEO */
+    .card-novo video {
+        width: 100%;
+        height: auto;
+        aspect-ratio: 9 / 16;
+        object-fit: cover;
+        display: block;
+        background: #000;
+    }
+
+    /* LOADER ANIMADO */
+    .loader-novo {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 50px;
+        height: 50px;
+        border: 4px solid rgba(255, 255, 255, 0.3);
+        border-top-color: var(--cor-detalhes-gerais);
+        border-radius: 50%;
+        animation: fz-rotate-loader 0.8s linear infinite;
+        opacity: 0;
+        pointer-events: none;
+        z-index: 5;
+    }
+
+    .card-novo video:not([src]) ~ .loader-novo,
+    .card-novo.loading .loader-novo {
+        opacity: 1;
+    }
+
+    /* ÍCONE DE SOM */
+    .icone-som-novo {
+        position: absolute;
+        top: 12px;
+        right: 12px;
+        width: 42px;
+        height: 42px;
+        background-color: rgba(255, 255, 255, 0.98) !important;
+        border-radius: 50% !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        cursor: pointer !important;
+        z-index: 10;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        transition: all 0.2s ease;
+        border: 1px solid #ddd;
+    }
+
+    .icone-som-novo:hover {
+        background-color: #f5f5f5 !important;
+        transform: scale(1.1);
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
+    }
+
+    .icone-som-novo i {
+        font-size: 20px !important;
+        color: #1a1a1a !important;
+        transition: color 0.2s ease;
+        display: block !important;
+        line-height: 1 !important;
+    }
+
+    .icone-som-novo:hover i {
+        color: #1a1a1a !important;
+    }
+
+    /* SELOS DO PRODUTO */
+    .selo-produto {
+        position: absolute;
+        top: 12px;
+        left: 12px;
+        padding: 6px 12px !important;
+        border-radius: 50px !important;
+        font-size: 0.75rem !important;
+        font-weight: 700 !important;
+        letter-spacing: 0.5px;
+        display: inline-flex !important;
+        align-items: center !important;
+        gap: 6px !important;
+        z-index: 8;
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        white-space: nowrap;
+    }
+
+    .selo-custo {
+        background: rgba(52, 152, 219, 0.95);
+        color: #fff;
+    }
+
+    .selo-novo {
+        background: rgba(231, 76, 60, 0.95);
+        color: #fff;
+    }
+
+    .selo-lucro {
+        background: rgba(155, 89, 182, 0.95);
+        color: #fff;
+    }
+
+    .selo-top {
+        background: rgba(255, 193, 7, 0.95);
+        color: #333;
+    }
+
+    .selo-produto i {
+        font-size: 12px;
+    }
+
+    /* ETIQUETA DE PREÇO */
+    .etiqueta-lancamento {
+        position: absolute;
+        bottom: 100%;
+        right: 12px;
+        background-color: #1a1a1a !important;
+        color: #fff !important;
+        padding: 8px 14px !important;
+        border-radius: 12px 12px 0 0 !important;
+        font-weight: 800 !important;
+        font-size: 1.1rem !important;
+        letter-spacing: 0.5px;
+        z-index: 9;
+        transition: all 0.3s ease;
+        white-space: nowrap;
+        box-shadow: 0 -4px 12px rgba(26, 26, 26, 0.2);
+    }
+
+    .etiqueta-lancamento small {
+        font-size: 0.7rem;
+        opacity: 0.9;
+        display: block;
+        font-weight: 600;
+    }
+
+    .card-novo:hover .etiqueta-lancamento {
+        animation: priceFloat 0.6s ease-out forwards;
+    }
+
+    /* PROGRESSO */
+    .progresso-lancamento {
+        position: absolute;
+        bottom: 76px;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background-color: rgba(0, 0, 0, 0.2);
+        z-index: 7;
+    }
+
+    .barra-progresso-lancamento {
+        height: 100%;
+        background: linear-gradient(90deg, #1a1a1a, #333333);
+        border-radius: 2px;
+        transition: width 0.3s ease;
+        box-shadow: 0 0 10px rgba(26, 26, 26, 0.5);
+    }
+
+    /* LEGENDA COM BOTÃO */
+    .legenda-lancamento {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.8) 100%);
+        padding: 20px 12px 12px 12px;
+        z-index: 6;
+        backdrop-filter: blur(5px);
+    }
+
+    .btn-comprar-novo {
+        color: #fff !important;
+        background-color: #1a1a1a !important;
+        border-color: #1a1a1a !important;
+        border-radius: 50px !important;
+        font-weight: 800 !important;
+        text-transform: uppercase;
+        font-size: 0.9rem !important;
+        letter-spacing: 1px;
+        padding: 10px 20px !important;
+        animation: fz-pulse-animation 2s infinite !important;
+        transition: all 0.3s ease !important;
+        display: inline-flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        gap: 8px !important;
+        line-height: 1.2 !important;
+        border: none;
+        cursor: pointer;
+        width: 100%;
+        text-align: center;
+        text-decoration: none;
+    }
+
+    .btn-comprar-novo:hover {
+        animation: none !important;
+        transform: scale(1.05) !important;
+        box-shadow: 0 8px 20px rgba(26, 26, 26, 0.4) !important;
+        background-color: #1a1a1a !important;
+        border-color: #1a1a1a !important;
+    }
+
+    .btn-comprar-novo:focus {
+        outline: 2px solid rgba(26, 26, 26, 0.4) !important;
+        outline-offset: 2px !important;
+        box-shadow: 0 0 0 4px rgba(26, 26, 26, 0.2) !important;
+    }
+
+    .btn-comprar-novo i {
+        font-size: 16px;
+    }
+
+    /* MOBILE FIXES */
+    @media (max-width: 767px) {
+        .secao-lancamento {
+            padding: 30px 15px;
+        }
+
+        .titulo-lancamento {
+            font-size: 1.8rem !important;
+        }
+
+        .lancamento-container {
+            grid-template-columns: 1fr;
+        }
+
+        .card-novo {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-novo:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 24px rgba(26, 26, 26, 0.2);
+        }
+
+        .btn-comprar-novo {
+            font-size: 0.85rem !important;
+            padding: 9px 18px !important;
+        }
+    }
+  `;
+
+  return (
+    <div id="carrossel-vitrine-widget">
+      <style>{styles}</style>
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+      {/* CABEÇALHO LANÇAMENTO */}
+      <div className="secao-lancamento">
+        <div className="header-lancamento">
+          <h2 className="titulo-lancamento">
+            ACABOU DE <span className="destaque-novo">CHEGAR</span>
+          </h2>
+          <span className="subtitulo-lancamento">Confira as novidades exclusivas da semana.</span>
+          <div className="tag-novidade">
+            <i className="fas fa-star"></i> Coleção Nova
+          </div>
+        </div>
+
+        {/* CARROSSEL */}
+        <div className="lancamento-container">
+          {/* CARD 1: Saia Cargo (R$ 28) - Custo x Benefício */}
+          <div className="card-novo" onClick={toggleSoundLancamento}>
+            <div className="loader-novo"></div>
+            <div className="icone-som-novo">
+              <i className="fas fa-volume-mute"></i>
+            </div>
+
+            <div className="selo-produto selo-custo">
+              <i className="fas fa-thumbs-up"></i> Custo x Benefício
+            </div>
+            <div className="etiqueta-lancamento">
+              <small>R$</small> 28,00
+            </div>
+
+            <video
+              src="https://arquivos.facilzap.app.br/videos_produtos/1760985595_2e2408d7c7e7bdd07dcc.mp4"
+              loop
+              playsInline
+              muted
+              preload="metadata"
+            ></video>
+            <div className="progresso-lancamento">
+              <div className="barra-progresso-lancamento" style={{ width: '45.8%' }}></div>
+            </div>
+            <div className="legenda-lancamento">
+              <a href="https://miguxasemiguxoskids.com.br/c/principal/produto/3291221/11912985063" className="btn-comprar-novo" target="_blank" rel="noreferrer">
+                VER SAIA CARGO <i className="fas fa-arrow-right"></i>
+              </a>
+            </div>
+          </div>
+
+          {/* CARD 2: Vestido (R$ 45) - Lançamento Premium */}
+          <div className="card-novo" onClick={toggleSoundLancamento}>
+            <div className="loader-novo"></div>
+            <div className="icone-som-novo">
+              <i className="fas fa-volume-mute"></i>
+            </div>
+
+            <div className="selo-produto selo-novo">
+              <i className="fas fa-star"></i> Lançamento Premium
+            </div>
+            <div className="etiqueta-lancamento">
+              <small>R$</small> 45,00
+            </div>
+
+            <video
+              src="https://arquivos.facilzap.app.br/videos_produtos/1763402895_b82abc57604842dc7845.mp4"
+              loop
+              playsInline
+              muted
+              preload="metadata"
+            ></video>
+            <div className="progresso-lancamento">
+              <div className="barra-progresso-lancamento" style={{ width: '19%' }}></div>
+            </div>
+            <div className="legenda-lancamento">
+              <a href="https://miguxasemiguxoskids.com.br/c/principal/produto/3569942/11912985063" className="btn-comprar-novo" target="_blank" rel="noreferrer">
+                VER VESTIDO <i className="fas fa-arrow-right"></i>
+              </a>
+            </div>
+          </div>
+
+          {/* CARD 3: Vestido Natal (R$ 25) - Alta Lucratividade */}
+          <div className="card-novo" onClick={toggleSoundLancamento}>
+            <div className="loader-novo"></div>
+            <div className="icone-som-novo">
+              <i className="fas fa-volume-mute"></i>
+            </div>
+
+            <div className="selo-produto selo-lucro">
+              <i className="fas fa-chart-line"></i> Alta Lucratividade
+            </div>
+            <div className="etiqueta-lancamento">
+              <small>R$</small> 25,00
+            </div>
+
+            <video
+              src="https://arquivos.facilzap.app.br/videos_produtos/1763830087_1b3127f654d637895c6b.mp4"
+              loop
+              playsInline
+              muted
+              preload="metadata"
+            ></video>
+            <div className="progresso-lancamento">
+              <div className="barra-progresso-lancamento" style={{ width: '52.4%' }}></div>
+            </div>
+            <div className="legenda-lancamento">
+              <a href="https://miguxasemiguxoskids.com.br/c/principal/produto/3587211/11912985063" className="btn-comprar-novo" target="_blank" rel="noreferrer">
+                VER VESTIDO NATAL <i className="fas fa-arrow-right"></i>
+              </a>
+            </div>
+          </div>
+
+          {/* CARD 4: Conjunto Tata (R$ 25) - Top Vendas */}
+          <div className="card-novo" onClick={toggleSoundLancamento}>
+            <div className="loader-novo"></div>
+            <div className="icone-som-novo">
+              <i className="fas fa-volume-mute"></i>
+            </div>
+
+            <div className="selo-produto selo-top">
+              <i className="fas fa-trophy"></i> Campeã de Vendas
+            </div>
+            <div className="etiqueta-lancamento">
+              <small>R$</small> 25,00
+            </div>
+
+            <video
+              src="https://arquivos.facilzap.app.br/videos_produtos/1765459956_3e206dc86aa2acd3f250.mp4"
+              loop
+              playsInline
+              muted
+              preload="metadata"
+            ></video>
+            <div className="progresso-lancamento">
+              <div className="barra-progresso-lancamento" style={{ width: '72.5%' }}></div>
+            </div>
+            <div className="legenda-lancamento">
+              <a href="https://miguxasemiguxoskids.com.br/c/principal/produto/3639756/11912985063" className="btn-comprar-novo" target="_blank" rel="noreferrer">
+                VER CONJUNTO TATA <i className="fas fa-arrow-right"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
