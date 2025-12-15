@@ -1,6 +1,6 @@
 import { useCart } from '@/contexts/CartContext';
-import { ShoppingCart, Zap, TrendingUp, Gift, Filter, Link2, BarChart3, Clock, Users, Info, Sparkles } from 'lucide-react';
-import { useMemo, useState } from 'react';
+import { ShoppingCart, Zap, TrendingUp, Gift, Filter, Link2, BarChart3, Clock, Users, Info, Sparkles, ChevronLeft, ChevronRight } from 'lucide-react';
+import { useMemo, useState, useCallback, useEffect, useRef } from 'react';
 
 const widgets = [
   {
@@ -81,6 +81,9 @@ export default function Widgets() {
   const calculatorWidget = widgets.find((widget) => widget.name === 'Calculadora Lucro B2B');
   const CalculatorIcon = calculatorWidget?.icon;
 
+  const redesignWidget = widgets.find((widget) => widget.name === 'Redesign Visual');
+  const RedesignIcon = redesignWidget?.icon;
+
   const cupomWidget = widgets.find((widget) => widget.name === 'Cupom One-Click');
   const CupomIcon = cupomWidget?.icon;
 
@@ -92,6 +95,7 @@ export default function Widgets() {
 
   const displayWidgets = widgets.filter(
     (widget) =>
+      widget.name !== 'Redesign Visual' &&
       widget.name !== 'Calculadora Lucro B2B' &&
       widget.name !== 'Cupom One-Click' &&
       widget.name !== 'Barra de Vantagens' &&
@@ -179,6 +183,21 @@ export default function Widgets() {
             );
           })}
         </div>
+
+        {redesignWidget && (
+          <div
+            className="relative z-10 fade-in-up mb-8"
+            style={{ animationDelay: `${displayWidgets.length * 0.05}s` }}
+          >
+            <div className="max-w-[70rem] mx-auto w-full">
+              <RedesignVisualCard
+                widget={redesignWidget}
+                icon={RedesignIcon}
+                onAdd={() => redesignWidget && handleAddWidget(redesignWidget)}
+              />
+            </div>
+          </div>
+        )}
 
         {calculatorWidget && (
           <div
@@ -1834,6 +1853,183 @@ function BarraInformativaPreview() {
           </div>
         </div>
       </div>
+    </div>
+  );
+}
+
+type RedesignVisualCardProps = {
+  widget: typeof widgets[number];
+  icon?: typeof widgets[number]['icon'];
+  onAdd: () => void;
+};
+
+function RedesignVisualCard({ widget, icon: IconComponent, onAdd }: RedesignVisualCardProps) {
+  return (
+    <div className="card-widget bg-foreground/10 border-primary/20 hover:border-primary transition-all duration-300">
+      <div className="flex items-center gap-4 mb-6">
+        <div className="w-12 h-12 bg-primary/20 rounded-lg flex items-center justify-center flex-shrink-0">
+          {IconComponent && <IconComponent size={24} className="text-primary" />}
+        </div>
+        <div>
+          <h3 className="text-white font-bold text-lg">{widget.name}</h3>
+          <p className="text-white/60 text-sm">{widget.description}</p>
+        </div>
+      </div>
+
+      <div className="rounded-2xl overflow-hidden border border-white/5 bg-transparent p-4 sm:p-6 lg:p-8">
+        <RedesignVisualPreview />
+      </div>
+
+      <div className="mt-6 flex flex-col sm:flex-row items-center sm:items-center justify-between gap-4">
+        <div className="text-center sm:text-left">
+          <p className="text-white/50 text-xs">Avulso</p>
+          <p className="text-white font-bold text-xl">R$ {widget.price}</p>
+        </div>
+        <button
+          onClick={onAdd}
+          className="bg-primary text-primary-foreground px-4 py-2 rounded-lg font-semibold hover:shadow-lg transition-all duration-300 hover:scale-105 active:scale-95 text-sm w-full sm:w-auto text-center"
+        >
+          Adicionar
+        </button>
+      </div>
+    </div>
+  );
+}
+
+function RedesignVisualPreview() {
+  const sliderRef = useRef<HTMLDivElement | null>(null);
+  const [sliderPercent, setSliderPercent] = useState(50);
+  const [isDragging, setIsDragging] = useState(false);
+  const isTouchDrag = useRef(false);
+
+  const updateSlider = useCallback((clientX: number) => {
+    const slider = sliderRef.current;
+    if (!slider) return;
+    const rect = slider.getBoundingClientRect();
+    const x = Math.min(Math.max(clientX - rect.left, 0), rect.width);
+    const percent = (x / rect.width) * 100;
+    setSliderPercent(Number(percent.toFixed(2)));
+  }, []);
+
+  useEffect(() => {
+    const stopDragging = () => {
+      setIsDragging(false);
+      isTouchDrag.current = false;
+    };
+
+    const handleMouseMove = (event: MouseEvent) => {
+      if (!isDragging || isTouchDrag.current) return;
+      updateSlider(event.clientX);
+    };
+
+    const handleTouchMove = (event: TouchEvent) => {
+      if (!isDragging) return;
+      // Prevent scrolling while dragging the slider
+      if (event.cancelable) event.preventDefault();
+      const touch = event.touches[0];
+      if (touch) {
+        updateSlider(touch.clientX);
+      }
+    };
+
+    window.addEventListener('mousemove', handleMouseMove);
+    window.addEventListener('touchmove', handleTouchMove, { passive: false });
+    window.addEventListener('mouseup', stopDragging);
+    window.addEventListener('mouseleave', stopDragging);
+    window.addEventListener('touchend', stopDragging);
+    window.addEventListener('touchcancel', stopDragging);
+
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove);
+      window.removeEventListener('touchmove', handleTouchMove);
+      window.removeEventListener('mouseup', stopDragging);
+      window.removeEventListener('mouseleave', stopDragging);
+      window.removeEventListener('touchend', stopDragging);
+      window.removeEventListener('touchcancel', stopDragging);
+    };
+  }, [isDragging, updateSlider]);
+
+  const togglePosition = () => {
+    setSliderPercent(prev => (prev <= 50 ? 100 : 0));
+  };
+
+  return (
+    <div className="w-full">
+      <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 mb-6 text-center sm:text-left">
+        <span className="text-xs sm:text-sm text-foreground/70 font-semibold">ANTES</span>
+        <button
+          className="inline-flex items-center gap-1 sm:gap-2 px-2 sm:px-4 py-2 rounded-full bg-primary text-primary-foreground text-xs sm:text-sm font-bold hover:shadow-lg transition-shadow"
+          onClick={togglePosition}
+        >
+          <ChevronLeft size={16} className="hidden sm:block" />
+          <ChevronLeft size={12} className="sm:hidden" />
+          <span className="hidden sm:inline">Deslizar</span>
+          <span className="sm:hidden">Arrastar</span>
+          <ChevronRight size={16} className="hidden sm:block" />
+          <ChevronRight size={12} className="sm:hidden" />
+        </button>
+        <span className="text-xs sm:text-sm text-foreground/70 font-semibold">DEPOIS</span>
+      </div>
+
+      <div
+        ref={sliderRef}
+        className="relative mx-auto w-full max-w-[500px] aspect-[9/16] sm:aspect-[4/5] max-h-[600px] rounded-2xl border border-border bg-black overflow-hidden cursor-col-resize shadow-xl select-none touch-none"
+        onMouseDown={(event) => {
+          event.preventDefault();
+          isTouchDrag.current = false;
+          setIsDragging(true);
+          updateSlider(event.clientX);
+        }}
+        onTouchStart={(event) => {
+          isTouchDrag.current = true;
+          setIsDragging(true);
+          const touch = event.touches[0];
+          if (touch) {
+            updateSlider(touch.clientX);
+          }
+        }}
+        onMouseUp={() => setIsDragging(false)}
+        onTouchEnd={() => setIsDragging(false)}
+        onMouseLeave={() => setIsDragging(false)}
+        onClick={(event) => updateSlider(event.clientX)}
+      >
+        {/* Antes - fundo completo */}
+        <img
+          src="/images/antes_fz_turbinado.png"
+          alt="Antes"
+          className="absolute inset-0 w-full h-full object-contain px-6 py-4"
+        />
+
+        {/* Depois - clipe pela largura */}
+        <div
+          className="absolute inset-0 bg-black"
+          style={{ clipPath: `inset(0 ${Math.max(0, 100 - sliderPercent)}% 0 0)` }}
+        >
+          <img
+            src="/images/depois_fz_turbinado.png"
+            alt="Depois"
+            className="absolute inset-0 w-full h-full object-contain px-6 py-4"
+          />
+        </div>
+
+        {/* Slider handle */}
+        <div
+          className="comp-slider absolute top-0 bottom-0 w-1 bg-primary pointer-events-none z-20"
+          style={{ left: `${sliderPercent}%` }}
+        >
+          <div className="absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 bg-primary text-primary-foreground rounded-full px-2 sm:px-3 py-1 text-xs font-bold flex items-center gap-1 shadow-lg whitespace-nowrap">
+            <ChevronLeft size={14} />
+            <span className="hidden sm:inline">Deslize</span>
+            <ChevronRight size={14} />
+          </div>
+        </div>
+        {/* Labels */}
+        <span className="absolute top-3 left-3 sm:top-4 sm:left-4 text-xs sm:text-sm font-bold bg-black/60 text-white px-2 sm:px-3 py-1 rounded z-10">ANTES</span>
+        <span className="absolute top-3 right-3 sm:top-4 sm:right-4 text-xs sm:text-sm font-bold bg-black/60 text-white px-2 sm:px-3 py-1 rounded z-10">DEPOIS</span>
+      </div>
+      <p className="text-center text-foreground/60 text-xs sm:text-sm mt-4 sm:mt-3 max-w-md mx-auto sm:max-w-none">
+        👈 Arraste ou use o botão para comparar os resultados
+      </p>
     </div>
   );
 }
