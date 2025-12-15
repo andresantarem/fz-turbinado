@@ -2319,9 +2319,21 @@ function ProdutoMaisVendidoPreview() {
         max-height: 450px;
       }
 
-      .badge-destaque { padding: 8px 14px !important; font-size: 0.7rem !important; top: 12px !important; }
-      .badge-top-left { left: 12px; }
-      .badge-top-right { right: 12px; }
+      /* Fixed Overlap: Stack badges vertically on top-left */
+      .badge-destaque { padding: 8px 14px !important; font-size: 0.7rem !important; }
+      
+      .badge-top-left { 
+        top: 12px !important; 
+        left: 12px !important; 
+      }
+      
+      .badge-top-right {
+        top: 50px !important;    /* Position below the first badge */
+        left: 12px !important;   /* Align to the left side */
+        right: auto !important;  /* Reset right positioning */
+        background-color: #fff !important;
+        color: #1a1a1a !important;
+      }
 
       .card-video-destaque {
         margin-top: 18px;
@@ -2341,9 +2353,18 @@ function ProdutoMaisVendidoPreview() {
       .video-wrapper { max-height: 420px; }
       .video-produto { max-height: 420px; }
 
-      .badge-destaque { padding: 6px 12px !important; font-size: 0.65rem !important; top: 10px !important; }
-      .badge-top-left { left: 10px; }
-      .badge-top-right { right: 10px; }
+      .badge-destaque { padding: 6px 12px !important; font-size: 0.65rem !important; }
+      
+      .badge-top-left { 
+        top: 10px !important; 
+        left: 10px !important; 
+      }
+      
+      .badge-top-right { 
+        top: 45px !important;    /* Position below the first badge with adjusted spacing */
+        left: 10px !important; 
+        right: auto !important;
+      }
 
       .card-video-destaque { padding: 16px 16px; margin-top: 14px; text-align: center; }
       .card-video-destaque h2 { font-size: 1.05rem !important; }
