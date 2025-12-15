@@ -33,10 +33,10 @@ const widgets = [
   },
   {
     id: 5,
-    name: 'Oferta Scarcity',
+    name: 'Sobre Nós',
     icon: Clock,
     price: 310,
-    description: 'Timer de urgência com barra de progresso',
+    description: 'Conte a história da sua marca',
   },
   {
     id: 6,
@@ -81,6 +81,9 @@ export default function Widgets() {
   const calculatorWidget = widgets.find((widget) => widget.name === 'Calculadora Lucro B2B');
   const CalculatorIcon = calculatorWidget?.icon;
 
+  const sobreNosWidget = widgets.find((widget) => widget.name === 'Sobre Nós');
+  const SobreNosIcon = sobreNosWidget?.icon;
+
   const redesignWidget = widgets.find((widget) => widget.name === 'Redesign Visual');
   const RedesignIcon = redesignWidget?.icon;
 
@@ -98,6 +101,7 @@ export default function Widgets() {
       widget.name !== 'Redesign Visual' &&
       widget.name !== 'Produto Mais Vendido' &&
       widget.name !== 'Calculadora Lucro B2B' &&
+      widget.name !== 'Sobre Nós' &&
       widget.name !== 'Cupom One-Click' &&
       widget.name !== 'Barra de Vantagens' &&
       widget.name !== 'Central de Links' &&
@@ -228,6 +232,21 @@ export default function Widgets() {
                 widget={calculatorWidget}
                 icon={CalculatorIcon}
                 onAdd={() => calculatorWidget && handleAddWidget(calculatorWidget)}
+              />
+            </div>
+          </div>
+        )}
+
+        {sobreNosWidget && (
+          <div
+            className="relative z-10 fade-in-up mt-8"
+            style={{ animationDelay: `${displayWidgets.length * 0.05 + 0.1}s` }}
+          >
+            <div className="max-w-[70rem] mx-auto w-full">
+              <SobreNosCard
+                widget={sobreNosWidget}
+                icon={SobreNosIcon}
+                onAdd={() => sobreNosWidget && handleAddWidget(sobreNosWidget)}
               />
             </div>
           </div>
@@ -2406,6 +2425,286 @@ function ProdutoMaisVendidoPreview() {
             <a href="https://metodofz.com.br/c/atacado/produto/3381511/62992960658" className="btn-produto-destaque" target="_blank" rel="noreferrer">
               Comprar Agora
             </a>
+          </div>
+        </div>
+      </section>
+    </div>
+  );
+}
+
+type SobreNosCardProps = {
+  widget: typeof widgets[number];
+  icon?: typeof widgets[number]['icon'];
+  onAdd: () => void;
+};
+
+function SobreNosCard({ widget, icon: IconComponent, onAdd }: SobreNosCardProps) {
+  return (
+    <div className="card-widget bg-foreground/10 border-primary/20 hover:border-primary transition-all duration-300">
+      <div className="flex items-center gap-4 mb-6">
+        <div className="w-12 h-12 bg-primary/20 rounded-lg flex items-center justify-center flex-shrink-0">
+          {IconComponent && <IconComponent size={24} className="text-primary" />}
+        </div>
+        <div>
+          <h3 className="text-white font-bold text-lg">{widget.name}</h3>
+          <p className="text-white/60 text-sm">{widget.description}</p>
+        </div>
+      </div>
+
+      <div className="rounded-2xl overflow-hidden border border-white/5 bg-transparent">
+        <SobreNosPreview />
+      </div>
+
+      <div className="mt-6 flex flex-col sm:flex-row items-center sm:items-center justify-between gap-4">
+        <div className="text-center sm:text-left">
+          <p className="text-white/50 text-xs">Avulso</p>
+          <p className="text-white font-bold text-xl">R$ {widget.price}</p>
+        </div>
+        <button
+          onClick={onAdd}
+          className="bg-primary text-primary-foreground px-4 py-2 rounded-lg font-semibold hover:shadow-lg transition-all duration-300 hover:scale-105 active:scale-95 text-sm w-full sm:w-auto text-center"
+        >
+          Adicionar
+        </button>
+      </div>
+    </div>
+  );
+}
+
+function SobreNosPreview() {
+  const wrapperRef = useRef<HTMLDivElement>(null);
+  const iframeRef = useRef<HTMLIFrameElement>(null);
+  const observerRef = useRef<IntersectionObserver | null>(null);
+
+  const handlePlay = () => {
+    const SHORT_ID = "G_o980707H8";
+    const base = "https://www.youtube.com/embed/" + SHORT_ID;
+    const params = "?rel=0&modestbranding=1&controls=1&enablejsapi=1";
+
+    if (iframeRef.current) {
+      iframeRef.current.src = base + params;
+    }
+
+    if (wrapperRef.current) {
+      const wrapper = wrapperRef.current;
+      wrapper.hidden = false;
+      wrapper.style.opacity = "0";
+      wrapper.style.transform = "translateY(10px)";
+
+      requestAnimationFrame(() => {
+        setTimeout(() => {
+          wrapper.style.transition = "opacity 0.4s ease, transform 0.4s ease";
+          wrapper.style.opacity = "1";
+          wrapper.style.transform = "translateY(0)";
+          wrapper.scrollIntoView({ behavior: "smooth", block: "center" });
+
+          // Observa visibilidade para pausar quando sair de foco
+          if (observerRef.current) observerRef.current.disconnect();
+
+          observerRef.current = new IntersectionObserver(
+            (entries) => {
+              entries.forEach((entry) => {
+                const visible = entry.isIntersecting && entry.intersectionRatio >= 0.25;
+                if (!visible && iframeRef.current && iframeRef.current.contentWindow) {
+                  try {
+                    iframeRef.current.contentWindow.postMessage(
+                      JSON.stringify({ event: "command", func: "pauseVideo", args: [] }),
+                      "*"
+                    );
+                  } catch (e) {
+                    // Silencia falhas
+                  }
+                }
+              });
+            },
+            { threshold: [0, 0.25, 0.5, 0.75, 1] }
+          );
+          observerRef.current.observe(wrapper);
+        }, 50);
+      });
+    }
+  };
+
+  useEffect(() => {
+    return () => {
+      if (observerRef.current) observerRef.current.disconnect();
+    };
+  }, []);
+
+  const sobreNosStyles = `
+    /*================= SEÇÃO SOBRE NÓS (BRANDING BASE, TEASER + CTA) =================*/
+    .secao-sobre-nos-video {
+      position: relative;
+      padding: 24px 14px;
+      margin: 18px auto 0;
+      max-width: 820px;
+      border-radius: 20px;
+      background: #ffffff;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    }
+    .container-sobre-nos {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+
+    /* TEASER fechado */
+    .sobre-nos-teaser {
+      border: 1px solid #eee;
+      border-radius: 18px;
+      background: #fafafa;
+      box-shadow: inset 0 1px 0 rgba(0,0,0,0.03);
+      overflow: hidden;
+    }
+    .teaser-conteudo { padding: 20px 16px; text-align: center; }
+    .teaser-badge {
+      display: inline-block; padding: 6px 12px; border-radius: 999px;
+      font-weight: 800; font-size: 0.86rem; color: #3d2817;
+      background: #fef3c7; border: 1px solid #d4af37;
+      box-shadow: 0 4px 12px rgba(212,175,55,0.15); margin-bottom: 8px; letter-spacing: 0.02em;
+    }
+    #sobre-nos-titulo {
+      font-size: clamp(1.3rem, 2vw, 1.8rem);
+      font-weight: 900; text-transform: uppercase; letter-spacing: 0.04em;
+      margin: 6px 0 8px; color: #222;
+    }
+    .sobre-nos-teaser p {
+      font-size: clamp(0.92rem, 1.2vw, 0.98rem);
+      color: #444; max-width: 740px; margin: 0 auto 12px;
+    }
+
+    /* CTA chamativa */
+    .teaser-cta {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: #1a1a1a; color: #d4af37; border: 2px solid #d4af37;
+      border-radius: 999px; padding: 10px 18px; font-weight: 800; text-transform: uppercase;
+      letter-spacing: 0.04em; cursor: pointer; box-shadow: 0 8px 22px rgba(0,0,0,0.3);
+      transition: transform 0.25s ease, box-shadow 0.25s ease; animation: fz-pulse-animation 2s infinite;
+    }
+    .teaser-cta:hover { animation: none; transform: translateY(-2px) scale(1.02); box-shadow: 0 10px 24px rgba(212,175,55,0.4); }
+    .teaser-cta:focus { outline: 2px solid #d4af37; outline-offset: 3px; }
+    .cta-icon {
+      display: inline-block; width: 20px; height: 20px; line-height: 20px;
+      font-size: 15px; font-weight: 900; background: rgba(255,255,255,0.2); border-radius: 50%;
+    }
+    .cta-text { font-size: 0.92rem; }
+
+    /* Provas/benefícios */
+    .teaser-proof {
+      display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;
+      margin-top: 12px; padding: 0; list-style: none;
+    }
+    .teaser-proof li {
+      background: #fff; border: 1px solid #eee; border-radius: 999px;
+      padding: 5px 10px; font-size: 0.88rem; color: #333;
+    }
+
+    /*================= PLAYER SHORTS =================*/
+    /* Desktop: menor, centrado, 9:16 */
+    .sobre-nos-shorts-wrapper { }
+    .shorts-frame {
+      position: relative;
+      margin: 0 auto;
+      width: min(340px, 92vw);
+      aspect-ratio: 9 / 16;
+      border-radius: 16px;
+      overflow: hidden;
+      background: #000;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+    }
+
+    /* Iframe ocupa tudo */
+    .shorts-player {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      border: 0; border-radius: 16px;
+      background: #000;
+    }
+
+    /* Animação base */
+    @keyframes fz-pulse-animation {
+      0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(212,175,55,0.7); }
+      70% { transform: scale(1.02); box-shadow: 0 0 0 10px rgba(212,175,55,0); }
+      100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(212,175,55,0); }
+    }
+
+    /*================= Responsividade =================*/
+    @media (min-width: 993px) {
+      .secao-sobre-nos-video { padding: 22px 16px; }
+      .shorts-frame { max-height: 68vh; }
+    }
+
+    /* Mobile: altura menor, vertical e com controles visíveis */
+    @media (max-width: 768px) {
+      .secao-sobre-nos-video {
+        max-width: 100%; border-radius: 16px; margin: 14px auto 0;
+        box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+      }
+      .shorts-frame {
+        width: 88vw;
+        height: clamp(65vh, 70vh, 75vh); /* altura ajustada menor no mobile */
+        aspect-ratio: auto;
+        border-radius: 14px;
+      }
+      .shorts-player { border-radius: 14px; }
+    }
+
+    /* Extra small */
+    @media (max-width: 420px) {
+      .shorts-frame { width: 90vw; height: clamp(62vh, 68vh, 72vh); }
+    }
+  `;
+
+  return (
+    <div className="sobre-nos-preview-container">
+      <style>{sobreNosStyles}</style>
+      {/* SEÇÃO "SOBRE NÓS" TEASER + SHORTS */}
+      <section className="secao-sobre-nos-video" aria-label="Conheça nossa história">
+        <div className="container-sobre-nos">
+          {/* Teaser fechado com CTA */}
+          <div className="sobre-nos-teaser" role="region" aria-labelledby="sobre-nos-titulo">
+            <div className="teaser-conteudo">
+              <span className="teaser-badge">✨ Mais que vender</span>
+              <h2 id="sobre-nos-titulo">Por trás do carrinho: nossa história</h2>
+              <p>Antes de comprar, conheça quem entrega. Relacionamento, qualidade e atendimento sem atalhos.</p>
+
+              <button
+                type="button"
+                className="teaser-cta"
+                aria-label="Assistir nossa história"
+                onClick={handlePlay}
+              >
+                <span className="cta-icon">►</span>
+                <span className="cta-text">Assistir e conhecer</span>
+              </button>
+
+              <ul className="teaser-proof">
+                <li>Atendimento humano e rápido</li>
+                <li>Qualidade e curadoria real</li>
+                <li>Confiança antes da venda</li>
+              </ul>
+            </div>
+          </div>
+
+          {/* Player Shorts (inicialmente oculto) */}
+          <div
+            className="sobre-nos-shorts-wrapper"
+            hidden
+            ref={wrapperRef}
+          >
+            <div className="shorts-frame">
+              <iframe
+                className="shorts-player"
+                src=""
+                title="Nossa história em um Short"
+                allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowFullScreen
+                loading="lazy"
+                referrerPolicy="strict-origin-when-cross-origin"
+                ref={iframeRef}
+              >
+              </iframe>
+            </div>
           </div>
         </div>
       </section>
