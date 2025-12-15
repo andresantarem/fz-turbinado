@@ -2906,6 +2906,8 @@ function CarrosselVitrinePreview() {
         margin-left: auto;
         margin-right: auto;
         padding: 0 20px;
+        display: flex;
+        justify-content: center;
     }
 
     .titulo-lancamento {
@@ -2946,9 +2948,9 @@ function CarrosselVitrinePreview() {
         display: inline-block;
         background-color: #1a1a1a !important;
         color: #fff !important;
-        padding: 8px 16px !important;
+        padding: 12px 24px !important;
         border-radius: 50px !important;
-        font-size: 0.85rem !important;
+        font-size: 0.95rem !important;
         font-weight: 700 !important;
         letter-spacing: 0.5px;
         gap: 6px;
@@ -3233,7 +3235,13 @@ function CarrosselVitrinePreview() {
 
         .card-novo {
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            padding: 15px; /* Respiro no mobile */
         }
+        
+        .card-novo video {
+            border-radius: 12px; /* Arredondar video dentro do padding */
+        }    
+
 
         .card-novo:hover {
             transform: translateY(-5px);
@@ -3255,10 +3263,6 @@ function CarrosselVitrinePreview() {
       {/* CABEÇALHO LANÇAMENTO */}
       <div className="secao-lancamento">
         <div className="header-lancamento">
-          <h2 className="titulo-lancamento">
-            ACABOU DE <span className="destaque-novo">CHEGAR</span>
-          </h2>
-          <span className="subtitulo-lancamento">Confira as novidades exclusivas da semana.</span>
           <div className="tag-novidade">
             <i className="fas fa-star"></i> Coleção Nova
           </div>
