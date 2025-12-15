@@ -2,7 +2,6 @@ import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import Widgets from "@/components/Widgets";
 import Plans from "@/components/Plans";
-import CaseStudy from "@/components/CaseStudy";
 import FAQ from "@/components/FAQ";
 import Footer from "@/components/Footer";
 import Cart from "@/components/Cart";
@@ -23,7 +22,6 @@ export default function Home() {
         <Hero />
         <Widgets />
         <Plans />
-        <CaseStudy />
         <FAQ />
       </main>
       <Footer />
