@@ -19,10 +19,10 @@ const widgets = [
   },
   {
     id: 3,
-    name: 'Carrossel Institucional',
+    name: 'Produto Mais Vendido',
     icon: Users,
     price: 280,
-    description: 'Apresente sua marca com estilo',
+    description: 'Destaque o seu produto mais vendido',
   },
   {
     id: 4,
@@ -96,6 +96,7 @@ export default function Widgets() {
   const displayWidgets = widgets.filter(
     (widget) =>
       widget.name !== 'Redesign Visual' &&
+      widget.name !== 'Produto Mais Vendido' &&
       widget.name !== 'Calculadora Lucro B2B' &&
       widget.name !== 'Cupom One-Click' &&
       widget.name !== 'Barra de Vantagens' &&
@@ -194,6 +195,24 @@ export default function Widgets() {
                 widget={redesignWidget}
                 icon={RedesignIcon}
                 onAdd={() => redesignWidget && handleAddWidget(redesignWidget)}
+              />
+            </div>
+          </div>
+        )}
+
+        {widgets.find((w) => w.name === 'Produto Mais Vendido') && (
+          <div
+            className="relative z-10 fade-in-up mb-8"
+            style={{ animationDelay: `${displayWidgets.length * 0.05 + 0.1}s` }}
+          >
+            <div className="max-w-[70rem] mx-auto w-full">
+              <ProdutoMaisVendidoCard
+                widget={widgets.find((w) => w.name === 'Produto Mais Vendido')!}
+                icon={widgets.find((w) => w.name === 'Produto Mais Vendido')!.icon}
+                onAdd={() =>
+                  widgets.find((w) => w.name === 'Produto Mais Vendido') &&
+                  handleAddWidget(widgets.find((w) => w.name === 'Produto Mais Vendido')!)
+                }
               />
             </div>
           </div>
@@ -2030,6 +2049,345 @@ function RedesignVisualPreview() {
       <p className="text-center text-foreground/60 text-xs sm:text-sm mt-4 sm:mt-3 max-w-md mx-auto sm:max-w-none">
         👈 Arraste ou use o botão para comparar os resultados
       </p>
+    </div>
+  );
+}
+
+type ProdutoMaisVendidoCardProps = {
+  widget: typeof widgets[number];
+  icon?: typeof widgets[number]['icon'];
+  onAdd: () => void;
+};
+
+function ProdutoMaisVendidoCard({ widget, icon: IconComponent, onAdd }: ProdutoMaisVendidoCardProps) {
+  return (
+    <div className="card-widget bg-foreground/10 border-primary/20 hover:border-primary transition-all duration-300">
+      <div className="flex items-center gap-4 mb-6">
+        <div className="w-12 h-12 bg-primary/20 rounded-lg flex items-center justify-center flex-shrink-0">
+          {IconComponent && <IconComponent size={24} className="text-primary" />}
+        </div>
+        <div>
+          <h3 className="text-white font-bold text-lg">{widget.name}</h3>
+          <p className="text-white/60 text-sm">{widget.description}</p>
+        </div>
+      </div>
+
+      <div className="rounded-2xl overflow-hidden border border-white/5 bg-white/5">
+        <ProdutoMaisVendidoPreview />
+      </div>
+
+      <div className="mt-6 flex flex-col sm:flex-row items-center sm:items-center justify-between gap-4">
+        <div className="text-center sm:text-left">
+          <p className="text-white/50 text-xs">Avulso</p>
+          <p className="text-white font-bold text-xl">R$ {widget.price}</p>
+        </div>
+        <button
+          onClick={onAdd}
+          className="bg-primary text-primary-foreground px-4 py-2 rounded-lg font-semibold hover:shadow-lg transition-all duration-300 hover:scale-105 active:scale-95 text-sm w-full sm:w-auto text-center"
+        >
+          Adicionar
+        </button>
+      </div>
+    </div>
+  );
+}
+
+function ProdutoMaisVendidoPreview() {
+  const produtoDestaqueStyles = `
+    /*=================================================================*/
+    /* BRANDING FZ_V1 - SEÇÃO DE VÍDEO DESTAQUE                       */
+    /* Tipografia, animações e estilos conforme CSS_FZ_V1             */
+    /*=================================================================*/
+
+    /* VARIÁVEIS DE BRANDING */
+    #produto-destaque-widget {
+      --fz-font-body: 16px;
+      --fz-font-heading-lg: 3rem;
+      --fz-font-heading-md: 2rem;
+      --fz-font-heading-sm: 1.5rem;
+      --cor-detalhes-gerais: #1a1a1a;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    #produto-destaque-widget * {
+      box-sizing: border-box;
+    }
+
+    /*========== ANIMAÇÕES DO BRANDING ==========*/
+    @keyframes fz-pulse-animation {
+      0% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(26, 26, 26, 0.7);
+      }
+      70% {
+        transform: scale(1.02);
+        box-shadow: 0 0 0 10px rgba(26, 26, 26, 0);
+      }
+      100% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(26, 26, 26, 0);
+      }
+    }
+
+    /*================= SEÇÃO DE VÍDEO DESTAQUE =================*/
+    .secao-video-destaque {
+      position: relative;
+      padding: 0 20px;
+      overflow: visible;
+      border-radius: 16px !important;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+      max-width: 800px;
+      margin: 40px auto;
+      background: #f5f5f5;
+    }
+
+    .container-video {
+      position: relative;
+      border-radius: 16px;
+      overflow: visible;
+      display: block;
+      padding: 20px 0;
+    }
+
+    .video-wrapper {
+      position: relative;
+      border-radius: 16px;
+      overflow: hidden;
+      max-height: 600px; /* desktop: maior */
+    }
+
+    .video-produto {
+      width: 100%;
+      height: auto;
+      max-height: 600px; /* desktop */
+      display: block;
+      border-radius: 16px;
+      object-fit: cover;
+      background: #000;
+    }
+
+    /*========== BADGES FIXAS SOBRE O VÍDEO ==========*/
+    .badge-destaque {
+      position: absolute;
+      padding: 10px 18px !important;
+      background-color: var(--cor-detalhes-gerais) !important;
+      color: #fff !important;
+      font-weight: 800 !important;
+      font-size: 0.8rem !important;
+      border-radius: 50px !important;
+      z-index: 5;
+      animation: fz-pulse-animation 2.5s infinite !important;
+      box-shadow: 0 4px 12px rgba(26, 26, 26, 0.3);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      line-height: 1;
+    }
+
+    .badge-top-left {
+      top: 20px;
+      left: 20px;
+    }
+
+    .badge-top-right {
+      top: 20px;
+      right: 20px;
+      background-color: #fff !important;
+      color: #1a1a1a !important;
+    }
+
+    /*========== CARD CENTRAL COM BRANDING ==========*/
+    .card-video-destaque {
+      /* Tornar o card independente para layout lado a lado no desktop */
+      position: relative;
+      background: rgba(255, 255, 255, 0.98);
+      color: #1a1a1a;
+      padding: 28px 32px;
+      border-radius: 14px;
+      text-align: left;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+      backdrop-filter: blur(6px);
+      max-width: 360px;
+      align-self: center;
+    }
+
+    .card-video-destaque h2 {
+      font-size: 1.25rem !important;
+      font-weight: 900 !important;
+      margin-bottom: 8px;
+      letter-spacing: 0.6px;
+      color: #1a1a1a !important;
+      line-height: 1.15;
+    }
+
+    .card-video-destaque .card-lead {
+      font-size: 0.98rem;
+      color: #444;
+      margin-bottom: 12px;
+    }
+
+    .card-features {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 18px 0;
+      color: #555;
+    }
+
+    .card-features li {
+      margin-bottom: 6px;
+      font-size: 0.95rem;
+    }
+
+    /*========== BOTÃO PRINCIPAL COM BRANDING FZ_V1 ==========*/
+    .btn-produto-destaque {
+      display: inline-flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      background-color: var(--cor-detalhes-gerais) !important;
+      color: #fff !important;
+      font-weight: 800 !important;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      border-radius: 50px !important;
+      padding: 12px 34px !important;
+      text-decoration: none;
+      font-size: 0.95rem !important;
+      transition: all 0.3s ease !important;
+      animation: fz-pulse-animation 2s infinite !important;
+      border: none;
+      cursor: pointer;
+      gap: 8px;
+      line-height: 1.2;
+      box-shadow: 0 4px 15px rgba(26, 26, 26, 0.2);
+    }
+
+    .btn-produto-destaque:hover {
+      animation: none !important;
+      transform: scale(1.05) !important;
+      box-shadow: 0 8px 25px rgba(26, 26, 26, 0.4) !important;
+      background-color: var(--cor-detalhes-gerais) !important;
+    }
+
+    .btn-produto-destaque:focus {
+      outline: 2px solid rgba(26, 26, 26, 0.4) !important;
+      outline-offset: 2px !important;
+      box-shadow: 0 0 0 4px rgba(26, 26, 26, 0.2) !important;
+    }
+
+    /*========== RESPONSIVIDADE ==========*/
+    @media (min-width: 769px) {
+      /* Desktop / tablet large: layout lado a lado */
+      .secao-video-destaque {
+        margin: 30px auto;
+        padding: 0 15px;
+        max-width: 1100px;
+      }
+
+      .container-video {
+        display: grid;
+        grid-template-columns: 1fr 360px;
+        gap: 26px;
+        align-items: center;
+      }
+
+      .video-wrapper { max-height: 600px; }
+      .video-produto { max-height: 600px; }
+
+      .card-video-destaque { text-align: left; }
+    }
+
+    @media (max-width: 768px) {
+      /* Tablet / mobile: empilha, vídeo maior que antes */
+      .secao-video-destaque {
+        margin: 20px auto;
+        padding: 0 12px;
+        border-radius: 12px !important;
+        max-width: 100%;
+      }
+
+      .container-video {
+        display: block;
+      }
+
+      .video-wrapper {
+        max-height: 450px;
+      }
+
+      .video-produto {
+        max-height: 450px;
+      }
+
+      .badge-destaque { padding: 8px 14px !important; font-size: 0.7rem !important; top: 12px !important; }
+      .badge-top-left { left: 12px; }
+      .badge-top-right { right: 12px; }
+
+      .card-video-destaque {
+        margin-top: 18px;
+        padding: 20px 20px;
+        max-width: 100%;
+        text-align: center;
+      }
+
+      .card-video-destaque h2 { font-size: 1.2rem !important; }
+      .card-video-destaque .card-lead { font-size: 0.95rem; }
+      .btn-produto-destaque { padding: 10px 26px !important; }
+    }
+
+    @media (max-width: 480px) {
+      .secao-video-destaque { margin: 15px auto; padding: 0 10px; }
+
+      .video-wrapper { max-height: 420px; }
+      .video-produto { max-height: 420px; }
+
+      .badge-destaque { padding: 6px 12px !important; font-size: 0.65rem !important; top: 10px !important; }
+      .badge-top-left { left: 10px; }
+      .badge-top-right { right: 10px; }
+
+      .card-video-destaque { padding: 16px 16px; margin-top: 14px; text-align: center; }
+      .card-video-destaque h2 { font-size: 1.05rem !important; }
+      .card-video-destaque .card-lead { font-size: 0.95rem; }
+      .btn-produto-destaque { padding: 9px 20px !important; font-size: 0.8rem !important; }
+    }
+  `;
+
+  return (
+    <div id="produto-destaque-widget">
+      <style>{produtoDestaqueStyles}</style>
+      <section className="secao-video-destaque">
+        <div className="container-video">
+          {/* Layout: dentro teremos .video-wrapper (com badges + video) e .card-video-destaque (info) */}
+          <div className="video-wrapper">
+            {/* BADGES SOBRE O VÍDEO */}
+            <div className="badge-destaque badge-top-left">🔥 O MAIS VENDIDO</div>
+            <div className="badge-destaque badge-top-right">✅ Qualidade Premium</div>
+
+            {/* VÍDEO */}
+            <video className="video-produto" autoPlay muted loop playsInline>
+              <source
+                src="https://arquivos.facilzap.app.br/videos_produtos/1763430938_c66a1cf43074d0d4ab98.mp4"
+                type="video/mp4"
+              />
+              Seu navegador não suporta a reprodução de vídeo.
+            </video>
+          </div>
+
+          {/* CARD DE INFORMAÇÃO (separado, para posicionamento responsivo) */}
+          <div className="card-video-destaque">
+            <h2>Produto Nº1 — Alta Rotatividade</h2>
+            <p className="card-lead">Favorito do atacado: qualidade superior, giro rápido e excelente margem.</p>
+            <ul className="card-features">
+              <li>Entrega rápida</li>
+              <li>Alta aceitação no ponto de venda</li>
+              <li>Margens acima da média</li>
+            </ul>
+            <a href="https://metodofz.com.br/c/atacado/produto/3381511/62992960658" className="btn-produto-destaque" target="_blank" rel="noreferrer">
+              Comprar Agora
+            </a>
+          </div>
+        </div>
+      </section>
     </div>
   );
 }
