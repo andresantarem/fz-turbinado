@@ -2902,12 +2902,14 @@ function CarrosselVitrinePreview() {
         text-align: center;
         margin-bottom: 50px;
         animation: fadeInDown 0.8s ease-out;
-        max-width: 800px;
+        max-width: 100%;
+        width: 100%;
         margin-left: auto;
         margin-right: auto;
         padding: 0 20px;
         display: flex;
         justify-content: center;
+        align-items: center;
     }
 
     .titulo-lancamento {
@@ -2945,20 +2947,22 @@ function CarrosselVitrinePreview() {
     }
 
     .tag-novidade {
-        display: inline-block;
+        display: inline-flex !important;
+        align-items: center;
+        justify-content: center;
         background-color: #1a1a1a !important;
         color: #fff !important;
-        padding: 14px 40px !important;
+        padding: 14px 36px !important;
         border-radius: 50px !important;
         font-size: 1rem !important;
         font-weight: 700 !important;
-        letter-spacing: 0.5px;
-        gap: 8px;
-        display: inline-flex;
-        align-items: center;
+        letter-spacing: 1px;
+        line-height: 1;
+        gap: 10px;
+        box-shadow: 0 6px 20px rgba(0,0,0,0.2);
         animation: fz-pulse-animation 3s infinite;
         text-transform: uppercase;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        white-space: nowrap;
     }
 
     .tag-novidade i {
@@ -3186,20 +3190,21 @@ function CarrosselVitrinePreview() {
         border-radius: 50px !important;
         font-weight: 800 !important;
         text-transform: uppercase;
-        font-size: 0.9rem !important;
+        font-size: 0.95rem !important;
         letter-spacing: 1px;
-        padding: 14px 20px !important;
+        padding: 16px 20px !important;
         animation: fz-pulse-animation 2s infinite !important;
         transition: all 0.3s ease !important;
-        display: inline-flex !important;
+        display: flex !important;
         align-items: center !important;
         justify-content: center !important;
-        gap: 8px !important;
-        line-height: 1.2 !important;
+        gap: 10px !important;
+        line-height: 1 !important;
         border: none;
         cursor: pointer;
         width: 100%;
         text-align: center;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.3);
         text-decoration: none;
     }
 
@@ -3251,8 +3256,8 @@ function CarrosselVitrinePreview() {
         }
 
         .btn-comprar-novo {
-            font-size: 0.85rem !important;
-            padding: 14px 24px !important;
+            font-size: 0.9rem !important;
+            padding: 16px 24px !important;
         }
     }
   `;
