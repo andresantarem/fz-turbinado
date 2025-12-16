@@ -2948,15 +2948,17 @@ function CarrosselVitrinePreview() {
         display: inline-block;
         background-color: #1a1a1a !important;
         color: #fff !important;
-        padding: 12px 24px !important;
+        padding: 14px 40px !important;
         border-radius: 50px !important;
-        font-size: 0.95rem !important;
+        font-size: 1rem !important;
         font-weight: 700 !important;
         letter-spacing: 0.5px;
-        gap: 6px;
+        gap: 8px;
         display: inline-flex;
         align-items: center;
         animation: fz-pulse-animation 3s infinite;
+        text-transform: uppercase;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.2);
     }
 
     .tag-novidade i {
@@ -3186,7 +3188,7 @@ function CarrosselVitrinePreview() {
         text-transform: uppercase;
         font-size: 0.9rem !important;
         letter-spacing: 1px;
-        padding: 10px 20px !important;
+        padding: 14px 20px !important;
         animation: fz-pulse-animation 2s infinite !important;
         transition: all 0.3s ease !important;
         display: inline-flex !important;
@@ -3250,7 +3252,7 @@ function CarrosselVitrinePreview() {
 
         .btn-comprar-novo {
             font-size: 0.85rem !important;
-            padding: 9px 18px !important;
+            padding: 14px 24px !important;
         }
     }
   `;
